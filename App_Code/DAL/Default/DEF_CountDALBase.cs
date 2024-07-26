@@ -235,7 +235,7 @@ namespace GNForm3C.DAL
         #endregion Select Day Wise Month Wise Income
 
 
-        #region Select Day Wise Month Wise Expense
+        #region Select Treatment Wise Summary
         public DataTable SelectTreatmentWiseSummary(SqlInt32 HospitalID)
         {
             try
@@ -265,6 +265,6 @@ namespace GNForm3C.DAL
                 return null;
             }
         }
-        #endregion Select Day Wise Month Wise Income
+        #endregion Select Treatment Wise Summary
     }
 }
