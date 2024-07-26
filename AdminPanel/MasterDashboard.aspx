@@ -165,70 +165,148 @@
 
                         <asp:GridView ID="IncomeList" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-hover" ShowFooter="True" DataKeyNames="Date" OnRowDataBound="IncomeList_RowDataBound">
                             <Columns>
-                                <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">Date</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Date") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Jan" HeaderText="January" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">January</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblJan" runat="server" Text='<%# Eval("Jan", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Feb" HeaderText="February" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">February</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblFeb" runat="server" Text='<%# Eval("Feb", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Mar" HeaderText="March" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">March</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMar" runat="server" Text='<%# Eval("Mar", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Apr" HeaderText="April" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">April</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblApr" runat="server" Text='<%# Eval("Apr", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="May" HeaderText="May" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">May</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMay" runat="server" Text='<%# Eval("May", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Jun" HeaderText="June" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">June</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblJun" runat="server" Text='<%# Eval("Jun", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Jul" HeaderText="July" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">July</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblJul" runat="server" Text='<%# Eval("Jul", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Aug" HeaderText="August" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">August</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAug" runat="server" Text='<%# Eval("Aug", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Sep" HeaderText="September" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">September</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSep" runat="server" Text='<%# Eval("Sep", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Oct" HeaderText="October" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">October</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblOct" runat="server" Text='<%# Eval("Oct", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Nov" HeaderText="November" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">November</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblNov" runat="server" Text='<%# Eval("Nov", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Dec" HeaderText="December" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">December</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDec" runat="server" Text='<%# Eval("Dec", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
+                                </asp:TemplateField>
                             </Columns>
                             <FooterStyle BackColor="LightGray" Font-Bold="True" />
                         </asp:GridView>
@@ -261,74 +339,153 @@
                         <asp:Label ID="lblNoExpenseRecords" runat="server" Text="No Expense Records Found" Visible="false" CssClass="text-danger" />
                         <asp:GridView ID="ExpenseList" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-hover" ShowFooter="True" DataKeyNames="Date" OnRowDataBound="ExpenseList_RowDataBound">
                             <Columns>
-                                <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">Date</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Date") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Jan" HeaderText="January" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">January</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblJan" runat="server" Text='<%# Eval("Jan", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Feb" HeaderText="February" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">February</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblFeb" runat="server" Text='<%# Eval("Feb", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Mar" HeaderText="March" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">March</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMar" runat="server" Text='<%# Eval("Mar", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Apr" HeaderText="April" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">April</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblApr" runat="server" Text='<%# Eval("Apr", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="May" HeaderText="May" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">May</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMay" runat="server" Text='<%# Eval("May", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Jun" HeaderText="June" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">June</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblJun" runat="server" Text='<%# Eval("Jun", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Jul" HeaderText="July" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">July</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblJul" runat="server" Text='<%# Eval("Jul", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Aug" HeaderText="August" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">August</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAug" runat="server" Text='<%# Eval("Aug", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Sep" HeaderText="September" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">September</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSep" runat="server" Text='<%# Eval("Sep", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Oct" HeaderText="October" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">October</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblOct" runat="server" Text='<%# Eval("Oct", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Nov" HeaderText="November" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">November</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblNov" runat="server" Text='<%# Eval("Nov", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Dec" HeaderText="December" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">December</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDec" runat="server" Text='<%# Eval("Dec", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
                                     <FooterStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
+                                </asp:TemplateField>
                             </Columns>
                             <FooterStyle BackColor="LightGray" Font-Bold="True" />
                         </asp:GridView>
                     </div>
+
                 </div>
                 <!-- END RESULTS TABLE -->
             </asp:Panel>
@@ -352,26 +509,50 @@
                             <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
                         </div>
                     </div>
-                    <div class="portlet-body ">
+                    <div class="portlet-body">
                         <asp:Label ID="lblNoPatientsRecords" runat="server" Text="No Treatment Summary Records Found" Visible="false" CssClass="text-danger" />
                         <asp:GridView ID="TreatmentWiseSummary" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-hover" ShowFooter="false">
                             <Columns>
-                                <asp:BoundField DataField="SerialNo" HeaderText="Sr.">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div style="text-align: center; font-weight: bold;">Sr.</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSerialNo" runat="server" Text='<%# Eval("SerialNo") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="TreatmentType" HeaderText="Treatment Type">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div style="text-align: center; font-weight: bold;">Treatment Type</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTreatmentType" runat="server" Text='<%# Eval("TreatmentType") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="PatientsCount" HeaderText="Patients Count">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div style="text-align: center; font-weight: bold;">Patients Count</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblPatientsCount" runat="server" Text='<%# Eval("PatientsCount") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="IncomesAmount" HeaderText="Income Amount" DataFormatString="{0:C}">
-                                    <HeaderStyle CssClass="TRDark" Font-Bold="true" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <HeaderStyle CssClass="TRDark" />
+                                    <HeaderTemplate>
+                                        <div style="text-align: center; font-weight: bold;">Income Amount</div>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIncomesAmount" runat="server" Text='<%# Eval("IncomesAmount", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </div>
