@@ -131,10 +131,10 @@
 			</tr>
 			<tr>
 				<td class="TDDarkView">
-				<asp:Label ID="lblHospitalID_XXXXX" Text="Hospital" runat="server"></asp:Label>
+				<asp:Label ID="lblHospital_XXXXX" Text="Hospital" runat="server"></asp:Label>
 				</td>
 				<td>
-				<asp:Label ID="lblHospitalID" runat="server"></asp:Label>
+				<asp:Label ID="lblHospital" runat="server"></asp:Label>
 				</td>
 			</tr>
 			<tr>
@@ -171,10 +171,10 @@
 			</tr>
 			<tr>
 				<td class="TDDarkView">
-				<asp:Label ID="lblUserID_XXXXX" Text="User" runat="server"></asp:Label>
+				<asp:Label ID="lblUserName_XXXXX" Text="User" runat="server"></asp:Label>
 				</td>
 				<td>
-				<asp:Label ID="lblUserID" runat="server"></asp:Label>
+				<asp:Label ID="lblUserName" runat="server"></asp:Label>
 				</td>
 			</tr>
 			<tr>
