@@ -1,8 +1,10 @@
 using System;
+using System.Activities.Statements;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlTypes;
+using AjaxControlToolkit.HTMLEditor.ToolbarButton;
 using GNForm3C;
 using GNForm3C.DAL;
 using GNForm3C.ENT;
@@ -110,13 +112,13 @@ namespace GNForm3C.BAL
 		}
 		public DataTable SelectAll()
 		{
-			SEC_MenuDAL dalSEC_Menu = new SEC_MenuDAL();
-			return dalSEC_Menu.SelectAll();
-		}
-		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords)
+            SEC_MenuDAL dalSEC_Menu = new SEC_MenuDAL();
+            return dalSEC_Menu.SelectAll();
+        }
+		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords,SqlInt32 ParentMenuID,SqlString MenuName,SqlString MenuDisplayName,SqlString FormName,SqlInt32 Sequence)
 		{
 			SEC_MenuDAL dalSEC_Menu = new SEC_MenuDAL();
-			return dalSEC_Menu.SelectPage(PageOffset, PageSize, out TotalRecords);
+			return dalSEC_Menu.SelectPage(PageOffset, PageSize, out TotalRecords, ParentMenuID, MenuName, MenuDisplayName, FormName, Sequence);
 		}
 
 		#endregion SelectOperation
