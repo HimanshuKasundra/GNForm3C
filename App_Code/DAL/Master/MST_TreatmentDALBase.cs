@@ -348,8 +348,9 @@ namespace GNForm3C.DAL
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_Treatment_SelectComboBoxByHospitalID");
+                sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
 
-                DataTable dtMST_Treatment = new DataTable("PR_MST_Treatment_SelectComboBox");
+                DataTable dtMST_Treatment = new DataTable("PR_MST_Treatment_SelectComboBoxByHospitalID");
 
                 DataBaseHelper DBH = new DataBaseHelper();
                 DBH.LoadDataTable(sqlDB, dbCMD, dtMST_Treatment);

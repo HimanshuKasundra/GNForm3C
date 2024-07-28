@@ -195,7 +195,7 @@
                                 <asp:TemplateField>
                                     <HeaderStyle CssClass="TRDark" />
                                     <HeaderTemplate>
-                                        <div class="TRDark" style="text-align: center; font-weight: bold;">Date</div>
+                                        <div class="TRDark" style="text-align: center; font-weight: bold;">Day</div>
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Date") %>'></asp:Label>
@@ -372,7 +372,7 @@
                                         <div class="TRDark" style="text-align: center; font-weight: bold;">Date</div>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Date") %>'></asp:Label>
+                                        <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Day") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:TemplateField>

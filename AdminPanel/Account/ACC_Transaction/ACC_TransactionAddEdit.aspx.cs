@@ -83,17 +83,19 @@ public partial class AdminPanel_Account_ACC_Transaction_ACC_TransactionAddEdit :
 
 	private void FillDropDownList()
 	{
-		CommonFillMethods.FillDropDownListTreatmentID(ddlTreatmentID);
+
 		CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
 		CommonFillMethods.FillSingleDropDownListFinYearID(ddlFinYearID);
 		CommonFillMethods.FillDropDownListReceiptTypeID(ddlReceiptTypeID);
-	}
-	
-	#endregion 13.0 Fill DropDownList
+        ddlTreatmentID.Items.Insert(0, new ListItem("Select Treatment", "-99"));
 
-	#region 14.0 FillControls By PK  
+    }
 
-	private void FillControls()
+    #endregion 13.0 Fill DropDownList
+
+    #region 14.0 FillControls By PK  
+
+    private void FillControls()
 	{
 		if (Request.QueryString["TransactionID"] != null) 
 		{
@@ -145,7 +147,10 @@ public partial class AdminPanel_Account_ACC_Transaction_ACC_TransactionAddEdit :
 				txtRemarks.Text = entACC_Transaction.Remarks.Value.ToString();
 
 			if (!entACC_Transaction.HospitalID.IsNull)
+			{
 				ddlHospitalID.SelectedValue = entACC_Transaction.HospitalID.Value.ToString();
+                ddlHospitalID_SelectedIndexChanged(this, EventArgs.Empty);
+            }
 
 			if (!entACC_Transaction.FinYearID.IsNull)
 				ddlFinYearID.SelectedValue = entACC_Transaction.FinYearID.Value.ToString();
@@ -332,13 +337,13 @@ public partial class AdminPanel_Account_ACC_Transaction_ACC_TransactionAddEdit :
         {
             SqlInt32 HospitalID = SqlInt32.Null;
             HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
-            CommonFillMethods.FillDropDownListTreatmentIDByHospitalID(ddlFinYearID, HospitalID);
+            CommonFillMethods.FillDropDownListTreatmentIDByHospitalID(ddlTreatmentID, HospitalID);
 
         }
         else
         {
-            ddlFinYearID.Items.Clear();
-            ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+            ddlTreatmentID.Items.Clear();
+            ddlTreatmentID.Items.Insert(0, new ListItem("Select Treatment", "-99"));
 
         }
     }

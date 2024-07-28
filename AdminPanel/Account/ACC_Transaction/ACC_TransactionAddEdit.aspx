@@ -75,7 +75,7 @@
                                     <asp:Label ID="lblHospitalID_XXXXX" runat="server" Text="Hospital"></asp:Label>
                                 </label>
                                 <div class="col-md-5">
-                                    <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" AutoPostBack="true" runat="server"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlHospitalID_SelectedIndexChanged"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvHospitalID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlHospitalID" ErrorMessage="Select Hospital" InitialValue="-99"></asp:RequiredFieldValidator>
                                 </div>
                             </div>

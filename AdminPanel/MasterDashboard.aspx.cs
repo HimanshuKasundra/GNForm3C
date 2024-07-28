@@ -3,6 +3,8 @@ using GNForm3C.BAL;
 using System;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -75,6 +77,7 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
     private void FillDropDownList()
     {
         CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
+
         ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
 
     }
@@ -228,6 +231,7 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
             e.Row.Cells[11].Text = ItotalNov.ToString("C");
             e.Row.Cells[12].Text = ItotalDec.ToString("C");
         }
+
     }
     #endregion 15.0 GridView Row Data Bound
 
