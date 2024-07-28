@@ -21,8 +21,8 @@
     <asp:UpdatePanel ID="upACC_Income" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="ddlHospitalID"  />
-            <asp:AsyncPostBackTrigger ControlID="ddlFinYearID"  />
+            <asp:AsyncPostBackTrigger ControlID="ddlHospitalID" />
+            <asp:AsyncPostBackTrigger ControlID="ddlFinYearID" />
 
         </Triggers>
         <ContentTemplate>
@@ -78,7 +78,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-plus"></i>
                                                     </span>
-                                                    <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server"  AutoPostBack="true" OnSelectedIndexChanged="ddlHospitalID_SelectedIndexChanged" >
+                                                    <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlHospitalID_SelectedIndexChanged">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="rfvHospitalID" Visible="true" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlHospitalID" ErrorMessage="Select Hospital" InitialValue="-99"></asp:RequiredFieldValidator>
                                                 </div>
@@ -90,7 +90,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-plus"></i>
                                                     </span>
-                                                    <asp:DropDownList ID="ddlFinYearID" CssClass="form-control select2me" runat="server" AutoPostBack="True"  OnSelectedIndexChanged="ddlFinYearID_SelectedIndexChanged" >
+                                                    <asp:DropDownList ID="ddlFinYearID" CssClass="form-control select2me" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlFinYearID_SelectedIndexChanged">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="rfvFinYearID" Visible="true" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlFinYearID" ErrorMessage="Select FinYear" InitialValue="-99"></asp:RequiredFieldValidator>
                                                 </div>
@@ -102,7 +102,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-plus"></i>
                                                     </span>
-                                                    <asp:DropDownList ID="ddlIncomeTypeID"  CssClass="form-control select2me" runat="server" AutoPostBack="True" >
+                                                    <asp:DropDownList ID="ddlIncomeTypeID" CssClass="form-control select2me" runat="server" AutoPostBack="True">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="rfvIncomeTypeID" Visible="true" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlIncomeTypeID" ErrorMessage="Select Income Type" InitialValue="-99"></asp:RequiredFieldValidator>
                                                 </div>
@@ -118,10 +118,6 @@
 
                                 </div>
                             </div>
-                    
-		
-               
-               
                 </ContentTemplate>
             </asp:UpdatePanel>
 
@@ -132,12 +128,12 @@
                 </Triggers>
                 <ContentTemplate>
                     <label>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ucMessage:ShowMessage ID="ShowMessage1" runat="server" ViewStateMode="Disabled" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ucMessage:ShowMessage ID="ShowMessage1" runat="server" ViewStateMode="Disabled" />
+                            </div>
                         </div>
-                    </div>
-                        </label>
+                    </label>
                     <div class="row">
                         <div class="col-md-12">
                             <!-- BEGIN EXAMPLE TABLE PORTLET-->
