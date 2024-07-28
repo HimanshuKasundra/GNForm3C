@@ -119,15 +119,14 @@ namespace GNForm3C.BAL
 			return dalMST_FinYear.SelectPage(PageOffset, PageSize, out TotalRecords , FinYearName, FromDate, ToDate );
 		}
 
-		#endregion SelectOperation
+        #endregion SelectOperation
 
-		#region ComboBox
-
-        public DataTable SelectComboBoxByHospitalID(SqlInt32 HospitalID)
-		{
-			MST_FinYearDAL dalMST_FinYear = new MST_FinYearDAL();
-            return dalMST_FinYear.SelectComboBoxByHospitalID(HospitalID);
-		}
+        #region ComboBox
+        public DataTable SelectComboBox()
+        {
+            MST_FinYearDAL dalMST_FinYear = new MST_FinYearDAL();
+            return dalMST_FinYear.SelectSingleComboBox();
+        }
         public DataTable SelectComboBoxByHospitalIDExpense(SqlInt32 HospitalID)
 		{
 			MST_FinYearDAL dalMST_FinYear = new MST_FinYearDAL();
@@ -138,11 +137,7 @@ namespace GNForm3C.BAL
             MST_FinYearDAL dalMST_FinYear = new MST_FinYearDAL();
             return dalMST_FinYear.SelectComboBoxByHospitalIDIncome(HospitalID);
         }
-        public DataTable SelectComboBox()
-		{
-			MST_FinYearDAL dalMST_FinYear = new MST_FinYearDAL();
-            return dalMST_FinYear.SelectSingleComboBox();
-		}
+       
 
 		#endregion ComboBox
 

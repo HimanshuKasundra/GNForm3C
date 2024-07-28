@@ -23,12 +23,14 @@
     <!--Help Text End-->
     <asp:ScriptManager ID="sm" runat="server"></asp:ScriptManager>
 
-    <asp:UpdatePanel ID="upMST_ExpenseType" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
+    <asp:UpdatePanel ID="upMasterDashboard" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnShow" EventName="Click" />
+            <asp:AsyncPostBackTrigger ControlID="ddlHospitalID"  />
+
         </Triggers>
         <ContentTemplate>
-            <asp:UpdatePanel ID="upMST_ExpenseType2" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
+            <asp:UpdatePanel ID="upMasterDashboard2" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
                 <ContentTemplate>
                     <div class="row">
                         <div class="col-md-12">
@@ -49,21 +51,46 @@
                         <div class="portlet-body form">
                             <div class="form-horizontal" role="form">
                                 <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">
-                                            <span class="required">*</span>
-                                            <asp:Label ID="lblHospitalID_XXXXX" runat="server" Text="Hospital"></asp:Label>
-                                        </label>
+                                    <div class="row">
                                         <div class="col-md-5">
-                                            <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
-                                            <asp:RequiredFieldValidator ID="rfvHospitalID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlHospitalID" ErrorMessage="Select Hospital" InitialValue="-99"></asp:RequiredFieldValidator>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">
+                                                    <span class="required">*</span>
+                                                    <asp:Label ID="lblHospitalID_XXXXX" runat="server" Text="Hospital"></asp:Label>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlHospitalID_SelectedIndexChanged"></asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="rfvHospitalID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlHospitalID" ErrorMessage="Select Hospital" InitialValue="-99"></asp:RequiredFieldValidator>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <asp:Button ID="btnShow" runat="server" SkinID="btnShow" OnClick="btnShow_Click" Text="Show" />
-                                            <asp:HyperLink ID="hlCancel1" runat="server" SkinID="hlCancel" NavigateUrl="~/AdminPanel/MasterDashboard.aspx" Text="Cancel"></asp:HyperLink>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">
+                                                    <span class="required">*</span>
+                                                    <asp:Label ID="lbhFinYearID_XXXXX" runat="server" Text="FinYear"></asp:Label>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <asp:DropDownList ID="ddlFinYearID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="rfvFinYearID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlFinYearID" ErrorMessage="Select FinYear" InitialValue="-99"></asp:RequiredFieldValidator>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <asp:Button ID="btnShow" runat="server" SkinID="btnShow" OnClick="btnShow_Click" Text="Show" />
+                                                <asp:HyperLink ID="hlCancel1" runat="server" SkinID="hlCancel" NavigateUrl="~/AdminPanel/MasterDashboard.aspx" Text="Cancel"></asp:HyperLink>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +147,7 @@
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <a class="dashboard-stat dashboard-stat-v2 blue" href="Account/ACC_Expense/ACC_TransactionList.aspx">
+                                        <a class="dashboard-stat dashboard-stat-v2 blue" href="Account/ACC_Transaction/ACC_TransactionList.aspx">
                                             <div class="visual">
                                                 <i class="fa fa-globe"></i>
                                             </div>
@@ -546,7 +573,7 @@
                                 <asp:TemplateField>
                                     <HeaderStyle CssClass="TRDark" />
                                     <HeaderTemplate>
-                                        <div style="text-align: center; font-weight: bold;">Income Amount</div>
+                                        <div style="text-align: right; font-weight: bold;">Income Amount</div>
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lblIncomesAmount" runat="server" Text='<%# Eval("IncomesAmount", "{0:C}") %>'></asp:Label>

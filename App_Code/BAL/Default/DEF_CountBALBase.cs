@@ -61,29 +61,7 @@ namespace GNForm3C.BAL
             return dalDEF_Count.TOP10ExpenseList();
         }
 
-        public DataTable SelectDayWiseMonthWiseIncome(SqlInt32 HospitalID)
-        {
-            DEF_CountDAL dalDEF_Count = new DEF_CountDAL();
-            return dalDEF_Count.SelectDayWiseMonthWiseIncome(HospitalID);
-        }
-        public DataTable SelectDayWiseMonthWiseExpense(SqlInt32 HospitalID)
-        {
-            DEF_CountDAL dalDEF_Count = new DEF_CountDAL();
-            return dalDEF_Count.SelectDayWiseMonthWiseExpense(HospitalID);
-        }
-        public DataTable SelectTreatmentWiseSummary(SqlInt32 HospitalID)
-        {
-            DEF_CountDAL dalDEF_Count = new DEF_CountDAL();
-            return dalDEF_Count.SelectTreatmentWiseSummary(HospitalID);
-        }
-
-        #region Total Income/Expense
-        public DataTable SelectTotalIncomeExpense(SqlInt32 HositalID)
-        {
-            DEF_CountDAL dalDEF_Count = new DEF_CountDAL();
-            return dalDEF_Count.SelectTotalIncomeExpense(HositalID);
-        }
-        #endregion Total Income/Expense
+     
 
     }
     #endregion Select

@@ -429,7 +429,7 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
             SqlInt32 HospitalID = SqlInt32.Null;
 
             HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
-            CommonFillMethods.FillDropDownListFinYearIDByHospitalID(ddlFinYearID, HospitalID);
+            CommonFillMethods.FillDropDownListIncomeFinYearIDByHospitalID(ddlFinYearID, HospitalID);
 
         }
         else

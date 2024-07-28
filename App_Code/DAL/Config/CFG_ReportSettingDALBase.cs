@@ -340,7 +340,8 @@ namespace GNForm3C.DAL
 				return null;
 			}
 		}
-		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords)
+		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords, SqlString ReportHeaderFontType, SqlDecimal ReportHeaderFontSize, SqlString ReportHeaderFontStyle,SqlString TableHeaderFontType, SqlDecimal TableHeaderFontSize, SqlString TableHeaderFontStyle, SqlString TableRowFontType,SqlDecimal TableRowFontSize, SqlString TableRowFontStyle, SqlString FooterFontType,
+                                    SqlDecimal FooterFontSize, SqlString FooterFontStyle, SqlInt32 HospitalID)
 		{
 			TotalRecords = 0;
 			try
@@ -350,8 +351,21 @@ namespace GNForm3C.DAL
 				sqlDB.AddInParameter(dbCMD, "@PageOffset", SqlDbType.Int, PageOffset);
 				sqlDB.AddInParameter(dbCMD, "@PageSize", SqlDbType.Int, PageSize);
 				sqlDB.AddOutParameter(dbCMD, "@TotalRecords", SqlDbType.Int, 4);
+                sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
+                sqlDB.AddInParameter(dbCMD, "@ReportHeaderFontType", SqlDbType.Text, ReportHeaderFontType);
+                sqlDB.AddInParameter(dbCMD, "@ReportHeaderFontSize", SqlDbType.Decimal, ReportHeaderFontSize);
+                sqlDB.AddInParameter(dbCMD, "@ReportHeaderFontStyle", SqlDbType.Text, ReportHeaderFontStyle);
+                sqlDB.AddInParameter(dbCMD, "@TableHeaderFontType", SqlDbType.Text, TableHeaderFontType);
+                sqlDB.AddInParameter(dbCMD, "@TableHeaderFontSize", SqlDbType.Decimal, TableHeaderFontSize);
+                sqlDB.AddInParameter(dbCMD, "@TableHeaderFontStyle", SqlDbType.Text, TableHeaderFontStyle);
+                sqlDB.AddInParameter(dbCMD, "@TableRowFontType", SqlDbType.Text, TableRowFontType);
+                sqlDB.AddInParameter(dbCMD, "@TableRowFontSize", SqlDbType.Decimal, TableRowFontSize);
+                sqlDB.AddInParameter(dbCMD, "@TableRowFontStyle", SqlDbType.Text, TableRowFontStyle);
+                sqlDB.AddInParameter(dbCMD, "@FooterFontType", SqlDbType.Text, FooterFontType);
+                sqlDB.AddInParameter(dbCMD, "@FooterFontSize", SqlDbType.Decimal, FooterFontSize);
+                sqlDB.AddInParameter(dbCMD, "@FooterFontStyle", SqlDbType.Text, FooterFontStyle);
 
-				DataTable dtCFG_ReportSetting = new DataTable("PR_CFG_ReportSetting_SelectPage");
+                DataTable dtCFG_ReportSetting = new DataTable("PR_CFG_ReportSetting_SelectPage");
 
 				DataBaseHelper DBH = new DataBaseHelper();
 				DBH.LoadDataTable(sqlDB, dbCMD, dtCFG_ReportSetting);

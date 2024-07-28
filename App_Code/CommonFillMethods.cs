@@ -50,24 +50,6 @@ namespace GNForm3C
             ddl.Items.Insert(0, new ListItem("Select Expense Type", "-99"));
         }
         
-        public static void FillDropDownListFinYearIDByHospitalID(DropDownList ddl, SqlInt32 HospitalID)
-        {
-            MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
-            ddl.DataValueField = "FinYearID";
-            ddl.DataTextField = "FinYearName";
-            ddl.DataSource = balMST_FinYear.SelectComboBoxByHospitalID(HospitalID);
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
-        }
-        public static void FillDropDownListFinYearID(DropDownList ddl)
-        {
-            MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
-            ddl.DataSource = balMST_FinYear.SelectComboBox();
-            ddl.DataValueField = "FinYearID";
-            ddl.DataTextField = "FinYearName";
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
-        }
         public static void FillDropDownListExpenseFinYearIDByHospitalID(DropDownList ddl, SqlInt32 HospitalID)
         {
             MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
@@ -77,7 +59,16 @@ namespace GNForm3C
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
         }
-      
+        public static void FillDropDownListIncomeFinYearIDByHospitalID(DropDownList ddl, SqlInt32 HospitalID)
+        {
+            MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
+            ddl.DataSource = balMST_FinYear.SelectComboBoxByHospitalIDIncome(HospitalID);
+            ddl.DataValueField = "FinYearID";
+            ddl.DataTextField = "FinYearName";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+        }
+
         public static void FillSingleDropDownListFinYearID(DropDownList ddl)
         {
             MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
@@ -136,6 +127,16 @@ namespace GNForm3C
         {
             MST_TreatmentBAL balMST_Treatment = new MST_TreatmentBAL();
             ddl.DataSource = balMST_Treatment.SelectComboBox();
+            ddl.DataValueField = "TreatmentID";
+            ddl.DataTextField = "Treatment";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select Treatment", "-99"));
+        }
+
+        public static void FillDropDownListTreatmentIDByHospitalID(DropDownList ddl, SqlInt32 HospitalID)
+        {
+            MST_TreatmentBAL balMST_Treatment = new MST_TreatmentBAL();
+            ddl.DataSource = balMST_Treatment.SelectComboBoxByHospitalID(HospitalID);
             ddl.DataValueField = "TreatmentID";
             ddl.DataTextField = "Treatment";
             ddl.DataBind();

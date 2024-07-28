@@ -10,6 +10,7 @@ using System.IO;
 using GNForm3C.BAL;
 using GNForm3C.ENT;
 using GNForm3C;
+using System.Data.SqlTypes;
 
 
 public partial class AdminPanel_Account_ACC_Transaction_ACC_TransactionAddEdit : System.Web.UI.Page
@@ -84,7 +85,7 @@ public partial class AdminPanel_Account_ACC_Transaction_ACC_TransactionAddEdit :
 	{
 		CommonFillMethods.FillDropDownListTreatmentID(ddlTreatmentID);
 		CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
-		CommonFillMethods.FillDropDownListFinYearID(ddlFinYearID);
+		CommonFillMethods.FillSingleDropDownListFinYearID(ddlFinYearID);
 		CommonFillMethods.FillDropDownListReceiptTypeID(ddlReceiptTypeID);
 	}
 	
@@ -321,7 +322,26 @@ public partial class AdminPanel_Account_ACC_Transaction_ACC_TransactionAddEdit :
 		ddlReceiptTypeID.SelectedIndex = 0;
 		txtPatient.Focus();
 	}
-	
-	#endregion 16.0 Clear Controls 
+
+    #endregion 16.0 Clear Controls 
+
+    #region 17.0 Fill Finyear Dropdown From Hopital
+    protected void ddlHospitalID_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlHospitalID.SelectedIndex > 0)
+        {
+            SqlInt32 HospitalID = SqlInt32.Null;
+            HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+            CommonFillMethods.FillDropDownListTreatmentIDByHospitalID(ddlFinYearID, HospitalID);
+
+        }
+        else
+        {
+            ddlFinYearID.Items.Clear();
+            ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+
+        }
+    }
+    #endregion 17.0 Fill Finyear Dropdown From Hopital
 
 }

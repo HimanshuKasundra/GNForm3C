@@ -322,7 +322,7 @@ namespace GNForm3C.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_FinYear_SelectComboBoxByHospitalID");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_FinYear_SelectComboBoxByHospitalIDExpense");
 
                 sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
 
@@ -353,43 +353,11 @@ namespace GNForm3C.DAL
 			try
 			{
 				SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_FinYear_SelectComboBox");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_FinYear_SelectComboBoxByHospitalIDIncome");
 
                 sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
 
                 DataTable dtMST_FinYear = new DataTable("PR_ACC_FinYear_SelectComboBox");
-
-				DataBaseHelper DBH = new DataBaseHelper();
-				DBH.LoadDataTable(sqlDB, dbCMD, dtMST_FinYear);
-
-				return dtMST_FinYear;
-			}
-			catch (SqlException sqlex)
-			{
-				Message = SQLDataExceptionMessage(sqlex);
-				if (SQLDataExceptionHandler(sqlex))
-					throw;
-				return null;
-			}
-			catch (Exception ex)
-			{
-				Message = ExceptionMessage(ex);
-				if (ExceptionHandler(ex))
-					throw;
-				return null;
-			}
-		}
-
-        public DataTable SelectComboBoxByHospitalID(SqlInt32 HospitalID)
-		{
-			try
-			{
-				SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-				DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_FinYear_SelectComboBox");
-
-                sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
-
-				DataTable dtMST_FinYear = new DataTable("PR_ACC_FinYear_SelectComboBox");
 
 				DataBaseHelper DBH = new DataBaseHelper();
 				DBH.LoadDataTable(sqlDB, dbCMD, dtMST_FinYear);

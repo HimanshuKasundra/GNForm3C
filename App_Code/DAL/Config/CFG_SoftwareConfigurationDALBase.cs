@@ -350,7 +350,8 @@ namespace GNForm3C.DAL
 				return null;
 			}
 		}
-		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords)
+		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords, SqlString SaveMessage_NoMessageJustClosetheform, SqlString SaveMessage_ShowMessageClosetheform, SqlString SaveMessage_ShowMessageAskforOtherRecord,
+									SqlString ShortcutKeys_EditOnEnterKeyinListPage ,SqlString ShortcutKeys_DoubleClicK, SqlInt32 HospitalID, SqlString WeeklyBackupPassword)
 		{
 			TotalRecords = 0;
 			try
@@ -360,8 +361,15 @@ namespace GNForm3C.DAL
 				sqlDB.AddInParameter(dbCMD, "@PageOffset", SqlDbType.Int, PageOffset);
 				sqlDB.AddInParameter(dbCMD, "@PageSize", SqlDbType.Int, PageSize);
 				sqlDB.AddOutParameter(dbCMD, "@TotalRecords", SqlDbType.Int, 4);
+                sqlDB.AddInParameter(dbCMD, "@SaveMessage_NoMessageJustClosetheform", SqlDbType.Text, SaveMessage_NoMessageJustClosetheform);
+                sqlDB.AddInParameter(dbCMD, "@SaveMessage_ShowMessageClosetheform", SqlDbType.Text, SaveMessage_ShowMessageClosetheform);
+                sqlDB.AddInParameter(dbCMD, "@SaveMessage_ShowMessageAskforOtherRecord", SqlDbType.Text, SaveMessage_ShowMessageAskforOtherRecord);
+                sqlDB.AddInParameter(dbCMD, "@ShortcutKeys_EditOnEnterKeyinListPage", SqlDbType.Text, ShortcutKeys_EditOnEnterKeyinListPage);
+                sqlDB.AddInParameter(dbCMD, "@ShortcutKeys_DoubleClicK", SqlDbType.Text, ShortcutKeys_DoubleClicK);
+                sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
+                sqlDB.AddInParameter(dbCMD, "@WeeklyBackupPassword", SqlDbType.Text, WeeklyBackupPassword);
 
-				DataTable dtCFG_SoftwareConfiguration = new DataTable("PR_CFG_SoftwareConfiguration_SelectPage");
+                DataTable dtCFG_SoftwareConfiguration = new DataTable("PR_CFG_SoftwareConfiguration_SelectPage");
 
 				DataBaseHelper DBH = new DataBaseHelper();
 				DBH.LoadDataTable(sqlDB, dbCMD, dtCFG_SoftwareConfiguration);

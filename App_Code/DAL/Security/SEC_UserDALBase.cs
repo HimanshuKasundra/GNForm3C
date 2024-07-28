@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using GNForm3C.ENT;
+using AjaxControlToolkit.HTMLEditor.ToolbarButton;
 
 namespace GNForm3C.DAL
 {
@@ -266,11 +267,11 @@ namespace GNForm3C.DAL
 			{
 				Message = ExceptionMessage(ex);
 				if (ExceptionHandler(ex))
-					throw;
-				return null;
-			}
-		}
-		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords)
+                    throw;
+                return null;
+            }
+        }
+		public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords,SqlString UserName, SqlString Password,SqlInt32 HospitalID)
 		{
 			TotalRecords = 0;
 			try
@@ -280,8 +281,11 @@ namespace GNForm3C.DAL
 				sqlDB.AddInParameter(dbCMD, "@PageOffset", SqlDbType.Int, PageOffset);
 				sqlDB.AddInParameter(dbCMD, "@PageSize", SqlDbType.Int, PageSize);
 				sqlDB.AddOutParameter(dbCMD, "@TotalRecords", SqlDbType.Int, 4);
+                sqlDB.AddInParameter(dbCMD, "@UserName", SqlDbType.Text, UserName);
+                sqlDB.AddInParameter(dbCMD, "@Password", SqlDbType.Text, Password);
+                sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
 
-				DataTable dtSEC_User = new DataTable("PR_SEC_User_SelectPage");
+                DataTable dtSEC_User = new DataTable("PR_SEC_User_SelectPage");
 
 				DataBaseHelper DBH = new DataBaseHelper();
 				DBH.LoadDataTable(sqlDB, dbCMD, dtSEC_User);

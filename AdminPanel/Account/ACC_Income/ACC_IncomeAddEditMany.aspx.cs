@@ -71,12 +71,9 @@ namespace GNForm3C
         {
 
             CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
-            CommonFillMethods.FillDropDownListFinYearID(ddlFinYearID);
-            CommonFillMethods.FillSingleDropDownListIncomeTypeID(ddlIncomeTypeID);
-            //ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
-            //ddlIncomeTypeID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
-            ////CommonFillMethods.FillDropDownListFinYearID(ddlFinYearID);
-            ////CommonFillMethods.FillSingleDropDownListIncomeTypeID(ddlIncomeTypeID);
+            ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+            ddlIncomeTypeID.Items.Insert(0, new ListItem("Select Income Type", "-99"));
+            
         }
 
         #endregion 13.0 Fill DropDownList   
@@ -359,7 +356,7 @@ namespace GNForm3C
                 ddlIncomeTypeID.SelectedIndex = 0;
                 SqlInt32 HospitalID = SqlInt32.Null;
                 HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
-                CommonFillMethods.FillDropDownListFinYearIDByHospitalID(ddlFinYearID, HospitalID);
+                CommonFillMethods.FillDropDownListIncomeFinYearIDByHospitalID(ddlFinYearID, HospitalID);
 
             }
             else

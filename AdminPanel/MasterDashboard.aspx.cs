@@ -75,6 +75,8 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
     private void FillDropDownList()
     {
         CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
+        ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+
     }
     #endregion 12.0 Fill DropDownList
 
@@ -83,31 +85,39 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
     {
        
         SqlInt32 HospitalID = SqlInt32.Null;
+        SqlInt32 FinYearID = SqlInt32.Null;
 
         #region 13.1  NavigateLogic
-        if (Request.QueryString["HospitalID"] != null)
+        if (Request.QueryString["HospitalID"] != null && Request.QueryString["FinYearID"]!=null)
         {
             if (!Page.IsPostBack)
             {
                 HospitalID = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]);
+                FinYearID= CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]);
             }
             else
             {
                 if (ddlHospitalID.SelectedIndex > 0)
                     HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+                if (ddlFinYearID.SelectedIndex > 0)
+                    FinYearID = Convert.ToInt32(ddlFinYearID.SelectedValue);
+
             }
         }
         else
         {
             if (ddlHospitalID.SelectedIndex > 0)
                 HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+            if (ddlFinYearID.SelectedIndex > 0)
+                FinYearID = Convert.ToInt32(ddlFinYearID.SelectedValue);
+
         }
         #endregion NavigateLogic
 
         #region 13.2 Total Income/Expense
-        DEF_CountBAL balDEF_Count = new DEF_CountBAL();
+        MasterDashboardBAL masterDashboardBAL = new MasterDashboardBAL();
 
-        DataTable dtCount = balDEF_Count.SelectTotalIncomeExpense(HospitalID);
+        DataTable dtCount = masterDashboardBAL.SelectTotalIncomeExpense(HospitalID,FinYearID);
 
         decimal totalIncome = Convert.ToDecimal(dtCount.Rows[0]["TotalIncomes"]);
         decimal totalExpense = Convert.ToDecimal(dtCount.Rows[0]["TotalExpenses"]);
@@ -129,7 +139,7 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
         #region 13.3 Day Wise Month Wise Income/Expense/Patients Count
         if (totalIncome > 0)
         {
-           DataTable dtDayWiseMonthWiseIncome = balDEF_Count.SelectDayWiseMonthWiseIncome(HospitalID);
+           DataTable dtDayWiseMonthWiseIncome = masterDashboardBAL.SelectDayWiseMonthWiseIncome(HospitalID,FinYearID);
             IncomeList.DataSource = dtDayWiseMonthWiseIncome;
             IncomeList.DataBind();
             lblNoIncomeRecords.Visible = false;
@@ -146,7 +156,7 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
 
         if (totalExpense > 0)
         {
-            DataTable dtDayWiseMonthWiseExpense = balDEF_Count.SelectDayWiseMonthWiseExpense(HospitalID);
+            DataTable dtDayWiseMonthWiseExpense = masterDashboardBAL.SelectDayWiseMonthWiseExpense(HospitalID,FinYearID);
             ExpenseList.DataSource = dtDayWiseMonthWiseExpense;
             ExpenseList.DataBind();
             lblNoExpenseRecords.Visible = false;
@@ -165,7 +175,7 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
 
         if (totalPatients > 0)
         {
-            DataTable dtTreatmentWiseSummary = balDEF_Count.SelectTreatmentWiseSummary(HospitalID);
+            DataTable dtTreatmentWiseSummary = masterDashboardBAL.SelectTreatmentWiseSummary(HospitalID,FinYearID);
             TreatmentWiseSummary.DataSource = dtTreatmentWiseSummary;
             TreatmentWiseSummary.DataBind();
             lblNoPatientsRecords.Visible = false;
@@ -267,4 +277,24 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
     }
 
     #endregion 17.0 ClearControls
+
+    #region 18.0 Fill Finyear Dropdown From Hopital
+    protected void ddlHospitalID_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        if (ddlHospitalID.SelectedIndex > 0)
+        {
+            SqlInt32 HospitalID = SqlInt32.Null;
+            HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+            CommonFillMethods.FillSingleDropDownListFinYearID(ddlFinYearID);
+
+        }
+        else
+        {
+            ddlFinYearID.Items.Clear();
+            ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+        }
+    }
+
+    #endregion 18.0 Fill Finyear Dropdown From Hopital
 }
