@@ -302,7 +302,11 @@
                                             <span class="title">Demo Content</span>
                                         </a>
                                     </li>
-
+                                    <li class="nav-item  ">
+                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Master/MST_Student/MST_StudentList.aspx") %>' class="nav-link ">
+                                            <span class="title">Student Master</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Master/MST_ExpenseType/MST_ExpenseTypeList.aspx") %>' class="nav-link ">
                                             <span class="title">Expense Type</span>
@@ -404,7 +408,7 @@
                                 <ul class="sub-menu" style="display: none;">
                                     <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Security/SEC_Menu/SEC_MenuList.aspx") %>' class="nav-link ">
-                                            <span class="title"> Menu</span>
+                                            <span class="title">Menu</span>
                                         </a>
                                     </li>
                                     <li class="nav-item  ">

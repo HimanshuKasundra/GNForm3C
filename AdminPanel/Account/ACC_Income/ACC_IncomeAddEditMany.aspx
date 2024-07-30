@@ -21,8 +21,9 @@
     <asp:UpdatePanel ID="upACC_Income" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="ddlHospitalID" />
-            <asp:AsyncPostBackTrigger ControlID="ddlFinYearID" />
+            <%--<asp:AsyncPostBackTrigger ControlID="ddlHospitalID"  />
+            <asp:AsyncPostBackTrigger ControlID="ddlFinYearID"  />--%>
+            
 
         </Triggers>
         <ContentTemplate>
