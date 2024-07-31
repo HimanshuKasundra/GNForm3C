@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Default/MasterPage.master" AutoEventWireup="true" CodeFile="DemoContentAddEdit.aspx.cs" Inherits="AdminPanel_Master_DemoContent_DemoContentAddEdit"
+﻿<%@ Page Language="C#" MasterPageFile="~/Default/MasterPageView.master" AutoEventWireup="true" CodeFile="DemoContentAddEdit.aspx.cs" Inherits="AdminPanel_Master_DemoContent_DemoContentAddEdit"
     Title="DemoContent AddEdit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -133,4 +133,3 @@
 </asp:Content>
 <asp:Content ID="Content5" ContentPlaceHolderID="cphScripts" runat="Server">
 </asp:Content>
-

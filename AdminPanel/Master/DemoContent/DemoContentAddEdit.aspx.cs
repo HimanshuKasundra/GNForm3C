@@ -1,13 +1,7 @@
-﻿using AjaxControlToolkit.HTMLEditor.ToolbarButton;
-using GNForm3C;
+﻿using GNForm3C;
 using GNForm3C.BAL;
-using GNForm3C.ENT;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class AdminPanel_Master_DemoContent_DemoContentAddEdit : System.Web.UI.Page
 {
@@ -43,7 +37,6 @@ public partial class AdminPanel_Master_DemoContent_DemoContentAddEdit : System.W
 
             #region 11.4 Set Control Default Value 
 
-            lblFormHeader.Text = CV.PageHeaderAdd + " DemoContent";
             upr.DisplayAfter = CV.UpdateProgressDisplayAfter;
             txtFirstName.Focus();
 
@@ -86,7 +79,6 @@ public partial class AdminPanel_Master_DemoContent_DemoContentAddEdit : System.W
     {
         if (Request.QueryString["DemoContentID"] != null)
         {
-            lblFormHeader.Text = CV.PageHeaderEdit + " DemoContent";
             DemoContentBAL balDemoContent = new DemoContentBAL();
             DemoContentENT entDemoContent = new DemoContentENT();
             entDemoContent = balDemoContent.SelectPK(CommonFunctions.DecryptBase64Int32(Request.QueryString["DemoContentID"]));
@@ -155,7 +147,7 @@ public partial class AdminPanel_Master_DemoContent_DemoContentAddEdit : System.W
                 if (txtJoiningDate.Text.Trim() != String.Empty)
                     entDemoContent.JoiningDate = Convert.ToDateTime(txtJoiningDate.Text.Trim());
 
-                //entDemoContent.UserID = Convert.ToInt32(Session["UserID"]);
+                
 
                 entDemoContent.Created = DateTime.Now;
 

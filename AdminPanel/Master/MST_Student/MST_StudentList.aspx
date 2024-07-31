@@ -173,6 +173,8 @@
                             <div class="tools">
                                 <div>
                                     <asp:HyperLink SkinID="hlAddNew" ID="hlAddNew" NavigateUrl="~/AdminPanel/Master/MST_Student/MST_StudentAddEdit.aspx" runat="server"></asp:HyperLink>
+                                    <%--<asp:HyperLink ID="hlAddEditEdit" SkinID="View" NavigateUrl="~/AdminPanel/Master/MST_Student/MST_StudentEditAdd.aspx" data-target="#viewiFrameReg" data-toggle="modal" runat="server"></asp:HyperLink>--%>
+                                    
                                     <div class="btn-group" runat="server" id="Div_ExportOption" visible="false">
                                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                                             Export <i class="fa fa-angle-down"></i>
@@ -225,7 +227,7 @@
                                                     <th>
                                                         <asp:Label ID="lbhGender" runat="server" Text="Gender"></asp:Label>
                                                     </th>
-                                                   
+
 
                                                     <th class="nosortsearch text-nowrap text-center">
                                                         <asp:Label ID="lbhAction" runat="server" Text="Action"></asp:Label>
@@ -242,7 +244,7 @@
                                                             <td>
                                                                 <asp:HyperLink ID="hlViewStudentID" NavigateUrl='<%# "~/AdminPanel/Master/MST_Student/MST_StudentView.aspx?StudentID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("StudentID").ToString()) %>' data-target="#viewiFrameReg" CssClass="modalButton" data-toggle="modal" runat="server"><%#Eval("StudentName") %></asp:HyperLink>
                                                             </td>
-                                                            
+
                                                             <td>
                                                                 <%#Eval("EnrollmentNo") %>
                                                             </td>
@@ -267,10 +269,13 @@
                                                             <td>
                                                                 <%#Eval("Gender") %>
                                                             </td>
-                                                            
+
                                                             <td class="text-nowrap text-center">
                                                                 <asp:HyperLink ID="hlView" SkinID="View" NavigateUrl='<%# "~/AdminPanel/Master/MST_Student/MST_StudentView.aspx?StudentID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("StudentID").ToString()) %>' data-target="#viewiFrameReg" data-toggle="modal" runat="server"></asp:HyperLink>
                                                                 <asp:HyperLink ID="hlEdit" SkinID="Edit" NavigateUrl='<%# "~/AdminPanel/Master/MST_Student/MST_StudentAddEdit.aspx?StudentID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("StudentID").ToString()) %>' runat="server"></asp:HyperLink>
+                                                               
+                                                                <%--<asp:HyperLink ID="hlPopUpEdit" SkinID="View" NavigateUrl='<%# "~/AdminPanel/Master/MST_Student/MST_StudentEditAdd.aspx?StudentID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("StudentID").ToString()) %>' data-target="#viewiFrameReg" data-toggle="modal" runat="server"></asp:HyperLink>--%>
+
                                                                 <asp:LinkButton ID="lbtnDelete" runat="server"
                                                                     SkinID="Delete"
                                                                     OnClientClick="javascript:return confirm('Are you sure you want to delete record ? ');"

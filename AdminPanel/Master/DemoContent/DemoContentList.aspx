@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default/MasterPage.master" AutoEventWireup="true" CodeFile="DemoContentList.aspx.cs" Inherits="AdminPanel_Master_DemoContent_DemoContent" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -23,6 +24,40 @@
     </li>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cphPageContent" runat="Server">
+
+
+     <!-- Modal Panel -->
+    <asp:Panel ID="pnlAddEdit" CssClass="modal fade" runat="server" Style="display:none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <asp:Label ID="lblModalTitle" runat="server" Text="Add/Edit Demo Content"></asp:Label>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" OnClientClick="ModalPopupExtender1.Hide();">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalContent">
+                        <asp:Label ID="lblModalContent" runat="server" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="btnModalClose" runat="server" Text="Close" OnClick="btnModalClose_Click" CssClass="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </asp:Panel>
+
+    <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" 
+        TargetControlID="hiddenTargetControl" 
+        PopupControlID="pnlAddEdit" 
+        BackgroundCssClass="modal-backdrop" 
+        DropShadow="true" 
+        PopupDragHandleControlID="modal-header">
+    </ajaxToolkit:ModalPopupExtender>
+
+    <asp:Button ID="hiddenTargetControl" runat="server" Style="display:none;" />
+
 
     <!--Help Text-->
     <ucHelp:ShowHelp ID="ucHelp" runat="server" />
@@ -56,7 +91,7 @@
                                     </div>
                                 </div>
                             </div>
-                         </div>
+                        </div>
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-9">
@@ -65,8 +100,8 @@
                                 </div>
                             </div>
                         </div>
-            </div>
-            </div>
+                    </div>
+                </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
@@ -93,7 +128,9 @@
                             </div>
                             <div class="tools">
                                 <div>
-                                    <asp:HyperLink SkinID="hlAddNew" ID="hlAddNew" NavigateUrl="~/AdminPanel/Master/DemoContent/DemoContentAddEdit.aspx" runat="server"></asp:HyperLink>
+                                    <%--<asp:HyperLink SkinID="hlAddNew" ID="hlAddNew" NavigateUrl="~/AdminPanel/Master/DemoContent/DemoContentAddEdit.aspx" runat="server"></asp:HyperLink>--%>
+                                     <asp:HyperLink SkinID="hlAddNew" ID="hlAddNew" runat="server" OnClick="openModalAdd_Click" Text="Add New" NavigateUrl="#"></asp:HyperLink>
+
                                     <div class="btn-group" runat="server" id="Div_ExportOption" visible="false">
                                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                                             Export <i class="fa fa-angle-down"></i>
@@ -159,7 +196,8 @@
 
                                                             <td class="text-nowrap text-center">
                                                                 <asp:HyperLink ID="hlView" SkinID="View" NavigateUrl='<%# "~/AdminPanel/Master/DemoContent/DemoContentView.aspx?DemoContentID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("DemoContentID").ToString()) %>' data-target="#viewiFrameReg" data-toggle="modal" runat="server"></asp:HyperLink>
-                                                                <asp:HyperLink ID="hlEdit" SkinID="Edit" NavigateUrl='<%# "~/AdminPanel/Master/DemoContent/DemoContentAddEdit.aspx?DemoContentID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("DemoContentID").ToString()) %>' runat="server"></asp:HyperLink>
+                                                                <%--<asp:HyperLink ID="hlEdit" SkinID="Edit" NavigateUrl='<%# "~/AdminPanel/Master/DemoContent/DemoContentAddEdit.aspx?DemoContentID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("DemoContentID").ToString()) %>' runat="server"></asp:HyperLink>--%>
+                                                                <asp:LinkButton ID="lbEdit" runat="server" CssClass="fa fa-edit" OnClick="openModalEdit_Click"></asp:LinkButton>
                                                                 <asp:LinkButton ID="lbtnDelete" runat="server"
                                                                     SkinID="Delete"
                                                                     OnClientClick="javascript:return confirm('Are you sure you want to delete record ? ');"
@@ -234,18 +272,41 @@
         </Triggers>
     </asp:UpdatePanel>
     <%-- END List --%>
-     <%-- Loading  --%>
- <asp:UpdateProgress ID="upr" runat="server">
-     <ProgressTemplate>
-         <div class="divWaiting">
-             <asp:Label ID="lblWait" runat="server" Text=" Please wait... " />
-             <asp:Image ID="imgWait" runat="server" SkinID="UpdatePanelLoding" />
-         </div>
-     </ProgressTemplate>
- </asp:UpdateProgress>
- <%-- END Loading  --%>
+    <%-- Loading  --%>
+    <asp:UpdateProgress ID="upr" runat="server">
+        <ProgressTemplate>
+            <div class="divWaiting">
+                <asp:Label ID="lblWait" runat="server" Text=" Please wait... " />
+                <asp:Image ID="imgWait" runat="server" SkinID="UpdatePanelLoding" />
+            </div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
+    <%-- END Loading  --%>
 </asp:Content>
+
+
+
+
 <asp:Content ID="Content5" ContentPlaceHolderID="cphScripts" runat="Server">
+    <script src="../assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+    <script src="../assets/global/scripts/datatable.js" type="text/javascript"></script>
+    <script src="../assets/pages/scripts/table-datatables-managed.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function openModal(action, id = 0) {
+            var url = 'DemoContentAddEdit.aspx';
+            if (action === 'Edit') {
+                url += '?DemoContentID=' + id;
+            } else {
+                url += '?action=Add';
+            }
+            $('#modalContent').load(url, function () {
+                $('#modalAddEdit').modal('show');
+            });
+        }
+ </script>
     <script>
         $(window).keydown(function (e) {
             GNWebKeyEvents(e.keyCode, '<%=hlAddNew.ClientID%>', '<%=btnSearch.ClientID%>');
@@ -253,5 +314,7 @@
 
         SearchGridUI('<%=btnSearch.ClientID%>', 'sample_1', 1);
     </script>
+
+
 </asp:Content>
 

@@ -35,11 +35,6 @@ public partial class AdminPanel_Master_DemoContent_DemoContent : System.Web.UI.P
 
         if (!Page.IsPostBack)
         {
-            #region 12.1 DropDown List Fill Section
-
-            // FillDropDownList();
-
-            #endregion 12.1 DropDown List Fill Section
 
             #region 12.2 Set Default Value
 
@@ -62,22 +57,6 @@ public partial class AdminPanel_Master_DemoContent_DemoContent : System.Web.UI.P
     {
     }
     #endregion
-
-    #region 14.0 DropDownList 
-
-    #region 14.1 Fill DropDownList
-
-    //private void FillDropDownList()
-    //{
-    //    CommonFillMethods.FillDropDownListHospitalID(ddlDemoContentID);
-
-    //    CommonFunctions.GetDropDownPageSize(ddlPageSizeBottom);
-    //    ddlPageSizeBottom.SelectedValue = PageRecordSize.ToString();
-    //}
-
-    #endregion 14.1 Fill DropDownList
-
-    #endregion 14.0 DropDownList
 
     #region 15.0 Search
 
@@ -398,4 +377,23 @@ public partial class AdminPanel_Master_DemoContent_DemoContent : System.Web.UI.P
     }
 
     #endregion 22.0 ClearControls
+
+    protected void openModalAdd_Click(object sender, EventArgs e)
+    {
+        lblModalTitle.Text = "Add Demo Content";
+        lblModalContent.Text = "Add new content details here.";
+        ModalPopupExtender1.Show();
+    }
+
+    protected void openModalEdit_Click(object sender, EventArgs e)
+    {
+        lblModalTitle.Text = "Edit Demo Content";
+        lblModalContent.Text = "Edit existing content details here.";
+        ModalPopupExtender1.Show();
+    }
+
+    protected void btnModalClose_Click(object sender, EventArgs e)
+    {
+        ModalPopupExtender1.Hide();
+    }
 }
