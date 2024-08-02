@@ -75,13 +75,14 @@
                                                 <asp:Repeater ID="rpIntakeData" runat="server" OnItemDataBound="rpIntake_ItemDataBound">
                                                     <ItemTemplate>
                                                         <tr>
-                                                            <td class="text-center">
-                                                                <%# Eval("Branch") %>
+                                                            <td>
+                                                                <asp:Label ID="lblBranch" runat="server" Text='<%# Eval("Branch") %>'></asp:Label>
                                                             </td>
                                                             <asp:Repeater ID="rpAddmissionYearBody" runat="server">
                                                                 <ItemTemplate>
                                                                     <td class="text-right">
-                                                                        <asp:TextBox ID="txtIntake" CssClass="form-control" runat="server" value='<%#  DataBinder.Eval( (((RepeaterItem)Container.Parent.Parent).DataItem),Container.DataItem.ToString()) %>' onkeypress="return IsPositiveInteger(event)" PlaceHolder="Enter Intake"></asp:TextBox>
+                                                                        <asp:Label ID="lblYear" runat="server" Text='<%# Eval("Year") %>' Visible="false"></asp:Label>
+                                                                        <asp:TextBox ID="txtIntake" CssClass="form-control" runat="server" Text='<%# Eval("Intake") %>' />
                                                                     </td>
                                                                 </ItemTemplate>
                                                             </asp:Repeater>
@@ -95,8 +96,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 text-right">
-                                    <%--<asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" />--%>
-                                    <%--<asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn btn-secondary" />--%>
+                                    <asp:Button ID="btnSave" runat="server" Text="save" OnClick="btnSave_Click" CssClass="btn btn-primary" />
+                                    <asp:Button ID="btnClear" runat="server" Text="clear" OnClick="btnClear_Click" CssClass="btn btn-secondary" />
                                 </div>
                             </div>
                         </div>
@@ -106,8 +107,8 @@
             </div>
         </ContentTemplate>
         <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="btnSave_Click" EventName="Click" />--%>
-            <%--<asp:AsyncPostBackTrigger ControlID="btnClear" EventName="Click" />--%>
+            <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
+            <asp:AsyncPostBackTrigger ControlID="btnClear" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
     <%-- END List --%>

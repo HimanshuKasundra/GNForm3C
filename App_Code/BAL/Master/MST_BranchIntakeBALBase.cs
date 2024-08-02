@@ -49,12 +49,25 @@ namespace GNForm3C
         #endregion Select BranchIntake Data
 
         #region Insert/Update Intake DATA
-        public void SaveBranchIntakeData(string branch, int year2022, int year2023, int year2024)
+        //public void SaveBranchIntakeData(string branch, int year2022, int year2023, int year2024)
+        //{
+        //    MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
+        //    dalMST_BranchIntake.SaveBranchIntakeData(branch, 2022, year2022);
+        //    dalMST_BranchIntake.SaveBranchIntakeData(branch, 2023, year2023);
+        //    dalMST_BranchIntake.SaveBranchIntakeData(branch, 2024, year2024);
+        //}
+
+        public void SaveBranchIntakeData(string branch, Dictionary<int, int> yearIntakeData)
         {
             MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
-            dalMST_BranchIntake.SaveBranchIntakeData(branch, 2022, year2022);
-            dalMST_BranchIntake.SaveBranchIntakeData(branch, 2023, year2023);
-            dalMST_BranchIntake.SaveBranchIntakeData(branch, 2024, year2024);
+
+            foreach (var entry in yearIntakeData)
+            {
+                int year = entry.Key;
+                int intake = entry.Value;
+
+                dalMST_BranchIntake.SaveBranchIntakeData(branch, year, intake);
+            }
         }
 
 

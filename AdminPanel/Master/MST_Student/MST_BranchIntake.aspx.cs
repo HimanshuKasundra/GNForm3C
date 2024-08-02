@@ -76,46 +76,127 @@ public partial class AdminPanel_Master_MST_Student_MST_BranchIntake : System.Web
 
     #endregion 15.2 Search Function
 
-   
-
     #region 15.3 rpIntake_ItemDataBound
     protected void rpIntake_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            Repeater rpAddmissionYearBody = (Repeater)e.Item.FindControl("rpAddmissionYearBody");
+            DataRowView drv = (DataRowView)e.Item.DataItem;
 
-        Repeater rpAddmissionYearBody = (Repeater)e.Item.FindControl("rpAddmissionYearBody");
+            if (rpAddmissionYearBody != null && drv != null)
+            {
+                // Retrieve column names excluding the "Branch" column
+                DataTable dt = drv.DataView.Table;
+                List<string> yearColumns = CommonFunctions.ColumnOfDataTable(dt).GetRange(1, dt.Columns.Count - 1);
 
-        MST_BranchIntakeBAL balMST_BranchIntake = new MST_BranchIntakeBAL();
-        DataTable dt = balMST_BranchIntake.GetBranchIntakeData();
+                // Create a data source with year and intake pairs for binding
+                List<YearIntakePair> yearIntakePairs = new List<YearIntakePair>();
+                foreach (string year in yearColumns)
+                {
+                    yearIntakePairs.Add(new YearIntakePair
+                    {
+                        Year = year,
+                        Intake = drv[year].ToString()
+                    });
+                }
 
-
-        List<String> column = CommonFunctions.ColumnOfDataTable(dt);
-
-        rpAddmissionYearBody.DataSource = column.GetRange(1, column.Count - 1); ;
-        rpAddmissionYearBody.DataBind();
-
+                rpAddmissionYearBody.DataSource = yearIntakePairs;
+                rpAddmissionYearBody.DataBind();
+            }
+        }
     }
+
+    // Helper class to store year and intake pairs
+    public class YearIntakePair
+    {
+        public string Year { get; set; }
+        public string Intake { get; set; }
+    }
+
+
+    protected string BindIntakeData(string year, object dataItem)
+    {
+        DataRowView rowView = dataItem as DataRowView;
+        if (rowView != null && rowView.Row.Table.Columns.Contains(year))
+        {
+            return rowView[year].ToString();
+        }
+        return string.Empty;
+    }
+
     #endregion 15.3 rpIntake_ItemDataBound
 
     #endregion 15.0 Search
 
-    //protected void rptBranches_ItemCommand(object source, RepeaterCommandEventArgs e)
-    //{
-    //    if (e.CommandName == "DeleteRecord")
-    //    {
-    //        string branch = e.CommandArgument.ToString();
-    //        MST_BranchIntakeBAL balMST_BranchIntake = new MST_BranchIntakeBAL();
-    //        balMST_BranchIntake.DeleteBranchIntakeData(branch);
-    //        BindData();
-    //    }
-    //}
+    #region 16.0 MST_BranchIntake Add/Edit
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        MST_BranchIntakeBAL balMST_BranchIntake = new MST_BranchIntakeBAL();
 
-    //protected void btnClear_Click(object sender, EventArgs e)
-    //{
-    //    foreach (RepeaterItem item in rptBranches.Items)
-    //    {
-    //        ((TextBox)item.FindControl("txt2022")).Text = string.Empty;
-    //        ((TextBox)item.FindControl("txt2023")).Text = string.Empty;
-    //        ((TextBox)item.FindControl("txt2024")).Text = string.Empty;
-    //    }
-    //}
+        foreach (RepeaterItem item in rpIntakeData.Items)
+        {
+            Label lblBranch = (Label)item.FindControl("lblBranch");
+
+            if (lblBranch != null)
+            {
+                string branch = lblBranch.Text;
+                Repeater rpAddmissionYearBody = (Repeater)item.FindControl("rpAddmissionYearBody");
+
+                if (rpAddmissionYearBody != null)
+                {
+                    Dictionary<int, int> yearIntakeData = new Dictionary<int, int>();
+
+                    foreach (RepeaterItem yearItem in rpAddmissionYearBody.Items)
+                    {
+                        TextBox txtIntake = (TextBox)yearItem.FindControl("txtIntake");
+                        Label lblYear = (Label)yearItem.FindControl("lblYear");
+
+                        if (txtIntake != null && lblYear != null)
+                        {
+                            int intake;
+                            int year;
+
+                            if (int.TryParse(txtIntake.Text, out intake) && int.TryParse(lblYear.Text, out year))
+                            {
+                                yearIntakeData[year] = intake;
+                            }
+                        }
+                    }
+
+                    // Save the intake data for the branch
+                    balMST_BranchIntake.SaveBranchIntakeData(branch, yearIntakeData);
+                }
+            }
+        }
+
+        // Refresh the data
+        Search(1);
+    }
+
+    #endregion 16.0 MST_BranchIntake Add/Edit
+
+    #region 17.0 Clear Button
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        foreach (RepeaterItem item in rpIntakeData.Items)
+        {
+            Repeater rpAddmissionYearBody = (Repeater)item.FindControl("rpAddmissionYearBody");
+
+            if (rpAddmissionYearBody != null)
+            {
+                foreach (RepeaterItem yearItem in rpAddmissionYearBody.Items)
+                {
+                    TextBox txtIntake = (TextBox)yearItem.FindControl("txtIntake");
+
+                    if (txtIntake != null)
+                    {
+                        txtIntake.Text = string.Empty;
+                    }
+                }
+            }
+        }
+    }
+    #endregion  17.0 Clear Button
+
 }
