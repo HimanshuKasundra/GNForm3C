@@ -1,5 +1,6 @@
 ﻿using GNForm3C;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web.UI.WebControls;
 
@@ -27,59 +28,94 @@ public partial class AdminPanel_Master_MST_Student_MST_BranchIntake : System.Web
 
         if (!Page.IsPostBack)
         {
-            BindData();
+            Search(1);
 
             #region Set Help Text
-            ucHelp.ShowHelp("Help Text will be shown here");
+            //ucHelp.ShowHelp("Help Text will be shown here");
             #endregion Set Help Text
         }
     }
 
     #endregion Page Load event
 
-    private void BindData()
+    #region 15.0 Search
+
+    #region 15.1 Button Search Click Event
+
+    protected void btnSearch_Click(object sender, EventArgs e)
     {
+        Search(1);
+    }
+
+    #endregion 15.1 Button Search Click Event
+
+    #region 15.2 Search Function
+
+    private void Search(int PageNo)
+    {
+
         MST_BranchIntakeBAL balMST_BranchIntake = new MST_BranchIntakeBAL();
         DataTable dt = balMST_BranchIntake.GetBranchIntakeData();
-        rptBranches.DataSource = dt;
-        rptBranches.DataBind();
+
+
+        if (dt != null && dt.Rows.Count > 0)
+        {
+
+            rpAddmissionYearHead.DataSource = CommonFunctions.ColumnOfDataTable(dt);
+            rpAddmissionYearHead.DataBind();
+            rpIntakeData.DataSource = dt;
+            rpIntakeData.DataBind();
+
+        }
+        else
+        {
+
+            ucMessage.ShowError(CommonMessage.NoRecordFound());
+        }
     }
 
-    protected void btnSave_Click(object sender, EventArgs e)
+    #endregion 15.2 Search Function
+
+   
+
+    #region 15.3 rpIntake_ItemDataBound
+    protected void rpIntake_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
+
+        Repeater rpAddmissionYearBody = (Repeater)e.Item.FindControl("rpAddmissionYearBody");
+
         MST_BranchIntakeBAL balMST_BranchIntake = new MST_BranchIntakeBAL();
+        DataTable dt = balMST_BranchIntake.GetBranchIntakeData();
 
-        foreach (RepeaterItem item in rptBranches.Items)
-        {
-            string branch = ((Label)item.FindControl("lblBranch")).Text;
-            int intake2022 = int.Parse(((TextBox)item.FindControl("txt2022")).Text);
-            int intake2023 = int.Parse(((TextBox)item.FindControl("txt2023")).Text);
-            int intake2024 = int.Parse(((TextBox)item.FindControl("txt2024")).Text);
 
-            balMST_BranchIntake.SaveBranchIntakeData(branch, intake2022, intake2023, intake2024);
-        }
+        List<String> column = CommonFunctions.ColumnOfDataTable(dt);
 
-        BindData();
+        rpAddmissionYearBody.DataSource = column.GetRange(1, column.Count - 1); ;
+        rpAddmissionYearBody.DataBind();
+
     }
+    #endregion 15.3 rpIntake_ItemDataBound
 
-    protected void rptBranches_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-        if (e.CommandName == "DeleteRecord")
-        {
-            string branch = e.CommandArgument.ToString();
-            MST_BranchIntakeBAL balMST_BranchIntake = new MST_BranchIntakeBAL();
-            balMST_BranchIntake.DeleteBranchIntakeData(branch);
-            BindData();
-        }
-    }
+    #endregion 15.0 Search
 
-    protected void btnClear_Click(object sender, EventArgs e)
-    {
-        foreach (RepeaterItem item in rptBranches.Items)
-        {
-            ((TextBox)item.FindControl("txt2022")).Text = string.Empty;
-            ((TextBox)item.FindControl("txt2023")).Text = string.Empty;
-            ((TextBox)item.FindControl("txt2024")).Text = string.Empty;
-        }
-    }
+    //protected void rptBranches_ItemCommand(object source, RepeaterCommandEventArgs e)
+    //{
+    //    if (e.CommandName == "DeleteRecord")
+    //    {
+    //        string branch = e.CommandArgument.ToString();
+    //        MST_BranchIntakeBAL balMST_BranchIntake = new MST_BranchIntakeBAL();
+    //        balMST_BranchIntake.DeleteBranchIntakeData(branch);
+    //        BindData();
+    //    }
+    //}
+
+    //protected void btnClear_Click(object sender, EventArgs e)
+    //{
+    //    foreach (RepeaterItem item in rptBranches.Items)
+    //    {
+    //        ((TextBox)item.FindControl("txt2022")).Text = string.Empty;
+    //        ((TextBox)item.FindControl("txt2023")).Text = string.Empty;
+    //        ((TextBox)item.FindControl("txt2024")).Text = string.Empty;
+    //    }
+    //}
 }

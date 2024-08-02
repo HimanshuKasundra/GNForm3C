@@ -41,6 +41,14 @@ public partial class AdminPanel_ACC_Expense_ACC_ExpenseList : System.Web.UI.Page
 
             #endregion 12.1 DropDown List Fill Section
 
+            if (Request.QueryString["HospitalID"] != null && Request.QueryString["FinYearID"] != null)
+            {
+                ddlHospitalID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]).ToString();
+                ddlFinYearID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]).ToString();
+                ddlHospitalIDChanged();
+            }
+
+
             Search(1);
 
             #region 12.2 Set Default Value
@@ -73,10 +81,9 @@ public partial class AdminPanel_ACC_Expense_ACC_ExpenseList : System.Web.UI.Page
 
     private void FillDropDownList()
     {
+        CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
         ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
         ddlExpenseTypeID.Items.Insert(0, new ListItem("Select Expense Type", "-99"));
-
-        CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
 
         CommonFunctions.GetDropDownPageSize(ddlPageSizeBottom);
         ddlPageSizeBottom.SelectedValue = PageRecordSize.ToString();
@@ -118,25 +125,60 @@ public partial class AdminPanel_ACC_Expense_ACC_ExpenseList : System.Web.UI.Page
 
         #region Gather Data
 
-        if (ddlExpenseTypeID.SelectedIndex > 0)
-            ExpenseTypeID = Convert.ToInt32(ddlExpenseTypeID.SelectedValue);
+        #region NavigateLogic
+        if (Request.QueryString["HospitalID"] != null && Request.QueryString["FinYearID"] != null)
+        {
+            if (!Page.IsPostBack)
+            {
+                HospitalID = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]);
+                FinYearID = CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]);
+            }
+            else
+            {
+                if (ddlExpenseTypeID.SelectedIndex>0)
+                    ExpenseTypeID = Convert.ToInt32(ddlExpenseTypeID.SelectedValue);
 
-        if (txtAmount.Text.Trim() != String.Empty)
-            Amount = Convert.ToDecimal(txtAmount.Text.Trim());
+                if (ddlHospitalID.SelectedIndex > 0)
+                    HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
 
-        if (dtpExpenseDate.Text.Trim() != String.Empty)
-            ExpenseDate = Convert.ToDateTime(dtpExpenseDate.Text.Trim());
+                if (txtAmount.Text.Trim() != String.Empty)
+                    Amount = Convert.ToDecimal(txtAmount.Text.Trim());
 
-        if (ddlHospitalID.SelectedIndex > 0)
-            HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+                if (dtpExpenseDate.Text.Trim() != String.Empty)
+                    ExpenseDate = Convert.ToDateTime(dtpExpenseDate.Text.Trim());
 
-        if (ddlFinYearID.SelectedIndex > 0)
-            FinYearID = Convert.ToInt32(ddlFinYearID.SelectedValue);
-        if (txtTagName.Text.Trim()!=String.Empty)
-            TagName = txtTagName.Text.Trim();
+                if (ddlHospitalID.SelectedIndex > 0)
+                    HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
 
+                if (txtTagName.Text.Trim() != String.Empty)
+                    TagName = txtTagName.Text.Trim();
+            }
+        }
+        else
+        {
+
+            if (ddlExpenseTypeID.SelectedIndex > 0)
+                ExpenseTypeID = Convert.ToInt32(ddlExpenseTypeID.SelectedValue);
+
+            if (txtAmount.Text.Trim() != String.Empty)
+                Amount = Convert.ToDecimal(txtAmount.Text.Trim());
+
+            if (dtpExpenseDate.Text.Trim() != String.Empty)
+                ExpenseDate = Convert.ToDateTime(dtpExpenseDate.Text.Trim());
+
+            if (ddlHospitalID.SelectedIndex > 0)
+                HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+
+            if (ddlFinYearID.SelectedIndex > 0)
+                FinYearID = Convert.ToInt32(ddlFinYearID.SelectedValue);
+            if (txtTagName.Text.Trim() != String.Empty)
+                TagName = txtTagName.Text.Trim();
+
+        }
+        #endregion NavigateLogic
 
         #endregion Gather Data
+
 
         ACC_ExpenseBAL balACC_Expense = new ACC_ExpenseBAL();
 
@@ -429,6 +471,11 @@ public partial class AdminPanel_ACC_Expense_ACC_ExpenseList : System.Web.UI.Page
 
     #region 23.0 Fill Finyear Dropdown From Hopital
     protected void ddlHospitalID_SelectedIndexChanged1(object sender, EventArgs e)
+    {
+        ddlHospitalIDChanged();
+    }
+
+    private void ddlHospitalIDChanged()
     {
         if (ddlHospitalID.SelectedIndex > 0)
         {

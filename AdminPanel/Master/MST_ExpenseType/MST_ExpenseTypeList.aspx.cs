@@ -48,6 +48,7 @@ public partial class AdminPanel_MST_ExpenseType_MST_ExpenseTypeList : System.Web
             upr.DisplayAfter = CV.UpdateProgressDisplayAfter;
 
             #endregion 12.2 Set Default Value
+
             Search(1);
 
             #region 12.3 Set Help Text

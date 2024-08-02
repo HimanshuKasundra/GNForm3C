@@ -253,6 +253,18 @@ namespace GNForm3C
             rp.DataBind();
         }
 
+        #region Column of DataTable
+        public static List<String> ColumnOfDataTable(DataTable dt)
+        {
+            var columnNames = new List<string>();
+            foreach (DataColumn column in dt.Columns)
+            {
+                columnNames.Add(column.ColumnName);
+            }
+
+            return columnNames;
+        }
+        #endregion Column of DataTable
         public static void GetDropDownPageSize(DropDownList ddl)
         {
             List<ListItem> pageSize = new List<ListItem>();

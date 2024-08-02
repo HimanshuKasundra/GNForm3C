@@ -42,101 +42,82 @@ namespace GNForm3C
         #endregion Constructor
 
         #region GetBranchIntake Data
-        public void SaveBranchIntakeData(string branch, int year, int intake)
-        {
-            try
-            {
-                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_InsertOrUpdate");
-                sqlDB.AddInParameter(dbCMD, "@Branch", DbType.String, branch);
-                sqlDB.AddInParameter(dbCMD, "@AdmissionYear", DbType.Int32, year);
-                sqlDB.AddInParameter(dbCMD, "@Intake", DbType.Int32, intake);
-                sqlDB.ExecuteNonQuery(dbCMD);
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions
-                throw;
-            }
-        }
 
+        //public DataTable GetBranchIntakeData()
+        //{
+        //    try
+        //    {
+        //        // Initialize the SqlDatabase object with the connection string
+        //        SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
 
+        //        // Create a command object with the stored procedure name
+        //        DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_SelectAll");
 
-        public DataSet GetBranchIntakeDataWithYears()
-        {
-            try
-            {
-                // Initialize the SqlDatabase object with the connection string
-                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+        //        // Execute the command and fill the DataTable
+        //        DataSet ds = sqlDB.ExecuteDataSet(dbCMD);
+        //        DataTable dt = ds.Tables[0];
 
-                // Create a command object with the stored procedure name
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_BranchIntakeDataWithYears");
-
-                // Execute the command and fill the DataSet
-                DataSet ds = sqlDB.ExecuteDataSet(dbCMD);
-
-                return ds;
-            }
-            catch (SqlException sqlex)
-            {
-                // Handle SQL exceptions
-                Message = SQLDataExceptionMessage(sqlex);
-                if (SQLDataExceptionHandler(sqlex))
-                    throw;
-                return null;
-            }
-            catch (Exception ex)
-            {
-                // Handle general exceptions
-                Message = ExceptionMessage(ex);
-                if (ExceptionHandler(ex))
-                    throw;
-                return null;
-            }
-        }
-
+        //        return dt;
+        //    }
+        //    catch (SqlException sqlex)
+        //    {
+        //        // Handle SQL exceptions
+        //        Message = SQLDataExceptionMessage(sqlex);
+        //        if (SQLDataExceptionHandler(sqlex))
+        //            throw;
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Handle general exceptions
+        //        Message = ExceptionMessage(ex);
+        //        if (ExceptionHandler(ex))
+        //            throw;
+        //        return null;
+        //    }
+        //}
 
         #endregion GetBranchIntake DATA
 
         #region SaveBranchIntake Data
-        public Boolean SaveBranchIntakeData(string branch, int admissionYear, int intake)
-        {
-            try
-            {
-                // Initialize the SqlDatabase object with the connection string
-                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+        //public Boolean SaveBranchIntakeData(string branch, int admissionYear, int intake)
+        //{
+        //    try
+        //    {
+        //        // Initialize the SqlDatabase object with the connection string
+        //        SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
 
-                // Create a command object with the stored procedure name
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_InsertUpdate");
+        //        // Create a command object with the stored procedure name
+        //        DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_InsertUpdate");
 
-                // Add the parameters to the command
-                sqlDB.AddInParameter(dbCMD, "@Branch", SqlDbType.NVarChar, branch);
-                sqlDB.AddInParameter(dbCMD, "@AdmissionYear", SqlDbType.Int, admissionYear);
-                sqlDB.AddInParameter(dbCMD, "@Intake", SqlDbType.Int, intake);
+        //        // Add the parameters to the command
+        //        sqlDB.AddInParameter(dbCMD, "@Branch", SqlDbType.NVarChar, branch);
+        //        sqlDB.AddInParameter(dbCMD, "@AdmissionYear", SqlDbType.Int, admissionYear);
+        //        sqlDB.AddInParameter(dbCMD, "@Intake", SqlDbType.Int, intake);
 
-                // Execute the command
-                DataBaseHelper DBH = new DataBaseHelper();
-                DBH.ExecuteNonQuery(sqlDB, dbCMD);
+        //        // Execute the command
+        //        DataBaseHelper DBH = new DataBaseHelper();
+        //        DBH.ExecuteNonQuery(sqlDB, dbCMD);
 
-                return true;
-            }
-            catch (SqlException sqlex)
-            {
-                // Handle SQL exceptions
-                Message = SQLDataExceptionMessage(sqlex);
-                if (SQLDataExceptionHandler(sqlex))
-                    throw;
-                return false;
-            }
-            catch (Exception ex)
-            {
-                // Handle general exceptions
-                Message = ExceptionMessage(ex);
-                if (ExceptionHandler(ex))
-                    throw;
-                return false;
-            }
-        }
+        //        return true;
+        //    }
+        //    catch (SqlException sqlex)
+        //    {
+        //        // Handle SQL exceptions
+        //        Message = SQLDataExceptionMessage(sqlex);
+        //        if (SQLDataExceptionHandler(sqlex))
+        //            throw;
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Handle general exceptions
+        //        Message = ExceptionMessage(ex);
+        //        if (ExceptionHandler(ex))
+        //            throw;
+        //        return false;
+        //    }
+        //}
         #endregion SaveBranchIntake Data
 
         #region Delete BranchIntake Data
@@ -180,5 +161,60 @@ namespace GNForm3C
         }
 
         #endregion Delete BranchIntake Data
+
+        public DataTable GetBranchIntakeData()
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_SelectAll");
+                DataSet ds = sqlDB.ExecuteDataSet(dbCMD);
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            catch (SqlException sqlex)
+            {
+                Message = SQLDataExceptionMessage(sqlex);
+                if (SQLDataExceptionHandler(sqlex))
+                    throw;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Message = ExceptionMessage(ex);
+                if (ExceptionHandler(ex))
+                    throw;
+                return null;
+            }
+        }
+
+        public void SaveBranchIntakeData(string branch, int year, int intake)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_Save");
+
+                sqlDB.AddInParameter(dbCMD, "@Branch", DbType.String, branch);
+                sqlDB.AddInParameter(dbCMD, "@Year", DbType.Int32, year);
+                sqlDB.AddInParameter(dbCMD, "@Intake", DbType.Int32, intake);
+
+                sqlDB.ExecuteNonQuery(dbCMD);
+            }
+            catch (SqlException sqlex)
+            {
+                Message = SQLDataExceptionMessage(sqlex);
+                if (SQLDataExceptionHandler(sqlex))
+                    throw;
+            }
+            catch (Exception ex)
+            {
+                Message = ExceptionMessage(ex);
+                if (ExceptionHandler(ex))
+                    throw;
+            }
+        }
+
+
     }
 }

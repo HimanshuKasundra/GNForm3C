@@ -322,7 +322,7 @@ namespace GNForm3C.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_FinYear_SelectComboBoxByHospitalIDExpense");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_FinYear_SelectComboBoxByHospitalID");
 
                 sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
 
@@ -353,7 +353,7 @@ namespace GNForm3C.DAL
 			try
 			{
 				SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_FinYear_SelectComboBoxByHospitalIDIncome");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_FinYear_SelectComboBoxByHospitalIDIncome");
 
                 sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
 

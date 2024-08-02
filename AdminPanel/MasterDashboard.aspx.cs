@@ -134,6 +134,8 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
         lblExpenseTotal.Text = formattedTotalExpense;
         lblPatientTotal.Text = formattedTotalPatients;
 
+        
+
         // Show the UpdatePanel
         pnlCount.Visible = true;
 
@@ -178,18 +180,30 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
 
         if (totalPatients > 0)
         {
-            DataTable dtTreatmentWiseSummary = masterDashboardBAL.SelectTreatmentWiseSummary(HospitalID,FinYearID);
-            TreatmentWiseSummary.DataSource = dtTreatmentWiseSummary;
-            TreatmentWiseSummary.DataBind();
+            DataTable dtTreatmentWiseSummary = masterDashboardBAL.SelectTreatmentWiseSummary(HospitalID, FinYearID);
+            TreatmentWiseSummaryRepeater.DataSource = dtTreatmentWiseSummary;
+            TreatmentWiseSummaryRepeater.DataBind();
+
+            foreach (RepeaterItem rpcount in TreatmentWiseSummaryRepeater.Items)
+            {
+                HyperLink hlPatientCount = (HyperLink)rpcount.FindControl("hlPatientCount");
+                if (hlPatientCount.Text.Trim() == "0")
+                {
+                    hlPatientCount.NavigateUrl = null;
+                }
+
+            }
+
             lblNoPatientsRecords.Visible = false;
-            TreatmentWiseSummary.Visible = true;
+            TreatmentWiseSummaryRepeater.Visible = true;
         }
         else
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "collapsePanel3", "togglePanel('#Panel3', true);", true);
             lblNoPatientsRecords.Visible = true;
-            TreatmentWiseSummary.Visible = false;
+            TreatmentWiseSummaryRepeater.Visible = false;
         }
+
         Panel3.Visible = true;
 
         #endregion 13.3 Day Wise Month Wise Income/Expense Patient Count

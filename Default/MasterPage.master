@@ -304,15 +304,15 @@
                                     </li>
                                     <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Master/MST_Student/MST_StudentList.aspx") %>' class="nav-link ">
-                                            <span class="title">Student Mast  <li class="nav-item  ">
+                                            <span class="title">Student Master</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Master/MST_Student/MST_BranchIntake.aspx") %>' class="nav-link ">
                                             <span class="title">Branch Intake</span>
                                         </a>
-                                    </li>er</span>
-                                        </a>
                                     </li>
-                                   
-                                   
+
                                     <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Master/MST_ExpenseType/MST_ExpenseTypeList.aspx") %>' class="nav-link ">
                                             <span class="title">Expense Type</span>

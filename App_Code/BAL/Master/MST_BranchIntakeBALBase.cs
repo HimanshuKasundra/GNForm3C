@@ -45,30 +45,16 @@ namespace GNForm3C
             return dalMST_BranchIntake.GetBranchIntakeData();
         }
 
-        public DataSet GetBranchIntakeDataWithYears()
-        {
-            MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
 
-            return dalMST_BranchIntake.GetBranchIntakeDataWithYears();
-        }
         #endregion Select BranchIntake Data
 
         #region Insert/Update Intake DATA
-        //public void SaveBranchIntakeData(string branch, int year2022, int year2023, int year2024)
-        //{
-        //    MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
-        //    dalMST_BranchIntake.SaveBranchIntakeData(branch, 2022, year2022);
-        //    dalMST_BranchIntake.SaveBranchIntakeData(branch, 2023, year2023);
-        //    dalMST_BranchIntake.SaveBranchIntakeData(branch, 2024, year2024);
-        //}
-        public void SaveBranchIntakeData(string branch, Dictionary<int, int> yearIntakeData)
+        public void SaveBranchIntakeData(string branch, int year2022, int year2023, int year2024)
         {
             MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
-
-            foreach (var yearIntake in yearIntakeData)
-            {
-                dalMST_BranchIntake.SaveBranchIntakeData(branch, yearIntake.Key, yearIntake.Value);
-            }
+            dalMST_BranchIntake.SaveBranchIntakeData(branch, 2022, year2022);
+            dalMST_BranchIntake.SaveBranchIntakeData(branch, 2023, year2023);
+            dalMST_BranchIntake.SaveBranchIntakeData(branch, 2024, year2024);
         }
 
 
@@ -83,5 +69,8 @@ namespace GNForm3C
         }
 
         #endregion Delete BranchIntake Data
+
+       
+
     }
 }

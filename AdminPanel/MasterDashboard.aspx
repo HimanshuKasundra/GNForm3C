@@ -26,7 +26,7 @@
     <asp:UpdatePanel ID="upMasterDashboard" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnShow" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="ddlHospitalID"  />
+            <asp:AsyncPostBackTrigger ControlID="ddlHospitalID" />
 
         </Triggers>
         <ContentTemplate>
@@ -121,7 +121,7 @@
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <a class="dashboard-stat dashboard-stat-v2 green" href="Account/ACC_Income/ACC_IncomeList.aspx">
+                                        <a class="dashboard-stat dashboard-stat-v2 green" href="<%= "Account/ACC_Income/ACC_IncomeList.aspx?HospitalID="+ GNForm3C.CommonFunctions.EncryptBase64(ddlHospitalID.SelectedValue.ToString()) + "&FinYearID=" + GNForm3C.CommonFunctions.EncryptBase64(ddlFinYearID.SelectedValue.ToString())%>">
                                             <div class="visual">
                                                 <i class="fa fa-comments"></i>
                                             </div>
@@ -134,7 +134,7 @@
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <a class="dashboard-stat dashboard-stat-v2 red" href="Account/ACC_Expense/ACC_ExpenseList.aspx">
+                                        <a class="dashboard-stat dashboard-stat-v2 red" href="<%= "Account/ACC_Expense/ACC_ExpenseList.aspx?HospitalID="+ GNForm3C.CommonFunctions.EncryptBase64(ddlHospitalID.SelectedValue.ToString()) + "&FinYearID=" + GNForm3C.CommonFunctions.EncryptBase64(ddlFinYearID.SelectedValue.ToString())%>">
                                             <div class="visual">
                                                 <i class="fa fa-list"></i>
                                             </div>
@@ -147,7 +147,7 @@
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <a class="dashboard-stat dashboard-stat-v2 blue" href="Account/ACC_Transaction/ACC_TransactionList.aspx">
+                                        <a class="dashboard-stat dashboard-stat-v2 blue" href="<%= "Account/ACC_Transaction/ACC_TransactionList.aspx?HospitalID="+ GNForm3C.CommonFunctions.EncryptBase64(ddlHospitalID.SelectedValue.ToString()) + "&FinYearID=" + GNForm3C.CommonFunctions.EncryptBase64(ddlFinYearID.SelectedValue.ToString())%>">
                                             <div class="visual">
                                                 <i class="fa fa-globe"></i>
                                             </div>
@@ -372,7 +372,7 @@
                                         <div class="TRDark" style="text-align: center; font-weight: bold;">Date</div>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Day") %>'></asp:Label>
+                                        <asp:Label ID="lblDate" runat="server" Text='<%# Eval("Date") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:TemplateField>
@@ -538,50 +538,43 @@
                     </div>
                     <div class="portlet-body">
                         <asp:Label ID="lblNoPatientsRecords" runat="server" Text="No Treatment Summary Records Found" Visible="false" CssClass="text-danger" />
-                        <asp:GridView ID="TreatmentWiseSummary" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-hover" ShowFooter="false">
-                            <Columns>
-                                <asp:TemplateField>
-                                    <HeaderStyle CssClass="TRDark" />
-                                    <HeaderTemplate>
-                                        <div style="text-align: center; font-weight: bold;">Sr.</div>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
+                        <asp:Repeater ID="TreatmentWiseSummaryRepeater" runat="server">
+                            <HeaderTemplate>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr class="TRDark">
+                                            <th style="text-align: center; font-weight: bold;">Sr.</th>
+                                            <th style="text-align: center; font-weight: bold;">Treatment Type</th>
+                                            <th style="text-align: center; font-weight: bold;">Patients Count</th>
+                                            <th style="text-align: right; font-weight: bold;">Income Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td style="text-align: center;">
                                         <asp:Label ID="lblSerialNo" runat="server" Text='<%# Eval("SerialNo") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" />
-                                </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <HeaderStyle CssClass="TRDark" />
-                                    <HeaderTemplate>
-                                        <div style="text-align: center; font-weight: bold;">Treatment Type</div>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
+                                    </td>
+                                    <td style="text-align: center;">
                                         <asp:Label ID="lblTreatmentType" runat="server" Text='<%# Eval("TreatmentType") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" />
-                                </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <HeaderStyle CssClass="TRDark" />
-                                    <HeaderTemplate>
-                                        <div style="text-align: center; font-weight: bold;">Patients Count</div>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblPatientsCount" runat="server" Text='<%# Eval("PatientsCount") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" />
-                                </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <HeaderStyle CssClass="TRDark" />
-                                    <HeaderTemplate>
-                                        <div style="text-align: right; font-weight: bold;">Income Amount</div>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
+                                    </td>
+                                    <td style="text-align: center;">
+
+                                        <asp:HyperLink ID="hlPatientCount" SkinID="hlGreen_Grid" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Transaction/ACC_TransactionList.aspx?HospitalID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("HospitalID").ToString()) +"&FinYearID="+GNForm3C.CommonFunctions.EncryptBase64(Eval("FinYearID").ToString())  +"&TreatmentID="+GNForm3C.CommonFunctions.EncryptBase64(Eval("TreatmentID").ToString())  %>' Text='<%# Eval("PatientsCount") %>' runat="server"></asp:HyperLink>
+
+                                    </td>
+                                    <td style="text-align: right;">
                                         <asp:Label ID="lblIncomesAmount" runat="server" Text='<%# Eval("IncomesAmount", "{0:C}") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Right" />
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                </tbody>
+                             </table>
+                            </FooterTemplate>
+                        </asp:Repeater>
+
                     </div>
                 </div>
                 <!-- END RESULTS TABLE -->

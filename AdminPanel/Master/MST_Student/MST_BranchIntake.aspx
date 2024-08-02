@@ -31,7 +31,7 @@
     <!--Help Text End-->
 
     <asp:ScriptManager ID="sm" runat="server"></asp:ScriptManager>
-
+    <asp:HiddenField ID="hfHeaders" runat="server" />
     <%-- List --%>
     <asp:UpdatePanel ID="upList" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -55,31 +55,36 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div id="TableContent">
-                                        <table class="table table-bordered table-advanced table-striped table-hover" id="sample_1">
+                                        <table class="table table-bordered table-advanced table-striped " id="tblIncomeList">
+                                            <%-- Table Header --%>
                                             <thead>
                                                 <tr class="TRDark">
-                                                    <th style="text-align: center;">Branch</th>
-                                                    <th style="text-align: center;">2022</th>
-                                                    <th style="text-align: center;">2023</th>
-                                                    <th style="text-align: center;">2024</th>
+                                                    <asp:Repeater ID="rpAddmissionYearHead" runat="server">
+                                                        <ItemTemplate>
+                                                            <th class="text-center">
+                                                                <asp:Label ID="lblMonth" runat="server" Text='<%#Container.DataItem %>'></asp:Label>
+                                                            </th>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+
                                                 </tr>
                                             </thead>
+                                            <%-- END Table Header --%>
+
                                             <tbody>
-                                                <asp:Repeater ID="rptBranches" runat="server">
+                                                <asp:Repeater ID="rpIntakeData" runat="server" OnItemDataBound="rpIntake_ItemDataBound">
                                                     <ItemTemplate>
-                                                        <tr class="odd gradeX">
-                                                            <td style="text-align: center;">
-                                                                <asp:Label ID="lblBranch" runat="server" Text='<%# Eval("Branch") %>'></asp:Label>
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <%# Eval("Branch") %>
                                                             </td>
-                                                            <td style="text-align: center;">
-                                                                <asp:TextBox ID="txt2022" runat="server" Text='<%# Eval("Intake2022") %>' CssClass="form-control"></asp:TextBox>
-                                                            </td>
-                                                            <td style="text-align: center;">
-                                                                <asp:TextBox ID="txt2023" runat="server" Text='<%# Eval("Intake2023") %>' CssClass="form-control"></asp:TextBox>
-                                                            </td>
-                                                            <td style="text-align: center;">
-                                                                <asp:TextBox ID="txt2024" runat="server" Text='<%# Eval("Intake2024") %>' CssClass="form-control"></asp:TextBox>
-                                                            </td>
+                                                            <asp:Repeater ID="rpAddmissionYearBody" runat="server">
+                                                                <ItemTemplate>
+                                                                    <td class="text-right">
+                                                                        <asp:TextBox ID="txtIntake" CssClass="form-control" runat="server" value='<%#  DataBinder.Eval( (((RepeaterItem)Container.Parent.Parent).DataItem),Container.DataItem.ToString()) %>' onkeypress="return IsPositiveInteger(event)" PlaceHolder="Enter Intake"></asp:TextBox>
+                                                                    </td>
+                                                                </ItemTemplate>
+                                                            </asp:Repeater>
                                                         </tr>
                                                     </ItemTemplate>
                                                 </asp:Repeater>
@@ -90,8 +95,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 text-right">
-                                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" />
-                                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn btn-secondary" />
+                                    <%--<asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" />--%>
+                                    <%--<asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn btn-secondary" />--%>
                                 </div>
                             </div>
                         </div>
@@ -101,8 +106,8 @@
             </div>
         </ContentTemplate>
         <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="btnClear" EventName="Click" />
+            <%--<asp:AsyncPostBackTrigger ControlID="btnSave_Click" EventName="Click" />--%>
+            <%--<asp:AsyncPostBackTrigger ControlID="btnClear" EventName="Click" />--%>
         </Triggers>
     </asp:UpdatePanel>
     <%-- END List --%>

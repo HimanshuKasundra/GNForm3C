@@ -49,10 +49,17 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
 
             #endregion 12.2 Set Default Value
 
+            if (Request.QueryString["HospitalID"] != null && Request.QueryString["FinYearID"] != null)
+            {
+                ddlHospitalID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]).ToString();
+                ddlFinYearID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]).ToString();
+                ddlHospitalIDChanged();
+            }
+
             Search(1);
 
             #region 12.3 Set Help Text
-                ucHelp.ShowHelp("Help Text will be shown here");
+            ucHelp.ShowHelp("Help Text will be shown here");
             #endregion 12.3 Set Help Text
         }
     }
@@ -116,20 +123,55 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
 
         #region Gather Data
 
-        if (ddlIncomeTypeID.SelectedIndex > 0)
-            IncomeTypeID = Convert.ToInt32(ddlIncomeTypeID.SelectedValue);
+        #region NavigateLogic
+        if (Request.QueryString["HospitalID"] != null && Request.QueryString["FinYearID"] != null)
+        {
+            if (!Page.IsPostBack)
+            {
+                HospitalID = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]);
+                FinYearID = CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]);
+            }
+            else
+            {
+                if (ddlIncomeTypeID.SelectedIndex > 0)
+                    IncomeTypeID = Convert.ToInt32(ddlIncomeTypeID.SelectedValue);
 
-        if (txtAmount.Text.Trim() != String.Empty)
-            Amount = Convert.ToDecimal(txtAmount.Text.Trim());
+                if (ddlHospitalID.SelectedIndex > 0)
+                    HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
 
-        if (dtpIncomeDate.Text.Trim() != String.Empty)
-            IncomeDate = Convert.ToDateTime(dtpIncomeDate.Text.Trim());
+                if (txtAmount.Text.Trim() != String.Empty)
+                    Amount = Convert.ToDecimal(txtAmount.Text.Trim());
 
-        if (ddlHospitalID.SelectedIndex > 0)
-            HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+                if (dtpIncomeDate.Text.Trim() != String.Empty)
+                    IncomeDate = Convert.ToDateTime(dtpIncomeDate.Text.Trim());
 
-        if (ddlFinYearID.SelectedIndex > 0)
-            FinYearID = Convert.ToInt32(ddlFinYearID.SelectedValue);
+                if (ddlHospitalID.SelectedIndex > 0)
+                    HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+
+                
+            }
+        }
+        else
+        {
+
+            if (ddlIncomeTypeID.SelectedIndex > 0)
+                IncomeTypeID = Convert.ToInt32(ddlIncomeTypeID.SelectedValue);
+
+            if (ddlHospitalID.SelectedIndex > 0)
+                HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+
+            if (txtAmount.Text.Trim() != String.Empty)
+                Amount = Convert.ToDecimal(txtAmount.Text.Trim());
+
+            if (dtpIncomeDate.Text.Trim() != String.Empty)
+                IncomeDate = Convert.ToDateTime(dtpIncomeDate.Text.Trim());
+
+            if (ddlHospitalID.SelectedIndex > 0)
+                HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+
+
+        }
+        #endregion NavigateLogic
 
 
         #endregion Gather Data
@@ -199,7 +241,7 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
             CommonFunctions.BindPageList(0, 0, PageNo, PageDisplaySize, DisplayIndex, rpPagination, liPrevious, lbtnPrevious, liFirstPage, lbtnFirstPage, liNext, lbtnNext, liLastPage, lbtnLastPage);
 
 
-             ucMessage.ShowError(CommonMessage.NoRecordFound());
+            ucMessage.ShowError(CommonMessage.NoRecordFound());
         }
     }
 
@@ -237,7 +279,7 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
             }
             catch (Exception ex)
             {
-                 ucMessage.ShowError(ex.Message.ToString());
+                ucMessage.ShowError(ex.Message.ToString());
             }
         }
     }
@@ -423,6 +465,11 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
     #region 23.0 Fill Finyear Dropdown From Hopital
     protected void ddlHospitalID_SelectedIndexChanged(object sender, EventArgs e)
     {
+        ddlHospitalIDChanged();
+    }
+
+    private void ddlHospitalIDChanged()
+    {
         if (ddlHospitalID.SelectedIndex > 0)
         {
             ddlIncomeTypeID.SelectedIndex = 0;
@@ -441,6 +488,7 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
 
         }
     }
+
     #endregion 23.0 Fill Finyear Dropdown From Hopital
 
     #region 24.0 Fill IncomeType Dropdown From Finyear
@@ -539,5 +587,7 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
     }
     #endregion
 
+  
+    
 
 }
