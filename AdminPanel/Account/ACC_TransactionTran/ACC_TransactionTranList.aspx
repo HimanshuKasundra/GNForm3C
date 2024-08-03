@@ -182,9 +182,9 @@
                                             <%-- Table Header --%>
                                             <thead>
                                                 <tr class="TRDark">
-                                                    <th><asp:Label ID="lbhTransactionID" runat="server" Text="Transaction"></asp:Label>
+                                                    <th><asp:Label ID="lbhTransactionID" runat="server" Text="Patient"></asp:Label>
                                                     </th>
-                                                     <th><asp:Label ID="Label1" runat="server" Text="Patient"></asp:Label>
+                                                     <th><asp:Label ID="Label1" runat="server" Text="Treatment"></asp:Label>
                                                     </th>
                                                     <th><asp:Label ID="lbhSubTreatmentID" runat="server" Text="Sub Treatment"></asp:Label>
                                                     </th>
@@ -212,7 +212,7 @@
                                                             <asp:HyperLink ID="hlViewTransactionTranID" NavigateUrl='<%# "~/AdminPanel/Account/ACC_TransactionTran/ACC_TransactionTranView.aspx?TransactionTranID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionTranID").ToString()) %>' data-target="#viewiFrameReg" CssClass="modalButton" data-toggle="modal" runat="server"><%#Eval("Patient") %></asp:HyperLink>
                                                             </td>
                                                               <td>
-                                                            	<%#Eval("Patient") %>
+                                                            	<%#Eval("TreatmentName") %>
                                                             </td>
                                                             <td>
                                                             	<%#Eval("SubTreatmentName") %>

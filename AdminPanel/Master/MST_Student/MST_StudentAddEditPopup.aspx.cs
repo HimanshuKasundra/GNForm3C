@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.Web.UI.Page
+public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : System.Web.UI.Page
 {
     #region 10.0 Local Variables 
 
@@ -41,8 +41,7 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
 
             #region 11.4 Set Control Default Value 
 
-            //lblFormHeader.Text = CV.PageHeaderAdd + " Student ";
-            //upr.DisplayAfter = CV.UpdateProgressDisplayAfter;
+            lblFormHeader.Text = CV.PageHeaderAdd + " Student";
             txtStudentName.Focus();
 
             #endregion 11.4 Set Control Default Value 
@@ -53,11 +52,7 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
 
             #endregion 11.5 Fill Controls 
 
-            #region 11.6 Set Help Text 
 
-            //ucHelp.ShowHelp("Help Text will be shown here");
-
-            #endregion 11.6 Set Help Text 
 
         }
     }
@@ -76,9 +71,8 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
 
     private void FillDropDownList()
     {
-        CommonFillMethods.FillDropDownListGender(ddlGender);
         CommonFillMethods.FillDropDownListCurrentSem(ddlCurrentSem);
-
+        CommonFillMethods.FillDropDownListGender(ddlGender);
     }
 
     #endregion 13.0 Fill DropDownList
@@ -89,19 +83,16 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
     {
         if (Request.QueryString["StudentID"] != null)
         {
-            //lblFormHeader.Text = CV.PageHeaderEdit + " Student ";
-            MST_StudentBAL balMST_StudentBAL = new MST_StudentBAL();
+            lblFormHeader.Text = CV.PageHeaderEdit + " Student";
+            MST_StudentBAL balMST_Student = new MST_StudentBAL();
             MST_StudentENT entMST_Student = new MST_StudentENT();
-            entMST_Student = balMST_StudentBAL.SelectPK(CommonFunctions.DecryptBase64Int32(Request.QueryString["StudentID"]));
+            entMST_Student = balMST_Student.SelectPK(CommonFunctions.DecryptBase64Int32(Request.QueryString["StudentID"]));
 
             if (!entMST_Student.StudentName.IsNull)
                 txtStudentName.Text = entMST_Student.StudentName.Value.ToString();
 
             if (!entMST_Student.EnrollmentNo.IsNull)
                 txtEnrollmentNo.Text = entMST_Student.EnrollmentNo.Value.ToString();
-
-            if (!entMST_Student.RollNo.IsNull)
-                txtRollNo.Text = entMST_Student.RollNo.ToString();
 
             if (!entMST_Student.CurrentSem.IsNull)
                 ddlCurrentSem.SelectedValue = entMST_Student.CurrentSem.Value.ToString();
@@ -112,15 +103,17 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
             if (!entMST_Student.EmailPersonal.IsNull)
                 txtEmailPersonal.Text = entMST_Student.EmailPersonal.Value.ToString();
 
+            if (!entMST_Student.Gender.IsNull)
+                ddlGender.SelectedValue = entMST_Student.Gender.Value.ToString();
+
+            if (!entMST_Student.RollNo.IsNull)
+                txtRollNo.Text = entMST_Student.RollNo.Value.ToString();
+
             if (!entMST_Student.BirthDate.IsNull)
-                dtpBirthDate.Text = entMST_Student.BirthDate.Value.ToString();
+                dtpBirthDate.Text = entMST_Student.BirthDate.Value.ToString(CV.DefaultDateFormat);
 
             if (!entMST_Student.ContactNo.IsNull)
                 txtContactNo.Text = entMST_Student.ContactNo.Value.ToString();
-
-            if (!entMST_Student.Gender.IsNull)
-                ddlGender.Text = entMST_Student.Gender.Value.ToString();
-
         }
     }
 
@@ -144,26 +137,31 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
                 if (txtStudentName.Text.Trim() == String.Empty)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Student Name");
                 if (txtEnrollmentNo.Text.Trim() == String.Empty)
-                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Enrollmentno");
-
+                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Enrollment No");
                 if (ddlCurrentSem.SelectedIndex == 0)
-                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Current Sem ");
-
+                    ErrorMsg += " - " + CommonMessage.ErrorRequiredFieldDDL("Current Sem");
                 if (txtEmailPersonal.Text.Trim() == String.Empty)
-                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Personal Email");
-                if (dtpBirthDate.Text.Trim() == String.Empty)
-                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Birth Date");
-                if (txtContactNo.Text.Trim() == String.Empty)
-                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("ContactNo");
-                if (dtpBirthDate.Text.Trim() == String.Empty)
-                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Birth Date");
+                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Email Personal");
                 if (ddlGender.SelectedIndex == 0)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredFieldDDL("Gender");
+                if (txtContactNo.Text.Trim() == String.Empty)
+                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Contact No");
+                if (dtpBirthDate.Text.Trim() == String.Empty)
+                    ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Birth Date");
+
 
                 if (ErrorMsg != String.Empty)
                 {
                     ErrorMsg = CommonMessage.ErrorPleaseCorrectFollowing() + ErrorMsg;
                     ucMessage.ShowError(ErrorMsg);
+
+                    // Set the data-target attribute dynamically
+                    btnSave.Attributes["data-target"] = "#view";
+                    btnSave.Attributes["data-toggle"] = "modal";
+
+                    // Use JavaScript to show the modal again
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "MasterPageView", "$('#view').modal('show');", true);
+
                     return;
                 }
 
@@ -178,32 +176,26 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
                 if (txtEnrollmentNo.Text.Trim() != String.Empty)
                     entMST_Student.EnrollmentNo = txtEnrollmentNo.Text.Trim();
 
-                if (txtEnrollmentNo.Text.Trim() != String.Empty)
-                    entMST_Student.EnrollmentNo = txtEnrollmentNo.Text.Trim();
-
-                if (txtRollNo.Text.Trim() != String.Empty)
-                    entMST_Student.RollNo = Convert.ToInt32(txtRollNo.Text.Trim());
+                if (ddlCurrentSem.SelectedIndex > 0)
+                    entMST_Student.CurrentSem = Convert.ToInt32(ddlCurrentSem.SelectedValue);
 
                 if (txtEmailInstitute.Text.Trim() != String.Empty)
                     entMST_Student.EmailInstitute = txtEmailInstitute.Text.Trim();
 
                 if (txtEmailPersonal.Text.Trim() != String.Empty)
                     entMST_Student.EmailPersonal = txtEmailPersonal.Text.Trim();
+                
+                if (ddlGender.SelectedIndex > 0)
+                    entMST_Student.Gender = ddlGender.SelectedValue.Trim();
 
                 if (dtpBirthDate.Text.Trim() != String.Empty)
                     entMST_Student.BirthDate = Convert.ToDateTime(dtpBirthDate.Text.Trim());
-
+                if (txtRollNo.Text.Trim() != String.Empty)
+                    entMST_Student.RollNo = Convert.ToInt32(txtRollNo.Text.Trim());
                 if (txtContactNo.Text.Trim() != String.Empty)
                     entMST_Student.ContactNo = txtContactNo.Text.Trim();
 
-                if (txtEnrollmentNo.Text.Trim() != String.Empty)
-                    entMST_Student.EnrollmentNo = txtEnrollmentNo.Text.Trim();
 
-                if (ddlCurrentSem.SelectedIndex > 0)
-                    entMST_Student.CurrentSem = Convert.ToInt32(ddlCurrentSem.SelectedValue);
-
-                if (ddlGender.SelectedIndex > 0)
-                    entMST_Student.Gender = ddlGender.SelectedValue.ToString();
 
                 entMST_Student.UserID = Convert.ToInt32(Session["UserID"]);
 
@@ -222,13 +214,18 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
                     entMST_Student.StudentID = CommonFunctions.DecryptBase64Int32(Request.QueryString["StudentID"]);
                     if (balMST_Student.Update(entMST_Student))
                     {
-                        Response.Redirect("MST_StudentList.aspx");
+                        // Use Response.Redirect with endResponse set to false
+                        Response.Redirect("MST_StudentList.aspx", false);
+
+                        // Complete the request
+                        Context.ApplicationInstance.CompleteRequest();
                     }
                     else
                     {
                         ucMessage.ShowError(balMST_Student.Message);
                     }
                 }
+
                 else
                 {
                     if (Request.QueryString["StudentID"] == null || Request.QueryString["Copy"] != null)
@@ -237,6 +234,7 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
                         {
                             ucMessage.ShowSuccess(CommonMessage.RecordSaved());
                             ClearControls();
+                            Response.Redirect("MST_StudentList.aspx");
                         }
                     }
                 }
@@ -260,15 +258,15 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentEditAdd : System.W
         txtStudentName.Text = String.Empty;
         txtEnrollmentNo.Text = String.Empty;
         ddlCurrentSem.SelectedIndex = 0;
-        ddlGender.SelectedIndex = 0;
-
-        txtRollNo.Text = String.Empty;
         txtEmailInstitute.Text = String.Empty;
         txtEmailPersonal.Text = String.Empty;
-        dtpBirthDate.Text = String.Empty;
+        ddlGender.SelectedIndex = 0;
+        txtRollNo.Text = String.Empty;
         txtContactNo.Text = String.Empty;
+        dtpBirthDate.Text = String.Empty;
         txtStudentName.Focus();
     }
 
     #endregion 16.0 Clear Controls 
+
 }
