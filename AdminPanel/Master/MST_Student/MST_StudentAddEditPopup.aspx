@@ -1,36 +1,28 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default/MasterPageView.master" AutoEventWireup="true" CodeFile="MST_StudentAddEditPopup.aspx.cs" Inherits="AdminPanel_Master_MST_Student_MST_StudentAddEditPopup" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="cphPageContent" runat="Server">
-    <asp:ScriptManager ID="sm" runat="server">
-    </asp:ScriptManager>
-    <asp:UpdatePanel ID="upSTU_Student" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
 
+<asp:Content ID="Content2" ContentPlaceHolderID="cphPageContent" runat="Server">
+    <asp:ScriptManager ID="sm" runat="server" />
+    <asp:UpdatePanel ID="upSTU_Student" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <contenttemplate>
 
             <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <asp:Label ID="lblFormHeader" runat="server" Text=""></asp:Label>
+                    </div>
+                    <div class="tools">
+                        <a id="CloseButton" href="javascript:void(0);" class="close" onclick="hideModal();"></a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <ucMessage:ShowMessage ID="ucMessage" runat="server" />
                         <asp:ValidationSummary ID="ValidationSummary1" SkinID="VS" runat="server" />
                     </div>
                 </div>
-
-                <div class="portlet-title">
-                    <div class="caption">
-                        <asp:Label SkinID="lblFormHeaderIcon" ID="lblFormHeaderIcon" runat="server"></asp:Label>
-                        <span class="caption-subject font-green-sharp bold uppercase">
-                            <asp:Label ID="lblFormHeader" runat="server" Text=""></asp:Label>
-                        </span>
-                    </div>
-                    <div class="tools">
-                        <asp:HyperLink ID="CloseButton" SkinID="hlClosemymodal" runat="server" ClientIDMode="Static"></asp:HyperLink>
-                    </div>
-                </div>
-
-
                 <div class="portlet-body form">
                     <div class="form-horizontal" role="form">
                         <div class="form-body">
@@ -41,6 +33,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     <asp:TextBox ID="txtStudentName" CssClass="form-control" runat="server" PlaceHolder="Enter Student Name"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvStudentName" ControlToValidate="txtStudentName" Display="Dynamic" runat="server" ErrorMessage="Enter Student Name" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -50,6 +43,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     <asp:TextBox ID="txtEnrollmentNo" CssClass="form-control" runat="server" PlaceHolder="Enter Enrollment No"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvEnrollmentNo" ControlToValidate="txtEnrollmentNo" Display="Dynamic" runat="server" ErrorMessage="Enter Enrollment No" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -59,6 +53,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     <asp:DropDownList ID="ddlCurrentSem" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvCurrentSem" ControlToValidate="ddlCurrentSem" Display="Dynamic" runat="server" ErrorMessage="Select Current Sem" InitialValue="-99" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -76,6 +71,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     <asp:TextBox ID="txtEmailPersonal" CssClass="form-control" runat="server" PlaceHolder="Enter Email Personal"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvEmailPersonal" ControlToValidate="txtEmailPersonal" Display="Dynamic" runat="server" ErrorMessage="Enter Email Personal" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -85,6 +81,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     <asp:DropDownList ID="ddlGender" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvGender" ControlToValidate="ddlGender" Display="Dynamic" runat="server" ErrorMessage="Select Gender" InitialValue="-99" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -107,6 +104,7 @@
                                             <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
                                     </div>
+                                    <asp:RequiredFieldValidator ID="rfvBirthDate" ControlToValidate="dtpBirthDate" Display="Dynamic" runat="server" ErrorMessage="Enter Birth Date" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -116,14 +114,15 @@
                                 </label>
                                 <div class="col-md-5">
                                     <asp:TextBox ID="txtContactNo" CssClass="form-control" runat="server" PlaceHolder="Enter Contact No"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvContactNo" ControlToValidate="txtContactNo" Display="Dynamic" runat="server" ErrorMessage="Enter Contact No" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <asp:Button ID="btnSave" runat="server" SkinID="btnSave" OnClick="btnSave_Click" />
-                                    <asp:HyperLink ID="hlCancel" runat="server" SkinID="hlCancel" NavigateUrl="~/AdminPanel/Master/MST_Student/MST_StudentList.aspx"></asp:HyperLink>
+                                    <asp:Button ID="btnSave" SkinID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" />
+                                    <asp:HyperLink ID="hlCancel" SkinID="hlCancel" runat="server" NavigateUrl="~/AdminPanel/Master/MST_Student/MST_StudentList.aspx" Text="Cancel"></asp:HyperLink>
                                 </div>
                             </div>
                         </div>
@@ -132,14 +131,26 @@
             </div>
         </contenttemplate>
     </asp:UpdatePanel>
-
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="cphScripts" runat="Server">
     <script>
+        function showModal() {
+            $('#view').modal('show');
+        }
+
+        function hideModal() {
+            $('#view').modal('hide');
+        }
+
+        $(document).ready(function () {
+            // Initialize modal visibility
+            showModal();
+        });
+
         $(document).keyup(function (e) {
             if (e.keyCode == 27) {
-                ;
-                $("#CloseButton").trigger("click");
+                hideModal();
             }
         });
     </script>

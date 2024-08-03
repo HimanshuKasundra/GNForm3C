@@ -1,5 +1,6 @@
 ﻿using GNForm3C;
 using System;
+using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -160,7 +161,7 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : Sys
                     btnSave.Attributes["data-toggle"] = "modal";
 
                     // Use JavaScript to show the modal again
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "MasterPageView", "$('#view').modal('show');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "MasterPageView", "$('#view').modal('show');", true);
 
                     return;
                 }
@@ -184,7 +185,7 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : Sys
 
                 if (txtEmailPersonal.Text.Trim() != String.Empty)
                     entMST_Student.EmailPersonal = txtEmailPersonal.Text.Trim();
-                
+
                 if (ddlGender.SelectedIndex > 0)
                     entMST_Student.Gender = ddlGender.SelectedValue.Trim();
 
@@ -223,6 +224,8 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : Sys
                     else
                     {
                         ucMessage.ShowError(balMST_Student.Message);
+
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", "$('#view').modal('show');", true);
                     }
                 }
 
@@ -235,6 +238,14 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : Sys
                             ucMessage.ShowSuccess(CommonMessage.RecordSaved());
                             ClearControls();
                             Response.Redirect("MST_StudentList.aspx");
+                            Context.ApplicationInstance.CompleteRequest();
+
+                        }
+                        else
+                        {
+                            ucMessage.ShowError(balMST_Student.Message);
+
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", "$('#view').modal('show');", true);
                         }
                     }
                 }
@@ -245,9 +256,13 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : Sys
             catch (Exception ex)
             {
                 ucMessage.ShowError(ex.Message);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", "$('#view').modal('show');", true);
+
             }
         }
+
     }
+
 
     #endregion 15.0 Save Button Event 
 
@@ -268,5 +283,6 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : Sys
     }
 
     #endregion 16.0 Clear Controls 
+
 
 }
