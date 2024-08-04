@@ -114,7 +114,7 @@ namespace GNForm3C
             }
             dt.AcceptChanges();
 
-            int count = 10 - dt.Rows.Count;
+            int count = 5 - dt.Rows.Count;
             for (int i = 1; i <= count; i++)
             {
                 dt.Rows.Add();
@@ -271,27 +271,37 @@ namespace GNForm3C
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("IncomeType");
-            dt.Columns.Add("Remarks");
+            dt.Columns.Add("Amount");
+            dt.Columns.Add("Note");
+            dt.Columns.Add("IncomeDate");
+            dt.Columns.Add("FinYearID");
             dt.Columns.Add("IncomeTypeID");
+            dt.Columns.Add("IncomeID");
 
             foreach (RepeaterItem rp in rpData.Items)
             {
-                TextBox txtIncomeType = (TextBox)rp.FindControl("txtIncomeType");
-                TextBox txtRemarks = (TextBox)rp.FindControl("txtRemarks");
-                HiddenField hdIncomeTypeID = (HiddenField)rp.FindControl("hdIncomeTypeID");
+                DropDownList FinYearID = (DropDownList)rp.FindControl("ddlFinYearID");
+                DropDownList IncomeTypeID = (DropDownList)rp.FindControl("ddlIncomeTypeID");
+                TextBox txtAmount = (TextBox)rp.FindControl("txtAmount");
+                TextBox txtNote = (TextBox)rp.FindControl("txtNote");
+
+                TextBox dtpIncomeDate = (TextBox)rp.FindControl("dtpIncomeDate");
+                HiddenField hdIncomeID = (HiddenField)rp.FindControl("hdIncomeID");
 
                 DataRow dr = dt.NewRow();
-                dr["IncomeType"] = txtIncomeType.Text.Trim();
-                dr["Remarks"] = txtRemarks.Text.Trim();
-                dr["IncomeTypeID"] = hdIncomeTypeID.Value.ToString();
+                dr["Amount"] = txtAmount.Text.Trim();
+                dr["Note"] = txtNote.Text.Trim();
+                dr["IncomeDate"] = dtpIncomeDate.Text.Trim();
+                dr["FinYearID"] = FinYearID.SelectedValue;
+                dr["IncomeTypeID"] = IncomeTypeID.SelectedValue;
+                dr["IncomeId"] = hdIncomeID.Value.ToString();
 
                 dt.Rows.Add(dr);
             }
             int count = 0;
             foreach (DataRow dr in dt.Rows)
             {
-                if (dr["IncomeType"].ToString() != String.Empty)
+                if (dr["Amount"].ToString() != String.Empty)
                     count++;
             }
             if (count == dt.Rows.Count)

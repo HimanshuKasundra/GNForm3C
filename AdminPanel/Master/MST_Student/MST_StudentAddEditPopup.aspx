@@ -2,27 +2,33 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="cphPageContent" runat="Server">
-    <asp:ScriptManager ID="sm" runat="server" />
-    <asp:UpdatePanel ID="upSTU_Student" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
+    <asp:ScriptManager ID="sm" runat="server">
+    </asp:ScriptManager>
+    <asp:UpdatePanel ID="upSTU_Student" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
+        
         <contenttemplate>
+            <div class="row">
+                <div class="col-md-12">
+                    <ucMessage:ShowMessage ID="ucMessage" runat="server" />
+                    <asp:ValidationSummary ID="ValidationSummary1" SkinID="VS" runat="server" />
+                </div>
+            </div>
 
             <div class="portlet light">
                 <div class="portlet-title">
                     <div class="caption">
-                        <asp:Label ID="lblFormHeader" runat="server" Text=""></asp:Label>
+                        <asp:Label SkinID="lblFormHeaderIcon" ID="lblFormHeaderIcon" runat="server"></asp:Label>
+                        <span class="caption-subject font-green-sharp bold uppercase">
+                            <asp:Label ID="lblFormHeader" runat="server" Text=""></asp:Label>
+                        </span>
                     </div>
                     <div class="tools">
-                        <a id="CloseButton" href="javascript:void(0);" class="close" onclick="hideModal();"></a>
+                        <asp:HyperLink ID="CloseButton" SkinID="hlClosemymodal" runat="server" ClientIDMode="Static"></asp:HyperLink>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <ucMessage:ShowMessage ID="ucMessage" runat="server" />
-                        <asp:ValidationSummary ID="ValidationSummary1" SkinID="VS" runat="server" />
-                    </div>
-                </div>
+
+
                 <div class="portlet-body form">
                     <div class="form-horizontal" role="form">
                         <div class="form-body">
@@ -117,12 +123,12 @@
                                     <asp:RequiredFieldValidator ID="rfvContactNo" ControlToValidate="txtContactNo" Display="Dynamic" runat="server" ErrorMessage="Enter Contact No" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
-                        </div>
+                          </div>
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <asp:Button ID="btnSave" SkinID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" />
-                                    <asp:HyperLink ID="hlCancel" SkinID="hlCancel" runat="server" NavigateUrl="~/AdminPanel/Master/MST_Student/MST_StudentList.aspx" Text="Cancel"></asp:HyperLink>
+                                    <asp:Button ID="btnSave" runat="server" SkinID="btnSave" OnClick="btnSave_Click" />
+                                    <asp:HyperLink ID="hlCancel" runat="server" SkinID="hlCancel" NavigateUrl="~/AdminPanel/Master/MST_Student/MST_StudentList.aspx"></asp:HyperLink>
                                 </div>
                             </div>
                         </div>
@@ -131,26 +137,14 @@
             </div>
         </contenttemplate>
     </asp:UpdatePanel>
+    
 </asp:Content>
-
 <asp:Content ID="Content3" ContentPlaceHolderID="cphScripts" runat="Server">
     <script>
-        function showModal() {
-            $('#view').modal('show');
-        }
-
-        function hideModal() {
-            $('#view').modal('hide');
-        }
-
-        $(document).ready(function () {
-            // Initialize modal visibility
-            showModal();
-        });
-
         $(document).keyup(function (e) {
             if (e.keyCode == 27) {
-                hideModal();
+                ;
+                $("#CloseButton").trigger("click");
             }
         });
     </script>
