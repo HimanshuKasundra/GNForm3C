@@ -1,11 +1,13 @@
 ﻿using GNForm3C;
 using GNForm3C.BAL;
 using System;
+using System.Activities.Expressions;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -228,6 +230,8 @@ public partial class AdminPanel_MasterDashboard : System.Web.UI.Page
             ItotalOct += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Oct"));
             ItotalNov += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Nov"));
             ItotalDec += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Dec"));
+
+           
         }
         else if (e.Row.RowType == DataControlRowType.Footer)
         {

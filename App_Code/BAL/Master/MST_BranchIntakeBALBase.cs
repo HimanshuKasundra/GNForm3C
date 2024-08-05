@@ -52,14 +52,27 @@ namespace GNForm3C
 
         public void SaveBranchIntakeData(string branch, Dictionary<int, int> yearIntakeData)
         {
-            MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
-
-            foreach (var entry in yearIntakeData)
+            try
             {
-                int year = entry.Key;
-                int intake = entry.Value;
+                DataTable branchIntakeTable = new DataTable();
+                branchIntakeTable.Columns.Add("Branch", typeof(string));
+                branchIntakeTable.Columns.Add("AdmissionYear", typeof(string));
+                branchIntakeTable.Columns.Add("Intake", typeof(int));
 
-                dalMST_BranchIntake.SaveBranchIntakeData(branch, year, intake);
+                foreach (var entry in yearIntakeData)
+                {
+                    branchIntakeTable.Rows.Add(branch, entry.Key.ToString(), entry.Value);
+                }
+
+                MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
+                dalMST_BranchIntake.SaveBranchIntakeData(branchIntakeTable);
+            }
+            catch (Exception ex)
+            {
+                //// Handle general exceptions
+                //Message = ExceptionMessage(ex);
+                //if (ExceptionHandler(ex))
+                    throw;
             }
         }
 

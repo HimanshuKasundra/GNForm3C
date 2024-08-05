@@ -188,16 +188,49 @@ namespace GNForm3C
             }
         }
 
-        public void SaveBranchIntakeData(string branch, int year, int intake)
+        //public void SaveBranchIntakeData(string branch, int year, int intake)
+        //{
+        //    try
+        //    {
+        //        SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+        //        DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_InsertUpdate");
+
+        //        sqlDB.AddInParameter(dbCMD, "@Branch", DbType.String, branch);
+        //        sqlDB.AddInParameter(dbCMD, "@Year", DbType.Int32, year);
+        //        sqlDB.AddInParameter(dbCMD, "@Intake", DbType.Int32, intake);
+
+        //        sqlDB.ExecuteNonQuery(dbCMD);
+        //    }
+        //    catch (SqlException sqlex)
+        //    {
+        //        Message = SQLDataExceptionMessage(sqlex);
+        //        if (SQLDataExceptionHandler(sqlex))
+        //            throw;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Message = ExceptionMessage(ex);
+        //        if (ExceptionHandler(ex))
+        //            throw;
+        //    }
+        //}
+
+        public void SaveBranchIntakeData(DataTable branchIntakeTable)
         {
             try
             {
+
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_InsertUpdate");
 
-                sqlDB.AddInParameter(dbCMD, "@Branch", DbType.String, branch);
-                sqlDB.AddInParameter(dbCMD, "@Year", DbType.Int32, year);
-                sqlDB.AddInParameter(dbCMD, "@Intake", DbType.Int32, intake);
+                SqlParameter tvpParam = new SqlParameter
+                {
+                    ParameterName = "@BranchIntakeData",
+                    SqlDbType = SqlDbType.Structured,
+                    Value = branchIntakeTable,
+                    TypeName = "dbo.BranchIntakeType"
+                };
+                dbCMD.Parameters.Add(tvpParam);
 
                 sqlDB.ExecuteNonQuery(dbCMD);
             }
@@ -214,7 +247,5 @@ namespace GNForm3C
                     throw;
             }
         }
-
-
     }
 }

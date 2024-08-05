@@ -53,7 +53,7 @@ public partial class AdminPanel_ACC_Transaction_ACC_TransactionList : System.Web
             {
                 ddlHospitalID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]).ToString();
                 ddlFinYearID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]).ToString();
-                ddlHospitalIDChanged();
+                //ddlHospitalIDChanged();
                 ddlTreatmentID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["TreatmentID"]).ToString();
             }
 
