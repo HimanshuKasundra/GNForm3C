@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphPageContent" runat="Server">
     <asp:ScriptManager ID="sm" runat="server">
     </asp:ScriptManager>
-    <asp:UpdatePanel ID="upSTU_Student" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
+    <asp:UpdatePanel ID="upMst_Student" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
         
         <contenttemplate>
             <div class="row">
@@ -38,8 +38,8 @@
                                     <asp:Label ID="lblStudentName_XXXXX" runat="server" Text="Student Name"></asp:Label>
                                 </label>
                                 <div class="col-md-5">
-                                    <asp:TextBox ID="txtStudentName" required CssClass="form-control" runat="server" PlaceHolder="Enter Student Name"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvStudentName" ControlToValidate="txtStudentName" Display="Dynamic" runat="server" ErrorMessage="Enter Student Name" ValidationGroup="vgStudent" EnableClientScript="true"></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtStudentName" CssClass="form-control" runat="server" PlaceHolder="Enter Student Name"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvStudentName" ControlToValidate="txtStudentName" Display="Dynamic" runat="server" ErrorMessage="Enter Student Name" ValidationGroup="vgStudent" EnableClientScript="true" ></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-group">

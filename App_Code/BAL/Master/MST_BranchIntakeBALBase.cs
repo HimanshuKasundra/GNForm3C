@@ -50,12 +50,13 @@ namespace GNForm3C
 
         #region Insert/Update Intake DATA
 
-        public void SaveBranchIntakeData(DataTable branchIntakeTable)
+        public bool SaveBranchIntakeData(DataTable branchIntakeTable)
         {
             try
             {
                 MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
                 dalMST_BranchIntake.SaveBranchIntakeData(branchIntakeTable);
+                return true;
             }
             catch (Exception ex)
             {
@@ -63,6 +64,7 @@ namespace GNForm3C
                 //Message = ExceptionMessage(ex);
                 //if (ExceptionHandler(ex))
                     throw;
+                return false;
             }
         }
 

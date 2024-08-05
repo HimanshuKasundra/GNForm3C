@@ -215,7 +215,7 @@ namespace GNForm3C
         //    }
         //}
 
-        public void SaveBranchIntakeData(DataTable branchIntakeTable)
+        public bool SaveBranchIntakeData(DataTable branchIntakeTable)
         {
             try
             {
@@ -232,18 +232,22 @@ namespace GNForm3C
                 dbCMD.Parameters.Add(tvpParam);
 
                 sqlDB.ExecuteNonQuery(dbCMD);
+                return true;
             }
             catch (SqlException sqlex)
             {
                 Message = SQLDataExceptionMessage(sqlex);
                 if (SQLDataExceptionHandler(sqlex))
                     throw;
+
+                return false;
             }
             catch (Exception ex)
             {
                 Message = ExceptionMessage(ex);
                 if (ExceptionHandler(ex))
                     throw;
+                return false;
             }
         }
     }

@@ -176,10 +176,16 @@ public partial class AdminPanel_Master_MST_Student_MST_BranchIntake : System.Web
                         }
                     }
                 }
-                balMST_BranchIntake.SaveBranchIntakeData(branchIntakeTable);
+                
+                if (balMST_BranchIntake.SaveBranchIntakeData(branchIntakeTable))
+                {
+                    ucMessage.ShowSuccess(CommonMessage.RecordSaved());
+                }
+                else
+                {
+                    ucMessage.ShowError(balMST_BranchIntake.Message);
+                }
 
-                // Refresh the data
-                Search(1);
 
             }
             catch (Exception ex)
