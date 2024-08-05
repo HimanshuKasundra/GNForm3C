@@ -50,20 +50,10 @@ namespace GNForm3C
 
         #region Insert/Update Intake DATA
 
-        public void SaveBranchIntakeData(string branch, Dictionary<int, int> yearIntakeData)
+        public void SaveBranchIntakeData(DataTable branchIntakeTable)
         {
             try
             {
-                DataTable branchIntakeTable = new DataTable();
-                branchIntakeTable.Columns.Add("Branch", typeof(string));
-                branchIntakeTable.Columns.Add("AdmissionYear", typeof(string));
-                branchIntakeTable.Columns.Add("Intake", typeof(int));
-
-                foreach (var entry in yearIntakeData)
-                {
-                    branchIntakeTable.Rows.Add(branch, entry.Key.ToString(), entry.Value);
-                }
-
                 MST_BranchIntakeDAL dalMST_BranchIntake = new MST_BranchIntakeDAL();
                 dalMST_BranchIntake.SaveBranchIntakeData(branchIntakeTable);
             }

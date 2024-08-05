@@ -219,7 +219,6 @@ namespace GNForm3C
         {
             try
             {
-
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_BranchIntake_InsertUpdate");
 
