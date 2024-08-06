@@ -52,49 +52,60 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-search"></i>
                                             </span>
-                                            <asp:TextBox ID="txtPatient" CssClass="First form-control" runat="server" PlaceHolder="Enter Patient"></asp:TextBox>
+                                            <asp:DropDownList ID="ddlPatientID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
+                                <%--	<div class="col-md-4">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-search"></i>
+											</span>
+									       	<asp:DropDownList ID="ddlTreatmentID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+										</div>
+									</div>
+								</div>--%>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-search"></i>
                                             </span>
-                                            <asp:DropDownList ID="ddlTreatmentID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ID="ddlReceiptTypeID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                              
+                                    <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-search"></i>
                                             </span>
-                                            <asp:TextBox ID="txtAmount" CssClass="form-control" runat="server" PlaceHolder="Enter Amount"></asp:TextBox>
+                                            <asp:DropDownList ID="ddlFinYearID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <%--	<div class="col-md-4">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-search"></i>
+											</span>
+											<asp:TextBox ID="txtSerialNo" CssClass="form-control" runat="server"  PlaceHolder="Enter Serial No"></asp:TextBox>
+										</div>
+									</div>
+								</div>--%>
+                               <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-search"></i>
                                             </span>
-                                            <asp:TextBox ID="txtSerialNo" CssClass="form-control" runat="server" PlaceHolder="Enter Serial No"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                            <asp:TextBox ID="txtReferenceDoctor" CssClass="form-control" runat="server" PlaceHolder="Enter Reference Doctor"></asp:TextBox>
+                                            <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
@@ -105,6 +116,16 @@
                                                 <i class="fa fa-search"></i>
                                             </span>
                                             <asp:TextBox ID="txtCount" CssClass="form-control" runat="server" PlaceHolder="Enter Count"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-search"></i>
+                                            </span>
+                                            <asp:TextBox ID="txtAmount" CssClass="form-control" runat="server" PlaceHolder="Enter Amount"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -184,39 +205,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                
+                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-search"></i>
                                             </span>
-                                            <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                            <asp:TextBox ID="txtReferenceDoctor" CssClass="form-control" runat="server" PlaceHolder="Enter Reference Doctor"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                            <asp:DropDownList ID="ddlFinYearID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
-                                        </div>
-                                    </div>
-                                </div>
+                            
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                            <asp:DropDownList ID="ddlReceiptTypeID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%--<div class="row">
+							
+							</div>--%>
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -284,15 +288,13 @@
                                                     <th>
                                                         <asp:Label ID="lbhPatient" runat="server" Text="Patient"></asp:Label>
                                                     </th>
-                                                    <th>
-                                                        <asp:Label ID="lbhTreatmentID" runat="server" Text="Treatment"></asp:Label>
-                                                    </th>
+                                                    <%--   <th><asp:Label ID="lbhTreatmentID" runat="server" Text="Treatment"></asp:Label>
+                                                    </th>--%>
                                                     <th>
                                                         <asp:Label ID="lbhAmount" runat="server" Text="Amount"></asp:Label>
                                                     </th>
-                                                    <th>
-                                                        <asp:Label ID="lbhSerialNo" runat="server" Text="Serial No"></asp:Label>
-                                                    </th>
+                                                    <%-- <th><asp:Label ID="lbhSerialNo" runat="server" Text="Serial No"></asp:Label>
+                                                    </th>--%>
                                                     <th>
                                                         <asp:Label ID="lbhReferenceDoctor" runat="server" Text="Reference Doctor"></asp:Label>
                                                     </th>
@@ -342,17 +344,17 @@
                                                         <%-- Table Rows --%>
                                                         <tr class="odd gradeX">
                                                             <td>
-                                                                <asp:HyperLink ID="hlViewTransactionID" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Transaction/ACC_TransactionView.aspx?TransactionID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionID").ToString()) %>' data-target="#viewiFrameReg" CssClass="modalButton" data-toggle="modal" runat="server"><%#Eval("Patient") %></asp:HyperLink>
+                                                                <asp:HyperLink ID="hlViewTransactionID" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Transaction/ACC_TransactionView.aspx?TransactionID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionID").ToString()) %>' data-target="#viewiFrameReg" CssClass="modalButton" data-toggle="modal" runat="server"><%#Eval("PatientName") %></asp:HyperLink>
                                                             </td>
-                                                            <td>
-                                                                <%#Eval("Treatment") %>
-                                                            </td>
+                                                            <%-- <td>
+                                                            	<%#Eval("Treatment") %>
+                                                            </td>--%>
                                                             <td>
                                                                 <%#Eval("Amount",GNForm3C.CV.DefaultCurrencyFormatWithOutDecimalPoint) %>
                                                             </td>
-                                                            <td>
-                                                                <%#Eval("SerialNo") %>
-                                                            </td>
+                                                            <%--  <td>
+                                                            	<%#Eval("SerialNo") %>
+                                                            </td>--%>
                                                             <td>
                                                                 <%#Eval("ReferenceDoctor") %>
                                                             </td>
@@ -488,5 +490,3 @@
         SearchGridUI('<%=btnSearch.ClientID%>', 'sample_1', 1);
     </script>
 </asp:Content>
-
-

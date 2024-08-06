@@ -8,12 +8,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Data;
 
 public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList : System.Web.UI.Page
 {
     #region 11.0 Variables
 
-    String FormName = "ACC_GNTransactionList";
+    String FormName = "ACC_NTransactionList";
     static Int32 PageRecordSize = CV.PageRecordSize;//Size of record per page
     Int32 PageDisplaySize = CV.PageDisplaySize;
     Int32 DisplayIndex = CV.DisplayIndex;
@@ -46,14 +47,17 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
             upr.DisplayAfter = CV.UpdateProgressDisplayAfter;
 
             #endregion 12.2 Set Default Value
-
-            if (Request.QueryString["HospitalID"] != null && Request.QueryString["FinYearID"] != null )
+            if (Request.QueryString["HospitalID"] != null)
             {
-                ddlHospitalID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]).ToString();
-                ddlFinYearID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]).ToString();
-                //ddlHospitalIDChanged();
-            }
 
+                ddlHospitalID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]).ToString();
+
+            }
+            //if (Request.QueryString["TreatmentID"] != null)
+            //{
+            //    ddlTreatmentID.SelectedValue = CommonFunctions.DecryptBase64Int32(Request.QueryString["TreatmentID"]).ToString();
+
+            //}
             Search(1);
 
             #region 12.3 Set Help Text
@@ -78,9 +82,11 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
     private void FillDropDownList()
     {
+        //CommonFillMethods.FillDropDownListTreatmentID(ddlTreatmentID);
         CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
         CommonFillMethods.FillSingleDropDownListFinYearID(ddlFinYearID);
         CommonFillMethods.FillDropDownListReceiptTypeID(ddlReceiptTypeID);
+        CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
 
         CommonFunctions.GetDropDownPageSize(ddlPageSizeBottom);
         ddlPageSizeBottom.SelectedValue = PageRecordSize.ToString();
@@ -128,59 +134,61 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
         #endregion Parameters
 
         #region Gather Data
-       
-            if (!Page.IsPostBack)
-            {
-                HospitalID = CommonFunctions.DecryptBase64Int32(Request.QueryString["HospitalID"]);
-                FinYearID = CommonFunctions.DecryptBase64Int32(Request.QueryString["FinYearID"]);
 
-            if (ddlPatientID.SelectedIndex > 0)
-                PatientID = Convert.ToInt32(ddlPatientID.SelectedValue);
+        //if (txtPatient.Text.Trim() != String.Empty)
+        //    PatientID = txtPatient.Text.Trim();
 
-            if (txtAmount.Text.Trim() != String.Empty)
-                Amount = Convert.ToDecimal(txtAmount.Text.Trim());
+        if (ddlPatientID.SelectedIndex > 0)
+            PatientID = Convert.ToInt32(ddlPatientID.SelectedValue);
 
-            if (txtReferenceDoctor.Text.Trim() != String.Empty)
-                ReferenceDoctor = txtReferenceDoctor.Text.Trim();
+        if (txtAmount.Text.Trim() != String.Empty)
+            Amount = Convert.ToDecimal(txtAmount.Text.Trim());
 
-            if (txtCount.Text.Trim() != String.Empty)
-                Count = Convert.ToInt32(txtCount.Text.Trim());
+        //if (txtSerialNo.Text.Trim() != String.Empty)
+        //    SerialNo = Convert.ToInt32(txtSerialNo.Text.Trim());
 
-            if (txtReceiptNo.Text.Trim() != String.Empty)
-                ReceiptNo = Convert.ToInt32(txtReceiptNo.Text.Trim());
+        if (txtReferenceDoctor.Text.Trim() != String.Empty)
+            ReferenceDoctor = txtReferenceDoctor.Text.Trim();
 
-            if (dtpDate.Text.Trim() != String.Empty)
-                Date = Convert.ToDateTime(dtpDate.Text.Trim());
+        if (txtCount.Text.Trim() != String.Empty)
+            Count = Convert.ToInt32(txtCount.Text.Trim());
 
-            if (dtpDateOfAdmission.Text.Trim() != String.Empty)
-                DateOfAdmission = Convert.ToDateTime(dtpDateOfAdmission.Text.Trim());
+        if (txtReceiptNo.Text.Trim() != String.Empty)
+            ReceiptNo = Convert.ToInt32(txtReceiptNo.Text.Trim());
 
-            if (dtpDateOfDischarge.Text.Trim() != String.Empty)
-                DateOfDischarge = Convert.ToDateTime(dtpDateOfDischarge.Text.Trim());
+        if (dtpDate.Text.Trim() != String.Empty)
+            Date = Convert.ToDateTime(dtpDate.Text.Trim());
 
-            if (txtDeposite.Text.Trim() != String.Empty)
-                Deposite = Convert.ToDecimal(txtDeposite.Text.Trim());
+        if (dtpDateOfAdmission.Text.Trim() != String.Empty)
+            DateOfAdmission = Convert.ToDateTime(dtpDateOfAdmission.Text.Trim());
 
-            if (txtNetAmount.Text.Trim() != String.Empty)
-                NetAmount = Convert.ToDecimal(txtNetAmount.Text.Trim());
+        if (dtpDateOfDischarge.Text.Trim() != String.Empty)
+            DateOfDischarge = Convert.ToDateTime(dtpDateOfDischarge.Text.Trim());
 
-            if (txtNoOfDays.Text.Trim() != String.Empty)
-                NoOfDays = Convert.ToInt32(txtNoOfDays.Text.Trim());
+        if (txtDeposite.Text.Trim() != String.Empty)
+            Deposite = Convert.ToDecimal(txtDeposite.Text.Trim());
 
-            if (ddlHospitalID.SelectedIndex > 0)
-                HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+        if (txtNetAmount.Text.Trim() != String.Empty)
+            NetAmount = Convert.ToDecimal(txtNetAmount.Text.Trim());
 
-            if (ddlFinYearID.SelectedIndex > 0)
-                FinYearID = Convert.ToInt32(ddlFinYearID.SelectedValue);
+        if (txtNoOfDays.Text.Trim() != String.Empty)
+            NoOfDays = Convert.ToInt32(txtNoOfDays.Text.Trim());
 
-            if (ddlReceiptTypeID.SelectedIndex > 0)
-                ReceiptTypeID = Convert.ToInt32(ddlReceiptTypeID.SelectedValue);
-        }
+        if (ddlHospitalID.SelectedIndex > 0)
+            HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
+
+        if (ddlFinYearID.SelectedIndex > 0)
+            FinYearID = Convert.ToInt32(ddlFinYearID.SelectedValue);
+
+        if (ddlReceiptTypeID.SelectedIndex > 0)
+            ReceiptTypeID = Convert.ToInt32(ddlReceiptTypeID.SelectedValue);
+
+
         #endregion Gather Data
 
         ACC_GNTransactionBAL balACC_GNTransaction = new ACC_GNTransactionBAL();
 
-        DataTable dt = balACC_GNTransaction.SelectPage(Offset, PageRecordSize, out TotalRecords, PatientID, Amount,  ReferenceDoctor, Count, ReceiptNo, Date, DateOfAdmission, DateOfDischarge, Deposite, NetAmount, NoOfDays, HospitalID, FinYearID, ReceiptTypeID);
+        DataTable dt = balACC_GNTransaction.SelectPage(Offset, PageRecordSize, out TotalRecords, PatientID, Amount, ReferenceDoctor, Count, ReceiptNo, Date, DateOfAdmission, DateOfDischarge, Deposite, NetAmount, NoOfDays, HospitalID, FinYearID, ReceiptTypeID);
 
         if (PageRecordSize == 0 && dt.Rows.Count > 0)
         {
@@ -243,6 +251,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
             CommonFunctions.BindPageList(0, 0, PageNo, PageDisplaySize, DisplayIndex, rpPagination, liPrevious, lbtnPrevious, liFirstPage, lbtnFirstPage, liNext, lbtnNext, liLastPage, lbtnLastPage);
 
             ucMessage.ShowError(CommonMessage.NoRecordFound());
+
         }
     }
 
@@ -260,10 +269,10 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
         {
             try
             {
-                ACC_GNTransactionBAL balACC_GNTransaction = new ACC_GNTransactionBAL();
+                ACC_TransactionBAL balACC_Transaction = new ACC_TransactionBAL();
                 if (e.CommandArgument.ToString().Trim() != "")
                 {
-                    if (balACC_GNTransaction.Delete(Convert.ToInt32(e.CommandArgument)))
+                    if (balACC_Transaction.Delete(Convert.ToInt32(e.CommandArgument)))
                     {
                         ucMessage.ShowSuccess(CommonMessage.DeletedRecord());
 
@@ -375,8 +384,10 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
         int TotalReceivedRecord = 0;
 
-        SqlString PatientID = SqlString.Null;
+        SqlInt32 Patient = SqlInt32.Null;
+        SqlInt32 TreatmentID = SqlInt32.Null;
         SqlDecimal Amount = SqlDecimal.Null;
+        SqlInt32 SerialNo = SqlInt32.Null;
         SqlString ReferenceDoctor = SqlString.Null;
         SqlInt32 Count = SqlInt32.Null;
         SqlInt32 ReceiptNo = SqlInt32.Null;
@@ -389,12 +400,19 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
         SqlInt32 HospitalID = SqlInt32.Null;
         SqlInt32 FinYearID = SqlInt32.Null;
         SqlInt32 ReceiptTypeID = SqlInt32.Null;
+        Int32 TotalRecords = 0;
 
-        if (txtPatientID.Text.Trim() != String.Empty)
-            PatientID = txtPatientID.Text.Trim();
+        if (ddlPatientID.Text.Trim() != String.Empty)
+            Patient = Convert.ToInt32(ddlPatientID.Text.Trim());
+
+        //if (ddlTreatmentID.SelectedIndex > 0)
+        //    TreatmentID = Convert.ToInt32(ddlTreatmentID.SelectedValue);
 
         if (txtAmount.Text.Trim() != String.Empty)
             Amount = Convert.ToDecimal(txtAmount.Text.Trim());
+
+        //if (txtSerialNo.Text.Trim() != String.Empty)
+        //    SerialNo = Convert.ToInt32(txtSerialNo.Text.Trim());
 
         if (txtReferenceDoctor.Text.Trim() != String.Empty)
             ReferenceDoctor = txtReferenceDoctor.Text.Trim();
@@ -439,7 +457,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
             Offset = (Convert.ToInt32(ViewState["CurrentPage"]) - 1) * PageRecordSize;
 
         ACC_GNTransactionBAL balACC_GNTransaction = new ACC_GNTransactionBAL();
-        DataTable dtACC_Transaction = balACC_GNTransaction.SelectPage(Offset, PageRecordSize, out TotalReceivedRecord, PatientID,  Amount,  ReferenceDoctor, Count, ReceiptNo, Date, DateOfAdmission, DateOfDischarge, Deposite, NetAmount, NoOfDays, HospitalID, FinYearID, ReceiptTypeID);
+        DataTable dtACC_Transaction = balACC_GNTransaction.SelectPage(Offset, PageRecordSize, out TotalRecords, Patient, Amount, ReferenceDoctor, Count, ReceiptNo, Date, DateOfAdmission, DateOfDischarge, Deposite, NetAmount, NoOfDays, HospitalID, FinYearID, ReceiptTypeID);
         if (dtACC_Transaction != null && dtACC_Transaction.Rows.Count > 0)
         {
             Session["ExportTable"] = dtACC_Transaction;
@@ -480,8 +498,10 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
     private void ClearControls()
     {
-        txtPatientID.Text = String.Empty;
+        ddlPatientID.Text = String.Empty;
+        //ddlTreatmentID.SelectedIndex = 0;
         txtAmount.Text = String.Empty;
+        //txtSerialNo.Text = String.Empty;
         txtReferenceDoctor.Text = String.Empty;
         txtCount.Text = String.Empty;
         txtReceiptNo.Text = String.Empty;
@@ -502,30 +522,4 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
     }
 
     #endregion 22.0 ClearControls
-
-    #region 23.0 Fill Finyear Dropdown From Hopital
-    protected void ddlHospitalID_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        ddlHospitalIDChanged();
-    }
-
-    private void ddlHospitalIDChanged()
-    {
-        if (ddlHospitalID.SelectedIndex > 0)
-        {
-            SqlInt32 HospitalID = SqlInt32.Null;
-
-            HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
-            CommonFillMethods.FillDropDownListIncomeFinYearIDByHospitalID(ddlFinYearID, HospitalID);
-
-        }
-        else
-        {
-            ddlFinYearID.Items.Clear();
-            ddlFinYearID.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
-
-        }
-    }
-
-    #endregion 23.0 Fill Finyear Dropdown From Hopital
 }

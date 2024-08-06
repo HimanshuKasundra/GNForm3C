@@ -197,5 +197,15 @@ namespace GNForm3C
             //// Set "Yes" as the default selected item
             //ddl.SelectedValue = "0";
         }
+
+        public static void FillDropDownListPatientID(DropDownList ddl)
+        {
+            ACC_GNTransactionBAL balMST_Patient = new ACC_GNTransactionBAL();
+            ddl.DataSource = balMST_Patient.SelectComboBox();
+            ddl.DataValueField = "PatientID";
+            ddl.DataTextField = "PatientName";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select Patient", "-99"));
+        }
     }
 }

@@ -330,17 +330,38 @@ namespace GNForm3C.DAL
                 return null;
             }
         }
-        public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords, SqlInt32 PatientID,  SqlDecimal Amount,  SqlString ReferenceDoctor, SqlInt32 Count, SqlInt32 ReceiptNo, SqlDateTime Date, SqlDateTime DateOfAdmission, SqlDateTime DateOfDischarge, SqlDecimal Deposite, SqlDecimal NetAmount, SqlInt32 NoOfDays, SqlInt32 HospitalID, SqlInt32 FinYearID, SqlInt32 ReceiptTypeID)
+        public DataTable SelectPage(
+    SqlInt32 PageOffset,
+    SqlInt32 PageSize,
+    out Int32 TotalRecords,
+    SqlInt32 PatientID,
+    SqlDecimal Amount,
+    SqlString ReferenceDoctor,
+    SqlInt32 Count,
+    SqlInt32 ReceiptNo,
+    SqlDateTime Date,
+    SqlDateTime DateOfAdmission,
+    SqlDateTime DateOfDischarge,
+    SqlDecimal Deposite,
+    SqlDecimal NetAmount,
+    SqlInt32 NoOfDays,
+    SqlInt32 HospitalID,
+    SqlInt32 FinYearID,
+    SqlInt32 ReceiptTypeID
+)
         {
             TotalRecords = 0;
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_GNTransaction_SelectPage");
+
+                // Add parameters
                 sqlDB.AddInParameter(dbCMD, "@PageOffset", SqlDbType.Int, PageOffset);
                 sqlDB.AddInParameter(dbCMD, "@PageSize", SqlDbType.Int, PageSize);
                 sqlDB.AddOutParameter(dbCMD, "@TotalRecords", SqlDbType.Int, 4);
-                sqlDB.AddInParameter(dbCMD, "@PatientID", SqlDbType.VarChar, PatientID);
+
+                sqlDB.AddInParameter(dbCMD, "@PatientID", SqlDbType.Int, PatientID);
                 sqlDB.AddInParameter(dbCMD, "@Amount", SqlDbType.Decimal, Amount);
                 sqlDB.AddInParameter(dbCMD, "@ReferenceDoctor", SqlDbType.VarChar, ReferenceDoctor);
                 sqlDB.AddInParameter(dbCMD, "@Count", SqlDbType.Int, Count);
@@ -354,7 +375,6 @@ namespace GNForm3C.DAL
                 sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
                 sqlDB.AddInParameter(dbCMD, "@FinYearID", SqlDbType.Int, FinYearID);
                 sqlDB.AddInParameter(dbCMD, "@ReceiptTypeID", SqlDbType.Int, ReceiptTypeID);
-
 
                 DataTable dtACC_GNTransaction = new DataTable("PR_ACC_GNTransaction_SelectPage");
 
@@ -381,8 +401,10 @@ namespace GNForm3C.DAL
             }
         }
 
+
         #endregion SelectOperation
 
+        #region SelectCombobox
         #region ComboBox
 
         public DataTable SelectComboBox()
@@ -390,14 +412,14 @@ namespace GNForm3C.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_GNTransaction_SelectComboBox");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_GNPatient_SelectComboBox");
 
-                DataTable dtACC_GNTransaction = new DataTable("PR_ACC_GNTransaction_SelectComboBox");
+                DataTable dtMST_Patient = new DataTable("PR_MST_GNPatient_SelectComboBox");
 
                 DataBaseHelper DBH = new DataBaseHelper();
-                DBH.LoadDataTable(sqlDB, dbCMD, dtACC_GNTransaction);
+                DBH.LoadDataTable(sqlDB, dbCMD, dtMST_Patient);
 
-                return dtACC_GNTransaction;
+                return dtMST_Patient;
             }
             catch (SqlException sqlex)
             {
@@ -416,11 +438,7 @@ namespace GNForm3C.DAL
         }
 
         #endregion ComboBox
-
-        #region AutoComplete
-
-
-        #endregion AutoComplete
+        #endregion
 
     }
 }
