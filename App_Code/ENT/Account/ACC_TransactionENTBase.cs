@@ -21,16 +21,16 @@ namespace GNForm3C.ENT
 			}
 		}
 
-		protected SqlString _Patient;
-		public SqlString Patient
+		protected SqlInt32 _PatientID;
+		public SqlInt32 PatientID
 		{
 			get
 			{
-				return _Patient;
+				return _PatientID;
 			}
 			set
 			{
-				_Patient = value;
+				_PatientID = value;
 			}
 		}
 
@@ -301,8 +301,8 @@ namespace GNForm3C.ENT
 			if(!TransactionID.IsNull)
 				ACC_TransactionENT_String += " TransactionID = " + TransactionID.Value.ToString();
 
-			if(!Patient.IsNull)
-				ACC_TransactionENT_String += "| Patient = " + Patient.Value;
+			if(!PatientID.IsNull)
+				ACC_TransactionENT_String += "| Patient = " + PatientID.Value;
 
 			if(!TreatmentID.IsNull)
 				ACC_TransactionENT_String += "| TreatmentID = " + TreatmentID.Value.ToString();
