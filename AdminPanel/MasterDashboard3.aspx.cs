@@ -57,8 +57,8 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
     #region 12.0 Search
     protected void BindData()
     {
-        MST_FinYearBAL balMST_FinYearBAL = new MST_FinYearBAL();
-        DataTable dtFinYear = balMST_FinYearBAL.SelectComboBox();
+        MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
+        DataTable dtFinYear = balMST_FinYear.SelectComboBox();
 
         rpFinYear.DataSource = dtFinYear;
         rpFinYear.DataBind();

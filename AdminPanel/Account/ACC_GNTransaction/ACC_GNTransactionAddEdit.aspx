@@ -465,7 +465,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-
+                    location.reload();
                     console.log(response); // Log the response to verify it
 
                     alert("Success");
