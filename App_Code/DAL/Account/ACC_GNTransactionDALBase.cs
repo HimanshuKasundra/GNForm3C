@@ -99,7 +99,7 @@ namespace GNForm3C.DAL
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_GNPatient_Insert");
 
                 sqlDB.AddOutParameter(dbCMD, "@PatientID", SqlDbType.Int, 4);
-                sqlDB.AddInParameter(dbCMD, "@PatientName", SqlDbType.Int, entMST_Patient.PatientName);
+                sqlDB.AddInParameter(dbCMD, "@PatientName", SqlDbType.NVarChar, entMST_Patient.PatientName);
                 sqlDB.AddInParameter(dbCMD, "@Age", SqlDbType.Int, entMST_Patient.Age);
                 sqlDB.AddInParameter(dbCMD, "@MobileNo", SqlDbType.NVarChar, entMST_Patient.MobileNo);
                 sqlDB.AddInParameter(dbCMD, "@DOB", SqlDbType.DateTime, entMST_Patient.DOB);
