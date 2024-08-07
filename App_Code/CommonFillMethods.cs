@@ -77,6 +77,21 @@ namespace GNForm3C
             ddl.DataTextField = "FinYearName";
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+
+        }
+        public static void FillSingleDropDownListFinYearIDGNTransaction(DropDownList ddl)
+        {
+            MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
+            ddl.DataSource = balMST_FinYear.SelectComboBox();
+            ddl.DataValueField = "FinYearID";
+            ddl.DataTextField = "FinYearName";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
+
+            if (ddl.Items.Count > 0)
+            {
+                ddl.SelectedIndex = 1;
+            }
         }
         public static void FillDropDownListHospitalID(DropDownList ddl)
         {

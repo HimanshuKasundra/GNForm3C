@@ -76,8 +76,8 @@
                                         </div>
                                     </div>
                                 </div>
-                              
-                                    <div class="col-md-4">
+
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -99,7 +99,7 @@
 										</div>
 									</div>
 								</div>--%>
-                               <div class="col-md-4">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -119,7 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                  <div class="col-md-4">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -205,8 +205,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                 <div class="col-md-4">
+
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -216,7 +216,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             </div>
                             <%--<div class="row">
 							
@@ -393,12 +393,13 @@
                                                             </td>
                                                             <td class="text-nowrap text-center">
                                                                 <asp:HyperLink ID="hlView" SkinID="View" NavigateUrl='<%# "~/AdminPanel/Account/ACC_GNTransaction/ACC_GNTransactionView.aspx?TransactionID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionID").ToString()) %>' data-target="#viewiFrameReg" data-toggle="modal" runat="server"></asp:HyperLink>
-                                                                <asp:HyperLink ID="hlEdit" SkinID="Edit" NavigateUrl='<%# "~/AdminPanel/Account/ACC_GNTransaction/ACC_GNTransactionAddEdit.aspx?TransactionID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionID").ToString()) %>' runat="server"></asp:HyperLink>
-                                                                <asp:LinkButton ID="lbtnDelete" runat="server"
+                                                                <%--<asp:HyperLink ID="hlEdit" SkinID="Edit" NavigateUrl='<%# "~/AdminPanel/Account/ACC_GNTransaction/ACC_GNTransactionAddEdit.aspx?TransactionID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionID").ToString()) %>' runat="server"></asp:HyperLink>--%>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server"
                                                                     SkinID="Delete"
-                                                                    OnClientClick="javascript:return confirm('Are you sure you want to delete record ? ');"
-                                                                    CommandName="DeleteRecord"
-                                                                    CommandArgument='<%#Eval("TransactionID") %>'>
+                                                                    OnClientClick="javascript:return confirm('Are you sure you want to Discharge?');"
+                                                                    CommandName="Discharge"
+                                                                    CommandArgument='<%# Eval("TransactionID") %>'
+                                                                    Enabled='<%# Eval("DateOfDischarge") == DBNull.Value ? true : false %>'>
                                                                 </asp:LinkButton>
                                                             </td>
                                                         </tr>

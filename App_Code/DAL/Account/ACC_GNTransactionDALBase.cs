@@ -48,15 +48,17 @@ namespace GNForm3C.DAL
 
                 sqlDB.AddOutParameter(dbCMD, "@TransactionID", SqlDbType.Int, 4);
                 sqlDB.AddInParameter(dbCMD, "@PatientID", SqlDbType.Int, entACC_GNTransaction.PatientID);
+                sqlDB.AddInParameter(dbCMD, "@TreatmentID", SqlDbType.Int, entACC_GNTransaction.TreatmentID);
+                sqlDB.AddInParameter(dbCMD, "@Quantity", SqlDbType.Int, entACC_GNTransaction.Quantity);
                 sqlDB.AddInParameter(dbCMD, "@Amount", SqlDbType.Decimal, entACC_GNTransaction.Amount);
                 sqlDB.AddInParameter(dbCMD, "@ReferenceDoctor", SqlDbType.NVarChar, entACC_GNTransaction.ReferenceDoctor);
                 sqlDB.AddInParameter(dbCMD, "@Count", SqlDbType.Int, entACC_GNTransaction.Count);
                 sqlDB.AddInParameter(dbCMD, "@ReceiptNo", SqlDbType.Int, entACC_GNTransaction.ReceiptNo);
                 sqlDB.AddInParameter(dbCMD, "@Date", SqlDbType.DateTime, entACC_GNTransaction.Date);
-                sqlDB.AddInParameter(dbCMD, "@DateOfAdmission", SqlDbType.DateTime, entACC_GNTransaction.DateOfAdmission);
-                sqlDB.AddInParameter(dbCMD, "@DateOfDischarge", SqlDbType.DateTime, entACC_GNTransaction.DateOfDischarge);
+                //sqlDB.AddInParameter(dbCMD, "@DateOfAdmission", SqlDbType.DateTime, entACC_GNTransaction.DateOfAdmission);
+                //sqlDB.AddInParameter(dbCMD, "@DateOfDischarge", SqlDbType.DateTime, entACC_GNTransaction.DateOfDischarge);
                 sqlDB.AddInParameter(dbCMD, "@Deposite", SqlDbType.Decimal, entACC_GNTransaction.Deposite);
-                sqlDB.AddInParameter(dbCMD, "@NetAmount", SqlDbType.Decimal, entACC_GNTransaction.NetAmount);
+                //sqlDB.AddInParameter(dbCMD, "@NetAmount", SqlDbType.Decimal, entACC_GNTransaction.NetAmount);
                 sqlDB.AddInParameter(dbCMD, "@NoOfDays", SqlDbType.Int, entACC_GNTransaction.NoOfDays);
                 sqlDB.AddInParameter(dbCMD, "@Remarks", SqlDbType.NVarChar, entACC_GNTransaction.Remarks);
                 sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, entACC_GNTransaction.HospitalID);
@@ -70,6 +72,46 @@ namespace GNForm3C.DAL
                 DBH.ExecuteNonQuery(sqlDB, dbCMD);
 
                 entACC_GNTransaction.TransactionID = (SqlInt32)Convert.ToInt32(dbCMD.Parameters["@TransactionID"].Value);
+
+                return true;
+            }
+            catch (SqlException sqlex)
+            {
+                Message = SQLDataExceptionMessage(sqlex);
+                if (SQLDataExceptionHandler(sqlex))
+                    throw;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Message = ExceptionMessage(ex);
+                if (ExceptionHandler(ex))
+                    throw;
+                return false;
+            }
+        }
+
+        public Boolean InsertPatient(MST_PatientENTBase entMST_Patient)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_GNPatient_Insert");
+
+                sqlDB.AddOutParameter(dbCMD, "@PatientID", SqlDbType.Int, 4);
+                sqlDB.AddInParameter(dbCMD, "@PatientName", SqlDbType.Int, entMST_Patient.PatientName);
+                sqlDB.AddInParameter(dbCMD, "@Age", SqlDbType.Int, entMST_Patient.Age);
+                sqlDB.AddInParameter(dbCMD, "@MobileNo", SqlDbType.NVarChar, entMST_Patient.MobileNo);
+                sqlDB.AddInParameter(dbCMD, "@DOB", SqlDbType.DateTime, entMST_Patient.DOB);
+                sqlDB.AddInParameter(dbCMD, "@PrimaryDesc", SqlDbType.NVarChar, entMST_Patient.PrimaryDesc);
+                sqlDB.AddInParameter(dbCMD, "@UserID", SqlDbType.Int, entMST_Patient.UserID);
+                sqlDB.AddInParameter(dbCMD, "@Created", SqlDbType.DateTime, entMST_Patient.Created);
+                sqlDB.AddInParameter(dbCMD, "@Modified", SqlDbType.DateTime, entMST_Patient.Modified);
+
+                DataBaseHelper DBH = new DataBaseHelper();
+                DBH.ExecuteNonQuery(sqlDB, dbCMD);
+
+                entMST_Patient.PatientID = (SqlInt32)Convert.ToInt32(dbCMD.Parameters["@PatientID"].Value);
 
                 return true;
             }
@@ -140,6 +182,55 @@ namespace GNForm3C.DAL
                 return false;
             }
         }
+
+
+        #region Discharge patient
+        public Boolean UpdateDischargeAndTotalDays(SqlInt32 TransactionID)
+        {
+            try
+            {
+                // Create a new SqlDatabase instance
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+
+                // Create a new DbCommand instance for the stored procedure
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ACC_GNTransaction_Discharge");
+
+                // Add input parameters
+                sqlDB.AddInParameter(dbCMD, "@TransactionID", SqlDbType.Int, TransactionID);
+
+                // Execute the stored procedure
+                DataBaseHelper DBH = new DataBaseHelper();
+                DBH.ExecuteNonQuery(sqlDB, dbCMD);
+
+                // Return true if successful
+                return true;
+            }
+            catch (SqlException sqlex)
+            {
+                // Capture SQL exception message
+                Message = SQLDataExceptionMessage(sqlex);
+
+                // Handle SQL exception
+                if (SQLDataExceptionHandler(sqlex))
+                    throw;
+
+                // Return false in case of failure
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Capture general exception message
+                Message = ExceptionMessage(ex);
+
+                // Handle general exception
+                if (ExceptionHandler(ex))
+                    throw;
+
+                // Return false in case of failure
+                return false;
+            }
+        }
+        #endregion
 
         #endregion UpdateOperation
 
@@ -439,6 +530,8 @@ namespace GNForm3C.DAL
 
         #endregion ComboBox
         #endregion
+
+       
 
     }
 }

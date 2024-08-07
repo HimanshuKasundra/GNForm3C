@@ -58,6 +58,20 @@ namespace GNForm3C.BAL
             }
         }
 
+        public Boolean InsertPatient(MST_GNPatientENT entMST_Patient)
+        {
+            ACC_GNTransactionDAL dalACC_GNTransaction = new ACC_GNTransactionDAL();
+            if (dalACC_GNTransaction.InsertPatient(entMST_Patient))
+            {
+                return true;
+            }
+            else
+            {
+                this.Message = dalACC_GNTransaction.Message;
+                return false;
+            }
+        }
+
         #endregion InsertOperation
 
         #region UpdateOperation
@@ -77,6 +91,22 @@ namespace GNForm3C.BAL
         }
 
         #endregion UpdateOperation
+
+        #region Discharge patient
+        public Boolean UpdateDischargeAndTotalDays(SqlInt32 TransactionID)
+        { 
+            ACC_GNTransactionDAL dalACC_GNTransaction = new ACC_GNTransactionDAL();
+            if (dalACC_GNTransaction.UpdateDischargeAndTotalDays(TransactionID))
+            {
+                return true;
+            }
+            else
+            {
+                this.Message = dalACC_GNTransaction.Message;
+                return false;
+            }
+        }
+        #endregion
 
         #region DeleteOperation
 

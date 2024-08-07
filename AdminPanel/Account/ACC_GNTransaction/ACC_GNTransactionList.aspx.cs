@@ -262,16 +262,21 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
     #region 16.1 Item Command Event
 
+    #region 16.0 Repeater Events
+
+    #region 16.1 Item Command Event
+
     protected void rpData_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        if (e.CommandName == "DeleteRecord")
+        if (e.CommandName == "Discharge")
         {
             try
             {
-                ACC_TransactionBAL balACC_Transaction = new ACC_TransactionBAL();
+                ACC_GNTransactionBAL balACC_GNTransaction = new ACC_GNTransactionBAL();
+
                 if (e.CommandArgument.ToString().Trim() != "")
                 {
-                    if (balACC_Transaction.Delete(Convert.ToInt32(e.CommandArgument)))
+                    if (balACC_GNTransaction.UpdateDischargeAndTotalDays(Convert.ToInt32(e.CommandArgument)))
                     {
                         ucMessage.ShowSuccess(CommonMessage.DeletedRecord());
 
@@ -292,6 +297,10 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
             }
         }
     }
+
+    #endregion 16.1 Item Command Event    
+
+    #endregion 16.0 Repeater Events
 
     #endregion 16.1 Item Command Event    
 
@@ -497,10 +506,8 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
     private void ClearControls()
     {
-        ddlPatientID.Text = String.Empty;
-        //ddlTreatmentID.SelectedIndex = 0;
+        ddlPatientID.SelectedIndex = 0;
         txtAmount.Text = String.Empty;
-        //txtSerialNo.Text = String.Empty;
         txtReferenceDoctor.Text = String.Empty;
         txtCount.Text = String.Empty;
         txtReceiptNo.Text = String.Empty;
@@ -521,4 +528,36 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
     }
 
     #endregion 22.0 ClearControls
+
+    #region 23.0 DischARGE DATE
+    protected void UpdateDischarge(object sender, EventArgs e)
+    {
+        // Get the clicked LinkButton
+        LinkButton lb = (LinkButton)sender;
+
+        // Retrieve the TransactionID from CommandArgument
+        int transactionID = Convert.ToInt32(lb.CommandArgument);
+
+        // Create an instance of your BAL class
+        ACC_GNTransactionBAL bal = new ACC_GNTransactionBAL();
+
+        // Call the UpdateDischargeAndTotalDays method with the TransactionID
+        bool success = bal.UpdateDischargeAndTotalDays(transactionID);
+
+        // Check if the operation was successful
+        if (success)
+        {
+            // Optionally, show a success message to the user
+            // e.g., lblMessage.Text = "Discharge details updated successfully.";
+        }
+        else
+        {
+            // Optionally, show an error message to the user
+            // e.g., lblMessage.Text = "Error: " + bal.Message;
+        }
+
+        // Optionally, you may want to refresh the page or grid to reflect the changes
+        // e.g., GridView1.DataBind();
+    }
+    #endregion
 }
