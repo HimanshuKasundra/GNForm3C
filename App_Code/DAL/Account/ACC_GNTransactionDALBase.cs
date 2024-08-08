@@ -39,6 +39,7 @@ namespace GNForm3C.DAL
 
         #region InsertOperation
 
+        #region InsertTransaction
         public Boolean Insert(ACC_GNTransactionENT entACC_GNTransaction)
         {
             try
@@ -90,8 +91,10 @@ namespace GNForm3C.DAL
                 return false;
             }
         }
+        #endregion
 
-        public Boolean InsertPatient(MST_PatientENTBase entMST_Patient)
+        #region InsertPatient
+        public MST_GNPatientENT InsertPatient(MST_GNPatientENT entMST_GNPatient)
         {
             try
             {
@@ -99,37 +102,57 @@ namespace GNForm3C.DAL
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_GNPatient_Insert");
 
                 sqlDB.AddOutParameter(dbCMD, "@PatientID", SqlDbType.Int, 4);
-                sqlDB.AddInParameter(dbCMD, "@PatientName", SqlDbType.NVarChar, entMST_Patient.PatientName);
-                sqlDB.AddInParameter(dbCMD, "@Age", SqlDbType.Int, entMST_Patient.Age);
-                sqlDB.AddInParameter(dbCMD, "@MobileNo", SqlDbType.NVarChar, entMST_Patient.MobileNo);
-                sqlDB.AddInParameter(dbCMD, "@DOB", SqlDbType.DateTime, entMST_Patient.DOB);
-                sqlDB.AddInParameter(dbCMD, "@PrimaryDesc", SqlDbType.NVarChar, entMST_Patient.PrimaryDesc);
-                sqlDB.AddInParameter(dbCMD, "@UserID", SqlDbType.Int, entMST_Patient.UserID);
-                sqlDB.AddInParameter(dbCMD, "@Created", SqlDbType.DateTime, entMST_Patient.Created);
-                sqlDB.AddInParameter(dbCMD, "@Modified", SqlDbType.DateTime, entMST_Patient.Modified);
+                sqlDB.AddInParameter(dbCMD, "@PatientName", SqlDbType.NVarChar, entMST_GNPatient.PatientName);
+                sqlDB.AddInParameter(dbCMD, "@Age", SqlDbType.Int, entMST_GNPatient.Age);
+                sqlDB.AddInParameter(dbCMD, "@DOB", SqlDbType.DateTime, entMST_GNPatient.DOB);
+                sqlDB.AddInParameter(dbCMD, "@MobileNo", SqlDbType.NVarChar, entMST_GNPatient.MobileNo);
+                sqlDB.AddInParameter(dbCMD, "@PrimaryDesc", SqlDbType.NVarChar, entMST_GNPatient.PrimaryDesc);
+                sqlDB.AddInParameter(dbCMD, "@UserID", SqlDbType.Int, entMST_GNPatient.UserID);
+                sqlDB.AddInParameter(dbCMD, "@Created", SqlDbType.DateTime, entMST_GNPatient.Created);
+                sqlDB.AddInParameter(dbCMD, "@Modified", SqlDbType.DateTime, entMST_GNPatient.Modified);
 
                 DataBaseHelper DBH = new DataBaseHelper();
-                DBH.ExecuteNonQuery(sqlDB, dbCMD);
+                using (IDataReader dr = DBH.ExecuteReader(sqlDB, dbCMD))
+                {
+                    if (dr.Read())
+                    {
+                        MST_GNPatientENT newPatient = new MST_GNPatientENT
+                        {
+                            PatientID = dr.GetInt32(dr.GetOrdinal("PatientID")),
+                            PatientName = dr.GetString(dr.GetOrdinal("PatientName")),
+                            Age = dr.GetInt32(dr.GetOrdinal("Age")),
+                            DOB = dr.GetDateTime(dr.GetOrdinal("DOB")),
+                            MobileNo = dr.GetString(dr.GetOrdinal("MobileNo")),
+                            PrimaryDesc = dr.GetString(dr.GetOrdinal("PrimaryDesc")),
+                            UserID = dr.GetInt32(dr.GetOrdinal("UserID")),
+                            Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                            Modified = dr.GetDateTime(dr.GetOrdinal("Modified"))
+                        };
 
-                entMST_Patient.PatientID = (SqlInt32)Convert.ToInt32(dbCMD.Parameters["@PatientID"].Value);
-
-                return true;
+                        return newPatient;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
             }
             catch (SqlException sqlex)
             {
                 Message = SQLDataExceptionMessage(sqlex);
                 if (SQLDataExceptionHandler(sqlex))
                     throw;
-                return false;
+                return null;
             }
             catch (Exception ex)
             {
                 Message = ExceptionMessage(ex);
                 if (ExceptionHandler(ex))
                     throw;
-                return false;
+                return null;
             }
         }
+        #endregion
 
         #endregion InsertOperation
 
@@ -496,7 +519,6 @@ namespace GNForm3C.DAL
         #endregion SelectOperation
 
         #region SelectCombobox
-        #region ComboBox
 
         public DataTable SelectComboBox()
         {
@@ -505,12 +527,12 @@ namespace GNForm3C.DAL
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_GNPatient_SelectComboBox");
 
-                DataTable dtMST_Patient = new DataTable("PR_MST_GNPatient_SelectComboBox");
+                DataTable dtMST_GNPatient = new DataTable("PR_MST_GNPatient_SelectComboBox");
 
                 DataBaseHelper DBH = new DataBaseHelper();
-                DBH.LoadDataTable(sqlDB, dbCMD, dtMST_Patient);
+                DBH.LoadDataTable(sqlDB, dbCMD, dtMST_GNPatient);
 
-                return dtMST_Patient;
+                return dtMST_GNPatient;
             }
             catch (SqlException sqlex)
             {
@@ -529,9 +551,6 @@ namespace GNForm3C.DAL
         }
 
         #endregion ComboBox
-        #endregion
-
-       
 
     }
 }

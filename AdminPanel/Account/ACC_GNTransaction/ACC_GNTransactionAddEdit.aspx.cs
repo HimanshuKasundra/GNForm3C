@@ -12,6 +12,9 @@ using GNForm3C.ENT;
 using GNForm3C;
 using System.Data.SqlTypes;
 using System.Web.Services;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+
 
 
 public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEdit : System.Web.UI.Page
@@ -35,6 +38,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
         if (!Page.IsPostBack)
         {
+
             #region 11.2 Fill Labels 
 
             FillLabels(FormName);
@@ -75,7 +79,6 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
     #endregion 11.0 Page Load Event
 
     #region 12.0 FillLabels 
-
 
     private void FillLabels(String FormName)
     {
@@ -164,6 +167,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
     #region 15.0 Save Button Event 
 
+    #region 15.1 Save Transaction
     protected void btnSave_Click(object sender, EventArgs e)
     {
         Page.Validate();
@@ -177,7 +181,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                 #region 15.1 Validate Fields 
 
                 String ErrorMsg = String.Empty;
-                if (ddlPatientID.Text.Trim() == String.Empty)
+                if (ddlPatientID.SelectedIndex==0)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Patient");
                 if (ddlTreatmentID.SelectedIndex == 0)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredFieldDDL("Treatment");
@@ -200,8 +204,6 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                 #endregion 15.1 Validate Fields
 
                 #region 15.2 Gather Data 
-
-
 
                 if (ddlPatientID.SelectedIndex > 0)
                     entACC_GNTransaction.PatientID = Convert.ToInt32(ddlPatientID.SelectedValue);
@@ -299,6 +301,59 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
             }
         }
     }
+    
+    #endregion
+
+    #region 15.2 SaveNewPatient
+
+    public class SavePatientResponse
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; }
+        public string PatientID { get; set; }
+        public string PatientName { get; set; }
+    }
+
+    [WebMethod]
+    public static string SaveNewPatient(string PatientName, int Age, DateTime DOB, string MobileNo, string PrimaryDesc)
+    {
+        var response = new SavePatientResponse();
+        try
+        {
+            MST_GNPatientENT newPatient = new MST_GNPatientENT
+            {
+                PatientName = PatientName,
+                Age = Age,
+                DOB = DOB,
+                MobileNo = MobileNo,
+                PrimaryDesc = PrimaryDesc,
+                UserID = Convert.ToInt32(4),
+                Created = DateTime.Now,
+                Modified = DateTime.Now
+            };
+
+            ACC_GNTransactionBAL balMST_GNPatient = new ACC_GNTransactionBAL();
+            MST_GNPatientENT entMST_PatientENT = balMST_GNPatient.InsertPatient(newPatient);
+
+            System.Diagnostics.Debug.WriteLine(entMST_PatientENT.PatientID);
+            System.Diagnostics.Debug.WriteLine(entMST_PatientENT.PatientName);
+
+            response.Success = true;
+            response.Message = "New Patient Added Successfully.";
+            response.PatientID = Convert.ToString(entMST_PatientENT.PatientID.ToString());
+            response.PatientName = Convert.ToString(entMST_PatientENT.PatientName.ToString() + " - " + entMST_PatientENT.MobileNo.ToString());
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = "Error: " + ex.Message;
+        }
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        return js.Serialize(response);
+    }
+
+    #endregion
 
     #endregion 15.0 Save Button Event 
 
@@ -326,8 +381,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
     #endregion 16.0 Clear Controls 
 
-    #region FillTreatmentCombobox
-
+    #region 17.0 FillTreatmentCombobox   
     protected void FillTreatmentCombobox(object sender, EventArgs e)
     {
         if (ddlHospitalID.SelectedIndex > 0)
@@ -347,45 +401,10 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
     #endregion
 
-    [WebMethod]
-    public static  string SaveNewPatient(string PatientName, int Age, DateTime DOB, string MobileNo, string PrimaryDesc)
+    #region 18.0 Load ddlPatientID
+    public void ddlPatientLoad(object sender, EventArgs e)
     {
-        try
-        {
-            // Server-side validation
-            if (string.IsNullOrWhiteSpace(PatientName))
-                throw new Exception("Patient Name is required.");
-            if (Age <= 0)
-                throw new Exception("Valid Age is required.");
-            if (DOB == DateTime.MinValue)
-                throw new Exception("Valid Date of Birth is required.");
-            if (string.IsNullOrWhiteSpace(MobileNo) || !System.Text.RegularExpressions.Regex.IsMatch(MobileNo, @"^\d{10}$"))
-                throw new Exception("Valid Mobile No is required (10 digits).");
-            if (string.IsNullOrWhiteSpace(PrimaryDesc))
-                throw new Exception("Primary Description is required.");
-
-            MST_GNPatientENT newPatient = new MST_GNPatientENT
-            {
-                PatientName = PatientName,
-                Age = Age,
-                DOB = DOB,
-                MobileNo = MobileNo,
-                PrimaryDesc = PrimaryDesc,
-                UserID = 4, // Assuming the UserID is 4, change accordingly
-                Created = DateTime.Now,
-                Modified = DateTime.Now
-            };
-
-            ACC_GNTransactionBAL balACC_GNTransaction = new ACC_GNTransactionBAL();
-             balACC_GNTransaction.InsertPatient(newPatient);
-            //CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
-            return "Success";
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (not shown here)
-            throw new Exception("Error occurred while saving new patient.", ex);
-        }
+        CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
     }
-
+    #endregion
 }

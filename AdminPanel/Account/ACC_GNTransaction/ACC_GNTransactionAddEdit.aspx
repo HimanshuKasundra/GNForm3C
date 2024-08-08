@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="Transaction AddEdit" Language="C#" MasterPageFile="~/Default/MasterPage.master" AutoEventWireup="true" CodeFile="ACC_GNTransactionAddEdit.aspx.cs" Inherits="AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEdit" %>
 
 
-
 <asp:Content ID="cnthead" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="cntPageHeader" ContentPlaceHolderID="cphPageHeader" runat="Server">
@@ -91,7 +90,7 @@
                                 </label>
                                 <div class="col-md-5">
                                     <asp:DropDownList ID="ddlPatientID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvPatientID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlPatientID" ErrorMessage="Select Patient" InitialValue="-99"></asp:RequiredFieldValidator>
+
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-primary" onclick="toggleAddPatientForm()">
@@ -100,91 +99,8 @@
                                 </div>
                             </div>
 
-
-
-                            <!-- Add New Patient -->
-                            <!-- Collapsible Form for adding a new patient -->
-                            <%--<div id="addPatientCollapse" class="collapse" >
-                                <div class="well">
-                                    <h4>Add New Patient</h4>
-                                    <div class="form-group">
-                                        <label for="txtPatientName">Patient Name</label>
-                                        <input type="text" class="form-control" id="txtPatientName" placeholder="Enter Patient Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtAge">Age</label>
-                                        <input type="number" class="form-control" id="txtAge" placeholder="Enter Age">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtDOB">Date of Birth</label>
-                                        <input type="date" class="form-control" id="txtDOB" placeholder="Enter Date of Birth">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtMobileNo">Mobile No</label>
-                                        <input type="text" class="form-control" id="txtMobileNo" placeholder="Enter Mobile No">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtPrimaryDesc">Primary Description</label>
-                                        <textarea class="form-control" id="txtPrimaryDesc" placeholder="Enter Primary Description"></textarea>
-                                    </div>
-                                    <button type="button" class="btn btn-primary" onclick="saveNewPatient()">Save</button>
-                                </div>
-                            </div>--%>
-
-
                             <asp:Panel ID="pnlAddPatient" runat="server" CssClass="collapse" ClientIDMode="Static">
                                 <div class="well">
-
-                                    <div class="form-group" id="formGroup" style="display: none;">
-                                        <div class="col-md-3"></div>
-                                        <div class="portlet box green col-md-5">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <i class="fa fa-bullhorn"></i>Add Patient
-           
-                                                </div>
-                                                <div class="tools">
-                                                    <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="portlet-body">
-                                                <div id="newPatientForm">
-                                                    <div class="form-group">
-                                                        <label class="col-md-3 control-label margin-top-20">Patient Name</label>
-                                                        <div class="col-md-5">
-                                                            <asp:TextBox type="text" ID="TextBox1" CssClass="form-control margin-top-20" runat="server"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-3 control-label">Age</label>
-                                                        <div class="col-md-5">
-                                                            <asp:TextBox type="text" ID="TextBox2" CssClass="form-control" runat="server"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-3 control-label">Date of Birth</label>
-                                                        <div class="col-md-5">
-                                                            <asp:TextBox type="date" ID="TextBox3" CssClass="form-control" runat="server"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-3 control-label">Mobile Number</label>
-                                                        <div class="col-md-5">
-                                                            <asp:TextBox type="text" ID="TextBox4" CssClass="form-control" runat="server"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-3 control-label">Primary Description</label>
-                                                        <div class="col-md-5">
-                                                            <asp:TextBox type="text" ID="TextBox5" CssClass="form-control" runat="server"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group row">
                                         <label class="col-md-3 control-label" for="txtPatientName">Patient Name</label>
@@ -218,12 +134,11 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-offset-3 col-md-9">
-                                            <asp:Button ID="btnSavePatient" runat="server" CssClass="btn btn-primary" Text="Save" OnClientClick="saveNewPatient(); return false;" />
+                                            <asp:Button ID="btnSavePatient" runat="server" CssClass="btn btn-primary" Text="Save" OnClientClick="saveNewPatient(); return true;"  OnClick="ddlPatientLoad"/>
                                         </div>
                                     </div>
                                 </div>
                             </asp:Panel>
-
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label">
@@ -400,9 +315,10 @@
     <%-- END Loading  --%>
 </asp:Content>
 
-
 <asp:Content ID="cntScripts" ContentPlaceHolderID="cphScripts" runat="Server">
+
     <script type="text/javascript">
+
         function toggleAddPatientForm() {
             $('#pnlAddPatient').collapse('toggle');
         }
@@ -465,13 +381,10 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    location.reload();
-                    console.log(response); // Log the response to verify it
 
-                    alert("Success");
+                    var result = JSON.parse(response.d);
 
-                    if (response.d) {
-
+                    if (true) {
 
                         // Clear the form fields
                         $('#<%= txtPatientName.ClientID %>').val('');
@@ -480,24 +393,45 @@
                         $('#<%= txtMobileNo.ClientID %>').val('');
                         $('#<%= txtPrimaryDesc.ClientID %>').val('');
 
-
                         // Collapse the form
                         $('#pnlAddPatient').collapse('hide');
 
-                        // Update the patient dropdown with the new patient
-                        $('#ddlPatientID').append($('<option>', {
-                            value: response.d.PatientID,
-                            text: response.d.PatientName
-                        }));
+                        /this code is for find last index and change with new index/
 
-                        // Select the new patient in the dropdown
-                        $('#ddlPatientID').val(response.d.PatientID);
+                       if (result && result.PatientID > 0 && result.PatientName) {
+                            alert(result.PatientID);
+
+                            // Get the dropdown as a jQuery object
+                            var ddlPatientID = $("#<%= ddlPatientID.ClientID %>");
+
+                            // Find the last index before change
+                            var lastIndexBeforeChange = ddlPatientID.find('option').length - 1;
+
+                            // Alert the last index before change
+                            alert("Last Index Before Change: " + lastIndexBeforeChange);
+
+                            // Add the new patient to the dropdown
+                            var newOption = $("<option></option>").val(result.PatientID).html(result.PatientName);
+                            ddlPatientID.append(newOption);
+
+                            // Set the dropdown value to the new patient's ID
+                            ddlPatientID.val(result.PatientID);
+
+                            // Find the selected option
+                            var selectedOption = ddlPatientID.find('option:selected');
+
+                            // Get the index of the selected option
+                            var selectedIndex = selectedOption.index();
+
+                            // Alert the selected index
+                            alert("Selected Index: " + selectedIndex);
+
+                            alert("New Patient added successfully!");
+                        } else {
+                            console.error("Unexpected response format:", result);
+                        }
+
                     }
-
-
-
-
-
                 },
                 error: function (error) {
                     console.log(error);
@@ -506,3 +440,4 @@
         }
     </script>
 </asp:Content>
+

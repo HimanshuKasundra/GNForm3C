@@ -45,7 +45,7 @@
                                                         <i class="fa fa-h-square "></i></i>  <%# Eval("FinYearName") %>
                                                     </div>
                                                     <div class="tools">
-                                                        <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+                                                        <a href="javascript:;" class='<%# Container.ItemIndex == 0 ? "collapse" : "expand" %>' data-original-title="" title=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="portlet-body" style='<%# Container.ItemIndex == 0 ? "display: block;" : "display: none;" %>'>
@@ -93,7 +93,7 @@
                                                                                     </a>
                                                                                 </div>
                                                                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                                                    <a class="dashboard-stat dashboard-stat-v2 green" href='<%= "Master/MST_SubTreatment/MST_SubTreatmentList.aspx?HospitalID="+ GNForm3C.CommonFunctions.EncryptBase64("")%>'>
+                                                                                    <a class="dashboard-stat dashboard-stat-v2 green" >
                                                                                         <div class="visual">
                                                                                             <i class="fa fa-shopping-cart"></i>
                                                                                         </div>

@@ -44,6 +44,7 @@ namespace GNForm3C.BAL
 
         #region InsertOperation
 
+        #region Insert Transaction
         public Boolean Insert(ACC_GNTransactionENT entACC_GNTransaction)
         {
             ACC_GNTransactionDAL dalACC_GNTransaction = new ACC_GNTransactionDAL();
@@ -57,20 +58,19 @@ namespace GNForm3C.BAL
                 return false;
             }
         }
+        #endregion
 
-        public Boolean InsertPatient(MST_GNPatientENT entMST_Patient)
+        #region InsertPatient
+
+        public MST_GNPatientENT InsertPatient(MST_GNPatientENT entMST_GNPatient)
         {
-            ACC_GNTransactionDAL dalACC_GNTransaction = new ACC_GNTransactionDAL();
-            if (dalACC_GNTransaction.InsertPatient(entMST_Patient))
-            {
-                return true;
-            }
-            else
-            {
-                this.Message = dalACC_GNTransaction.Message;
-                return false;
-            }
+            ACC_GNTransactionDAL dalMST_GNPatient = new ACC_GNTransactionDAL();
+            return dalMST_GNPatient.InsertPatient(entMST_GNPatient);
         }
+
+       
+
+        #endregion
 
         #endregion InsertOperation
 
