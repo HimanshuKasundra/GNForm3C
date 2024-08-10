@@ -39,7 +39,7 @@ namespace GNForm3C.DAL
 
         #region InsertOperation
 
-        #region InsertTransaction
+        #region Insert Transaction
         public Boolean Insert(ACC_GNTransactionENT entACC_GNTransaction)
         {
             try
@@ -91,11 +91,13 @@ namespace GNForm3C.DAL
                 return false;
             }
         }
-        #endregion
+        #endregion Insert Transaction
 
-        #region InsertPatient
-        public MST_GNPatientENT InsertPatient(MST_GNPatientENT entMST_GNPatient)
+        #region Insert Patient
+        public SqlInt32 InsertPatient(MST_GNPatientENT entMST_GNPatient)
         {
+            SqlInt32 PatientID = -1;
+
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
@@ -104,55 +106,41 @@ namespace GNForm3C.DAL
                 sqlDB.AddOutParameter(dbCMD, "@PatientID", SqlDbType.Int, 4);
                 sqlDB.AddInParameter(dbCMD, "@PatientName", SqlDbType.NVarChar, entMST_GNPatient.PatientName);
                 sqlDB.AddInParameter(dbCMD, "@Age", SqlDbType.Int, entMST_GNPatient.Age);
-                sqlDB.AddInParameter(dbCMD, "@DOB", SqlDbType.DateTime, entMST_GNPatient.DOB);
                 sqlDB.AddInParameter(dbCMD, "@MobileNo", SqlDbType.NVarChar, entMST_GNPatient.MobileNo);
+                sqlDB.AddInParameter(dbCMD, "@DOB", SqlDbType.DateTime, entMST_GNPatient.DOB);
                 sqlDB.AddInParameter(dbCMD, "@PrimaryDesc", SqlDbType.NVarChar, entMST_GNPatient.PrimaryDesc);
                 sqlDB.AddInParameter(dbCMD, "@UserID", SqlDbType.Int, entMST_GNPatient.UserID);
                 sqlDB.AddInParameter(dbCMD, "@Created", SqlDbType.DateTime, entMST_GNPatient.Created);
                 sqlDB.AddInParameter(dbCMD, "@Modified", SqlDbType.DateTime, entMST_GNPatient.Modified);
 
                 DataBaseHelper DBH = new DataBaseHelper();
-                using (IDataReader dr = DBH.ExecuteReader(sqlDB, dbCMD))
-                {
-                    if (dr.Read())
-                    {
-                        MST_GNPatientENT newPatient = new MST_GNPatientENT
-                        {
-                            PatientID = dr.GetInt32(dr.GetOrdinal("PatientID")),
-                            PatientName = dr.GetString(dr.GetOrdinal("PatientName")),
-                            Age = dr.GetInt32(dr.GetOrdinal("Age")),
-                            DOB = dr.GetDateTime(dr.GetOrdinal("DOB")),
-                            MobileNo = dr.GetString(dr.GetOrdinal("MobileNo")),
-                            PrimaryDesc = dr.GetString(dr.GetOrdinal("PrimaryDesc")),
-                            UserID = dr.GetInt32(dr.GetOrdinal("UserID")),
-                            Created = dr.GetDateTime(dr.GetOrdinal("Created")),
-                            Modified = dr.GetDateTime(dr.GetOrdinal("Modified"))
-                        };
+                DBH.ExecuteNonQuery(sqlDB, dbCMD);
 
-                        return newPatient;
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                if (!(dbCMD.Parameters["@PatientID"].Value).Equals(DBNull.Value))
+                {
+                    entMST_GNPatient.PatientID = (SqlInt32)Convert.ToInt32(dbCMD.Parameters["@PatientID"].Value);
+                    PatientID = entMST_GNPatient.PatientID;
                 }
+
+                return PatientID;
             }
             catch (SqlException sqlex)
             {
                 Message = SQLDataExceptionMessage(sqlex);
                 if (SQLDataExceptionHandler(sqlex))
                     throw;
-                return null;
+                return PatientID;
             }
             catch (Exception ex)
             {
                 Message = ExceptionMessage(ex);
                 if (ExceptionHandler(ex))
                     throw;
-                return null;
+                return PatientID;
             }
         }
-        #endregion
+
+        #endregion Insert Patient
 
         #endregion InsertOperation
 
