@@ -13,6 +13,7 @@ using System.Data;
 using System.Runtime.Remoting.Contexts;
 using System.Web.Script.Serialization;
 using Microsoft.Office.Interop.Excel;
+using System.IO;
 
 public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEdit : System.Web.UI.Page
 {
@@ -91,7 +92,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
     private void FillDropDownList()
     {
         CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
-        CommonFillMethods.FillSingleDropDownListFinYearID(ddlFinYearID);
+        CommonFillMethods.FillSingleDropDownListFinYearIDGNTransaction(ddlFinYearID);
         CommonFillMethods.FillDropDownListReceiptTypeID(ddlReceiptTypeID);
         CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
 
@@ -292,7 +293,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                     {
                         if (balACC_GNTransaction.Insert(entACC_GNTransaction))
                         {
-                            ucMessage.ShowSuccess(CommonMessage.RecordSaved("Transaction"));
+                            ucMessage.ShowSuccess(CommonMessage.RecordSaved());
                             ClearControls();
                             //ClearPatientControls();
 
@@ -324,10 +325,10 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
         {
             try
             {
-                ACC_GNTransactionBAL balACC_GNTransaction = new ACC_GNTransactionBAL();
+                MST_GNPatientBAL balMST_GNPatientBAL = new MST_GNPatientBAL();
                 MST_GNPatientENT entMST_GNPatient = new MST_GNPatientENT();
 
-                #region 15.1 Validate Fields 
+                #region 15.1 Validate Fields
 
                 String ErrorMsg = String.Empty;
                 if (txtPatientName.Text.Trim() == String.Empty)
@@ -348,9 +349,9 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
                 #endregion 15.1 Validate Fields
 
-                #region 15.2 Gather Data 
+                #region 15.2 Gather Data
 
-
+                // Gather data from the form
                 if (txtPatientName.Text.Trim() != String.Empty)
                     entMST_GNPatient.PatientName = txtPatientName.Text.Trim();
 
@@ -366,65 +367,75 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                 if (txtPrimaryDesc.Text.Trim() != String.Empty)
                     entMST_GNPatient.PrimaryDesc = txtPrimaryDesc.Text.Trim();
 
-
                 entMST_GNPatient.UserID = Convert.ToInt32(Session["UserID"]);
-
                 entMST_GNPatient.Created = DateTime.Now;
-
                 entMST_GNPatient.Modified = DateTime.Now;
 
+                string photoDirPath = "~/Default/Images/Patient/";
+                string folderPath = Server.MapPath("~/Default/Images/Patient/");
 
-                #endregion 15.2 Gather Data 
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
 
+                if (fuPatientImg.HasFile)
+                {
+                    string fileName = Path.GetFileName(fuPatientImg.FileName);
+                    string filePath = Path.Combine(folderPath, fileName);
+                    fuPatientImg.SaveAs(filePath);
+                    entMST_GNPatient.PatientPhotoPath = (photoDirPath + fileName).ToString();
 
-                #region 15.3 Insert,Update,Copy 
+                }
+                else
+                {
+                    //lblMessage.Text = "No file selected.";
+                }
+
+                #endregion 15.2 Gather Data
+
+                #region 15.3 Insert, Update, Copy
 
                 if (Request.QueryString["PatientID"] != null && Request.QueryString["Copy"] == null)
                 {
-                    //entMST_GNPatient.PatientID = CommonFunctions.DecryptBase64Int32(Request.QueryString["PatientID"]);
-                    //if (balACC_GNTransaction.Update(entMST_GNPatient))
-                    //{
-                    //    Response.Redirect("ACC_GNTransactionList.aspx");
-                    //}
-                    //else
-                    //{
-                    //    ucMessage.ShowError(balACC_GNTransaction.Message);
-                    //}
+                    // Update logic here
+                    ucMessage.ShowError("Some error found");
                 }
                 else
                 {
                     if (Request.QueryString["PatientID"] == null || Request.QueryString["Copy"] != null)
                     {
-                        SqlInt32 InsertedPatientID = balACC_GNTransaction.InsertPatient(entMST_GNPatient);
+                        SqlInt32 InsertedPatientID = balMST_GNPatientBAL.Insert(entMST_GNPatient);
 
                         if (InsertedPatientID > 0)
                         {
-                            ucMessage.ShowSuccess(CommonMessage.RecordSaved("Patient"));
+                            ucMessage.ShowSuccess(CommonMessage.RecordSaved());
+                            ScriptManager.RegisterStartupScript(this, GetType(), "hideMessage", "hideMessage();", true);
                             ClearPatientControls();
 
+                            // Refill the patient dropdown and select the newly inserted patient
                             CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
                             ddlPatientID.SelectedValue = InsertedPatientID.ToString();
 
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "MasterPageView", "toggleAddPatientForm()", true);
+                            ucMessage.ShowSuccess(CommonMessage.RecordSaved());
+
 
                         }
                     }
                 }
 
-                #endregion 15.3 Insert,Update,Copy
+                #endregion 15.3 Insert, Update, Copy
 
+                FillPatientView(sender, e);
             }
             catch (Exception ex)
             {
                 ucMessage.ShowError(ex.Message);
-
             }
         }
-
-
-
-
     }
+
+
     #endregion  15.2 Save Patient
 
     #endregion 15.0 Save Button Event 
@@ -469,6 +480,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
     {
         if (ddlHospitalID.SelectedIndex > 0)
         {
+
             SqlInt32 HospitalID = SqlInt32.Null;
 
             HospitalID = Convert.ToInt32(ddlHospitalID.SelectedValue);
@@ -482,6 +494,25 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
     }
     #endregion 17.0 FillTreatmentCombobox
+
+
+
+    protected void FillPatientView(object sender, EventArgs e)
+    {
+        int PatientID = 0;
+
+        if (int.TryParse(ddlPatientID.SelectedValue, out PatientID))
+        {
+            if (PatientID > 0)
+            {
+                ucPatient.ShowPatient(PatientID);
+            }
+        }
+    }
+
+
+
+
 
 
 }

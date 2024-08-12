@@ -123,6 +123,18 @@ namespace GNForm3C.ENT
                 _Modified = value;
             }
         }
+        public SqlString _PatientPhotoPath;
+        public SqlString PatientPhotoPath
+        {
+            get
+            {
+                return _PatientPhotoPath;
+            }
+            set
+            {
+                _PatientPhotoPath = value;
+            }
+        }
 
         #endregion Properties
 
@@ -158,6 +170,9 @@ namespace GNForm3C.ENT
 
             if (!PrimaryDesc.IsNull)
                 MST_PatientENT_String += "| PrimaryDesc = " + PrimaryDesc.Value;
+
+            if (!PatientPhotoPath.IsNull)
+                MST_PatientENT_String += "| PatientPhotoPath = " + PatientPhotoPath.Value;
 
             if (!UserID.IsNull)
                 MST_PatientENT_String += "| UserID = " + UserID.Value.ToString();

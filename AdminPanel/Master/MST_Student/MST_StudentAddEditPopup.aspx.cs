@@ -151,13 +151,23 @@ public partial class AdminPanel_Master_MST_Student_MST_StudentAddEditPopup : Sys
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Birth Date");
 
 
+                if (!string.IsNullOrEmpty(txtModalContactNo.Text.Trim()))
+                {
+                    string contactNo = txtModalContactNo.Text.Trim();
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(contactNo, @"^\d{10}$"))
+                    {
+                        ErrorMsg += " - " + "Contact No must be exactly 10 digits.";
+                    }
+                }
+
                 if (ErrorMsg != String.Empty)
                 {
                     ErrorMsg = CommonMessage.ErrorPleaseCorrectFollowing() + ErrorMsg;
                     ucMessage.ShowError(ErrorMsg);
 
                     // Set the data-target attribute dynamically
-                    btnSave.Attributes["data-target"] = "#view";
+                    btnSave.Attributes["data-target"] = "#view" +
+                        "";
                     btnSave.Attributes["data-toggle"] = "modal";
 
                     // Use JavaScript to show the modal again
