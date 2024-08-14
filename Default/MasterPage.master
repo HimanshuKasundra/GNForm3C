@@ -376,9 +376,11 @@
                                             <span class="title">Account Expense</span>
                                         </a>
                                     </li>
+
+
                                     <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Account/ACC_Income/ACC_IncomeList.aspx") %>' class="nav-link ">
-                                            <span class="title">Account Income</span>
+                                            <span class="title">Account Income </span>
                                         </a>
                                     </li>
                                     <li class="nav-item  ">
@@ -438,6 +440,32 @@
                                     <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Security/SEC_User/SEC_UserList.aspx") %>' class="nav-link ">
                                             <span class="title">User</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-wrench"></i>
+                                    <span class="title">Reports</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu" style="display: none;">
+                                   
+                                    <li class="nav-item  ">
+                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_ACC_IncomeByFinYearList.aspx") %>' class="nav-link ">
+                                            <span class="title">Account Income Report</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_ACC_IncomeMatrixByFinYear.aspx") %>' class="nav-link ">
+                                            <span class="title">Account Incoome Matrix Report</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_HospitalWiseIncomeTypeWiseData.aspx") %>' class="nav-link ">
+                                            <span class="title">HospitalWiseIncomeTypeWise Report</span>
                                         </a>
                                     </li>
                                 </ul>

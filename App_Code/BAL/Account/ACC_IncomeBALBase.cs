@@ -96,7 +96,6 @@ namespace GNForm3C.BAL
 
         #endregion UpsertOperation
 
-
         #region DeleteOperation
 
         public Boolean Delete(SqlInt32 IncomeID)
@@ -130,6 +129,15 @@ namespace GNForm3C.BAL
             }
         }
         #endregion
+
+        #region RDLC (Reports)
+        public DataTable Report_ACC_Income_ByFinYear()
+        {
+            ACC_IncomeDAL dalACC_Income = new ACC_IncomeDAL();
+            return dalACC_Income.Report_ACC_Income_ByFinYear();
+        }
+
+        #endregion RDLC (Reports)
 
         #region SelectOperation
 
