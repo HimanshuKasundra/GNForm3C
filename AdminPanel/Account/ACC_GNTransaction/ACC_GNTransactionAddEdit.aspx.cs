@@ -294,7 +294,9 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                         if (balACC_GNTransaction.Insert(entACC_GNTransaction))
                         {
                             ucMessage.ShowSuccess(CommonMessage.RecordSaved());
+
                             ClearControls();
+
                             //ClearPatientControls();
 
                         }
@@ -457,7 +459,6 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
         txtQuantity.Text = String.Empty;
         txtRemarks.Text = String.Empty;
         ddlHospitalID.SelectedIndex = 0;
-        ddlFinYearID.SelectedIndex = 0;
         ddlReceiptTypeID.SelectedIndex = 0;
         ddlPatientID.Focus();
     }

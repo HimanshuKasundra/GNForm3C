@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphPageHeader" runat="Server">
-    <asp:Label ID="lblPageHeader_XXXXX" runat="server" Text="Transaction"></asp:Label>
+    <asp:Label ID="lblPageHeader_XXXXX" runat="server" Text="GN Transaction"></asp:Label>
     <small>
         <asp:Label ID="lblPageHeaderInfo_XXXXX" runat="server" Text="Account"></asp:Label></small>
     <span class="pull-right">
@@ -399,8 +399,10 @@
                                                                     OnClientClick="javascript:return confirm('Are you sure you want to Discharge?');"
                                                                     CommandName="Discharge"
                                                                     CommandArgument='<%# Eval("TransactionID") %>'
-                                                                    Enabled='<%# Eval("DateOfDischarge") == DBNull.Value ? true : false %>'>
+                                                                    Visible='<%# Eval("DateOfDischarge") == DBNull.Value ? true : false %>'>
                                                                 </asp:LinkButton>
+                                                                <asp:HyperLink ID="hlPrint" SkinID="hlPrint" NavigateUrl='<%# "~/AdminPanel/Reports/RPT_ACC_GNTransaction/RPT_ACC_GNTransactionPatientReceipt.aspx?TransactionID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionID").ToString()) + "&ReportType=" + GNForm3C.CommonFunctions.EncryptBase64("PDF") %>' runat="server"></asp:HyperLink>
+
                                                             </td>
                                                         </tr>
                                                         <%-- END Table Rows --%>

@@ -44,6 +44,8 @@ public partial class AdminPanel_Account_ACC_Expense_ACC_ExpInm_Ledger : System.W
             upr.DisplayAfter = CV.UpdateProgressDisplayAfter;
 
             #endregion 12.2 Set Default Value
+            SetDefaultDates();
+
             Search(1);
 
             #region 12.3 Set Help Text
@@ -355,5 +357,16 @@ public partial class AdminPanel_Account_ACC_Expense_ACC_ExpInm_Ledger : System.W
 
     #endregion 20.0 ClearControls
 
+    #region 21.0 SetDefaultDate
+    private void SetDefaultDates()
+    {
+        var today = DateTime.Today;
+        var firstDay = new DateTime(today.Year, today.Month, 1);
+        var lastDay = firstDay.AddMonths(1).AddDays(-1);
+
+        dtpLedgerFromDate.Text = firstDay.ToString("dd/MM/yyyy");
+        dtpLedgerToDate.Text = lastDay.ToString("dd/MM/yyyy");
+    }
+    #endregion 21.0 SetDefaultDate
 
 }

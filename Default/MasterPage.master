@@ -451,25 +451,61 @@
                                     <span class="title">Reports</span>
                                     <span class="arrow"></span>
                                 </a>
+
+
+
                                 <ul class="sub-menu" style="display: none;">
-                                   
-                                    <li class="nav-item  ">
-                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_ACC_IncomeByFinYearList.aspx") %>' class="nav-link ">
-                                            <span class="title">Account Income Report</span>
-                                        </a>
+
+                                    <li class="nav-item ">
+                                        <a class="nav-link nav-toggle" href="javascript:void(0)">Account Expense <span class="arrow "></span></a>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item  ">
+                                                <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Expense/RPT_HospitalWiseExpenseList.aspx") %>' class="nav-link ">
+                                                    <span class="title">Hospital wise Expense  </span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item  ">
+                                                <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Expense/RPT_HospitalWiseDateWiseExpenseList.aspx") %>' class="nav-link ">
+                                                    <span class="title">HospitalWise DateWise Expense  </span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
                                     </li>
-                                    <li class="nav-item  ">
-                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_ACC_IncomeMatrixByFinYear.aspx") %>' class="nav-link ">
-                                            <span class="title">Account Incoome Matrix Report</span>
-                                        </a>
+
+
+                                    <li class="nav-item ">
+                                        <a class="nav-link nav-toggle" href="javascript:void(0)">Account Income <span class="arrow "></span></a>
+                                        <ul class="sub-menu">
+
+                                            <li class="nav-item  ">
+                                                <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_ACC_IncomeByFinYearList.aspx") %>' class="nav-link ">
+                                                    <span class="title">Account Income </span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item  ">
+                                                <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_ACC_IncomeMatrixByFinYear.aspx") %>' class="nav-link ">
+                                                    <span class="title">Account Incoome Matrix </span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item  ">
+                                                <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_HospitalWiseIncomeTypeWiseData.aspx") %>' class="nav-link ">
+                                                    <span class="title">HospitalWise IncomeTypeWise Income </span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
                                     </li>
-                                    <li class="nav-item  ">
-                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Reports/RPT_ACC_Income/RPT_HospitalWiseIncomeTypeWiseData.aspx") %>' class="nav-link ">
-                                            <span class="title">HospitalWiseIncomeTypeWise Report</span>
-                                        </a>
-                                    </li>
+
+
+
                                 </ul>
                             </li>
+
+
+
 
                         </ul>
                         <!-- END SIDEBAR MENU -->

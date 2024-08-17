@@ -224,7 +224,6 @@ public partial class AdminPanel_Account_ACC_Expense_ACC_ExpenseAddEdit : System.
 						{
 							ucMessage.ShowSuccess(CommonMessage.RecordSaved());
 							ClearControls();
-							Response.Redirect("ACC_ExpenseList.aspx");
 						}
 					}
 				}

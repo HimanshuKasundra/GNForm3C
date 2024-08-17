@@ -14,7 +14,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 {
     #region 11.0 Variables
 
-    String FormName = "ACC_NTransactionList";
+    String FormName = "ACC_GNTransactionList";
     static Int32 PageRecordSize = CV.PageRecordSize;//Size of record per page
     Int32 PageDisplaySize = CV.PageDisplaySize;
     Int32 DisplayIndex = CV.DisplayIndex;
@@ -268,6 +268,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
     protected void rpData_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
+       
         if (e.CommandName == "Discharge")
         {
             try
@@ -296,6 +297,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
                 ucMessage.ShowError(ex.Message.ToString());
             }
         }
+
     }
 
     #endregion 16.1 Item Command Event    

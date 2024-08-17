@@ -21,6 +21,7 @@
         <asp:HyperLink ID="hlTransaction" runat="server" NavigateUrl="~/AdminPanel/Account/ACC_GNTransaction/ACC_GNTransactionList.aspx" Text="Transaction List"></asp:HyperLink>
         <i class="fa fa-angle-right"></i>
     </li>
+    <a href="ACC_GNTransactionAddEdit.aspx">ACC_GNTransactionAddEdit.aspx</a>
     <li class="active">
         <asp:Label ID="lblBreadCrumbLast" runat="server" Text="Transaction Add/Edit"></asp:Label>
     </li>
@@ -70,7 +71,7 @@
                                             <asp:Label ID="lblFinYearID_XXXXX" runat="server" Text="Fin Year"></asp:Label>
                                         </label>
                                         <div class="col-md-5">
-                                            <asp:DropDownList ValidationGroup="vgTransaction" ID="ddlFinYearID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                            <asp:DropDownList ValidationGroup="vgTransaction" ID="ddlFinYearID" disabled CssClass="form-control select2me" runat="server"></asp:DropDownList>
                                             <asp:RequiredFieldValidator ValidationGroup="vgTransaction" ID="rfvFinYearID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlFinYearID" ErrorMessage="Select Fin Year" InitialValue="-99"></asp:RequiredFieldValidator>
                                         </div>
                                     </div>
@@ -127,7 +128,7 @@
                                                         <div class="col-md-5">
                                                             <asp:TextBox ValidationGroup="vgPatient" ID="txtAge" runat="server" CssClass="form-control" onkeypress="return IsPositiveInteger(event)" placeholder="Enter Age"></asp:TextBox>
                                                             <asp:CompareValidator ValidationGroup="vgPatient" ID="CompareValidator1" runat="server" ControlToValidate="txtAge" ErrorMessage="Enter Age" SetFocusOnError="True" Operator="DataTypeCheck" Display="Dynamic" Type="Integer"></asp:CompareValidator>
-                                                            <asp:RequiredFieldValidator ValidationGroup="vgPatient" ID="RequiredFieldValidator3" SetFocusOnError="True" Display="Dynamic" runat="server" ControlToValidate="txtAge" ErrorMessage="Enter Amount"></asp:RequiredFieldValidator>
+                                                            <asp:RequiredFieldValidator ValidationGroup="vgPatient" ID="RequiredFieldValidator3" SetFocusOnError="True" Display="Dynamic" runat="server" ControlToValidate="txtAge" ErrorMessage="Enter Age"></asp:RequiredFieldValidator>
 
                                                         </div>
                                                     </div>
@@ -216,11 +217,14 @@
 
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">
+                                            <span class="required">*</span>
                                             <asp:Label ID="lblQuantity_XXXXX" runat="server" Text="Quantity"></asp:Label>
                                         </label>
                                         <div class="col-md-5">
-                                            <asp:TextBox ValidationGroup="vgTransaction" ID="txtQuantity" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" PlaceHolder="Enter Quantity"></asp:TextBox>
+                                            <asp:TextBox ValidationGroup="vgTransaction" ID="txtQuantity" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" Text="1" PlaceHolder="Enter Quantity"></asp:TextBox>
                                             <asp:CompareValidator ValidationGroup="vgTransaction" ID="cvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter Quantity" SetFocusOnError="True" Operator="DataTypeCheck" Display="Dynamic" Type="Integer"></asp:CompareValidator>
+                                            <asp:RequiredFieldValidator ValidationGroup="vgTransaction" ID="rfvQuantity" SetFocusOnError="True" Display="Dynamic" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter Quatity"></asp:RequiredFieldValidator>
+
                                         </div>
                                     </div>
 
@@ -300,7 +304,7 @@
                                             <asp:Label ID="lblDeposite_XXXXX" runat="server" Text="Deposite"></asp:Label>
                                         </label>
                                         <div class="col-md-5">
-                                            <asp:TextBox ValidationGroup="vgTransaction" ID="txtDeposite" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" PlaceHolder="Enter Deposite"></asp:TextBox>
+                                            <asp:TextBox ValidationGroup="vgTransaction" ID="txtDeposite" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" Text="500" PlaceHolder="Enter Deposite"></asp:TextBox>
                                             <asp:CompareValidator ValidationGroup="vgTransaction" ID="cvDeposite" runat="server" ControlToValidate="txtDeposite" ErrorMessage="Enter Valid Deposite" SetFocusOnError="True" Operator="DataTypeCheck" Display="Dynamic" Type="Double"></asp:CompareValidator>
                                         </div>
                                     </div>

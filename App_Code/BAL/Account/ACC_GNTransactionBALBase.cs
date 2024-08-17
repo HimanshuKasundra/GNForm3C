@@ -183,5 +183,13 @@ namespace GNForm3C.BAL
             return dalMST_FinYear.SelectComboBox();
         }
         #endregion
+
+        #region Report
+        public DataTable PatientReceiptByGNTransation(SqlInt32 TransactionID)
+        {
+            ACC_GNTransactionDAL dalACC_GNTransaction = new ACC_GNTransactionDAL();
+            return dalACC_GNTransaction.PatientReceiptByGNTransation(TransactionID);
+        }
+        #endregion
     }
 }
