@@ -41,7 +41,7 @@
                     <div class="tools">
                         <a href="javascript:;" class="collapse pull-right"></a>
                     </div>
-                </div>
+                </div> 
                 <div class="portlet-body form">
                     <div role="form">
                         <div class="form-body">

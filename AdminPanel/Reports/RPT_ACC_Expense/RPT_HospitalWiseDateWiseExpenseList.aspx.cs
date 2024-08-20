@@ -99,9 +99,6 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
 
         #endregion Parameters
 
-
-
-
         #region Gather Data
 
         if (dtpFromDate.Text.Trim() != String.Empty)
@@ -116,51 +113,47 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
 
         #endregion Gather Data
 
-        #region Validation
-
-        if (FromDate > ToDate)
+        if (FromDate < ToDate)
         {
-            Div_SearchResult.Visible = false;
-            Div_ExportOption.Visible = false;
+            ACC_ExpenseBAL balACC_Expense = new ACC_ExpenseBAL();
 
-            rpData.DataSource = null;
-            rpData.DataBind();
-            lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
-            lblRecordInfoTop.Text = CommonMessage.NoRecordFound();
-            ucMessage.ShowError("FromDate Must Be Less than ToDate");
-            return;
-        }
-
-        #endregion
-
-        ACC_ExpenseBAL balACC_Expense = new ACC_ExpenseBAL();
-
-        dtACC_Expense = balACC_Expense.SelectHospitalWiseExpenseList(FromDate, ToDate, HospitalID);
+            dtACC_Expense = balACC_Expense.SelectHospitalWiseExpenseList(FromDate, ToDate, HospitalID);
 
 
-        if (dtACC_Expense != null && dtACC_Expense.Rows.Count > 0)
-        {
-            Div_SearchResult.Visible = true;
-            Div_ExportOption.Visible = true;
-            rpData.DataSource = dtACC_Expense;
-            rpData.DataBind();
+            if (dtACC_Expense != null && dtACC_Expense.Rows.Count > 0)
+            {
+                Div_SearchResult.Visible = true;
+                Div_ExportOption.Visible = true;
+                rpData.DataSource = dtACC_Expense;
+                rpData.DataBind();
 
-            lblRecordInfoBottom.Text = String.Empty;
-            lblRecordInfoTop.Text = String.Empty;
-            ShowReport();
+                lblRecordInfoBottom.Text = String.Empty;
+                lblRecordInfoTop.Text = String.Empty;
+                ShowReport();
 
+            }
+            else
+            {
+
+                rpData.DataSource = null;
+                rpData.DataBind();
+                lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
+                lblRecordInfoTop.Text = CommonMessage.NoRecordFound();
+                ucMessage.ShowError(CommonMessage.NoRecordFound());
+            }
         }
         else
         {
+            Div_SearchResult.Visible = false;
+            lbtnExportExcel.Visible = false;
+
 
             rpData.DataSource = null;
             rpData.DataBind();
-            lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
-            lblRecordInfoTop.Text = CommonMessage.NoRecordFound();
-            ucMessage.ShowError(CommonMessage.NoRecordFound());
+
+            ucMessage.ShowError(CommonMessage.ToDate_GreaterThan_FromDate());
         }
     }
-
     #endregion 15.2 Search Function
 
     #endregion 15.0 Search

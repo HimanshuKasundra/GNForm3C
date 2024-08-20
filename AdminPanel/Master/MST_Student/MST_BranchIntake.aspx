@@ -78,7 +78,7 @@
                                                             <td>
                                                                 <asp:Label ID="lblBranch" runat="server" Text='<%# Eval("Branch") %>'></asp:Label>
                                                             </td>
-                                                            <asp:Repeater ID="rpAddmissionYearBody" runat="server">
+                                                            <asp:Repeater ID="rpAdmissionYearBody" runat="server">
                                                                 <ItemTemplate>
                                                                     <td class="text-right">
                                                                         <asp:Label ID="lblYear" runat="server" Text='<%# Eval("Year") %>' Visible="false"></asp:Label>

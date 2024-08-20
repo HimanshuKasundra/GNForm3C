@@ -103,7 +103,7 @@
                                         </asp:UpdatePanel>
                                         <div class="col-md-2">
                                             <button type="button" class="btn btn-primary" onclick="toggleAddPatientForm()">
-                                                Add
+                                                <asp:Label ID="lblAddButton" runat="server"></asp:Label>
                                            
                                            
                                             </button>
@@ -166,7 +166,7 @@
                                                         <div class="col-md-5">
                                                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                                                 <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                                    <asp:Image ValidationGroup="vgPatient" runat="server" ImageUrl="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" AlternateText="Patient Image" />
+                                                                    <asp:Image ValidationGroup="vgPatient" ID="imgPhotoPatientPath" runat="server" ImageUrl="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" AlternateText="Patient Image" />
                                                                 </div>
                                                                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                                                                 <div>
@@ -174,6 +174,7 @@
                                                                         <span class="fileinput-new">Select image </span>
                                                                         <span class="fileinput-exists">Change </span>
                                                                         <asp:FileUpload ID="fuPatientImg" runat="server" ValidationGroup="vgPatient" />
+                                                                        <asp:HiddenField  ID="hfimgPatientPhotoPath" runat="server"/>
                                                                     </span>
                                                                     <br />
                                                                     <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput">Remove </a>
@@ -197,7 +198,7 @@
                                     </asp:Panel>
 
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="divTreatmentID" runat="server">
                                         <label class="col-md-3 control-label">
                                             <span class="required">*</span>
                                             <asp:Label ID="lblTreatmentID_XXXXX" runat="server" Text="Treatment"></asp:Label>
@@ -215,26 +216,27 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="divQuantity" runat="server">
                                         <label class="col-md-3 control-label">
                                             <span class="required">*</span>
+
                                             <asp:Label ID="lblQuantity_XXXXX" runat="server" Text="Quantity"></asp:Label>
                                         </label>
                                         <div class="col-md-5">
-                                            <asp:TextBox ValidationGroup="vgTransaction" ID="txtQuantity" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" Text="1" PlaceHolder="Enter Quantity"></asp:TextBox>
+                                            <asp:TextBox ValidationGroup="vgTransaction" ID="txtQuantity" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" PlaceHolder="Enter Quantity" Text="1"></asp:TextBox>
                                             <asp:CompareValidator ValidationGroup="vgTransaction" ID="cvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter Quantity" SetFocusOnError="True" Operator="DataTypeCheck" Display="Dynamic" Type="Integer"></asp:CompareValidator>
-                                            <asp:RequiredFieldValidator ValidationGroup="vgTransaction" ID="rfvQuantity" SetFocusOnError="True" Display="Dynamic" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter Quatity"></asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ValidationGroup="vgTransaction" ID="RequiredFieldValidator4" SetFocusOnError="True" Display="Dynamic" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter Amount"></asp:RequiredFieldValidator>
 
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="divAmount" runat="server">
                                         <label class="col-md-3 control-label">
                                             <span class="required">*</span>
                                             <asp:Label ID="lblAmount_XXXXX" runat="server" Text="Amount"></asp:Label>
                                         </label>
                                         <div class="col-md-5">
-                                            <asp:TextBox ValidationGroup="vgTransaction" ID="txtAmount" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" PlaceHolder="Enter Amount"></asp:TextBox>
+                                            <asp:TextBox ValidationGroup="vgTransaction"  ID="txtAmount" CssClass="form-control" runat="server" onkeypress="return IsPositiveInteger(event)" PlaceHolder="Enter Amount"></asp:TextBox>
                                             <asp:CompareValidator ValidationGroup="vgTransaction" ID="cvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="Enter Valid Amount" SetFocusOnError="True" Operator="DataTypeCheck" Display="Dynamic" Type="Double"></asp:CompareValidator>
                                             <asp:RequiredFieldValidator ValidationGroup="vgTransaction" ID="rfvAmount" SetFocusOnError="True" Display="Dynamic" runat="server" ControlToValidate="txtAmount" ErrorMessage="Enter Amount"></asp:RequiredFieldValidator>
                                         </div>

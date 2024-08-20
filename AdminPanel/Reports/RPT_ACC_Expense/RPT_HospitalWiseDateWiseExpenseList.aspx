@@ -72,12 +72,15 @@
                                     </div>
 
                                 </div>
+
+
+
+
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <span class=" control-label">
+                                        <span class="control-label">
                                             <span class="required">*</span>
                                             <asp:Label ID="Label1" runat="server" Text="From Date"></asp:Label>
-
                                         </span>
                                         <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
                                             <span class="input-group-btn">
@@ -85,16 +88,15 @@
                                             </span>
                                             <asp:TextBox ID="dtpFromDate" CssClass="form-control" runat="server" placeholder="From Date"></asp:TextBox>
                                         </div>
-                                    <asp:RequiredFieldValidator ID="rfvExpenseDate" runat="server" ControlToValidate="dtpFromDate" ErrorMessage="Enter From Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
-
+                                        <asp:RequiredFieldValidator ID="rfvExpenseDate" runat="server" ControlToValidate="dtpFromDate" ErrorMessage="Enter From Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <span class=" control-label">
+                                        <span class="control-label">
                                             <span class="required">*</span>
                                             <asp:Label ID="Label2" runat="server" Text="To Date"></asp:Label>
-
                                         </span>
                                         <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
                                             <span class="input-group-btn">
@@ -102,10 +104,14 @@
                                             </span>
                                             <asp:TextBox ID="dtpToDate" CssClass="form-control" runat="server" placeholder="To Date"></asp:TextBox>
                                         </div>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="dtpToDate" ErrorMessage="Enter To Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
-
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="dtpToDate" ErrorMessage="Enter To Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
+
+
+
+
+
                             </div>
                         </div>
                         <div class="form-actions">
@@ -277,6 +283,31 @@
 
         SearchGridUI('<%=btnSearch.ClientID%>', 'sample_1', 1);
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Initialize the From Date datepicker
+            $('#<%= dtpFromDate.ClientID %>').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true
+        }).on('changeDate', function (selected) {
+            // Get the selected date
+            var fromDate = new Date(selected.date.valueOf());
+            // Enable the To Date datepicker and set its start date
+            $('#<%= dtpToDate.ClientID %>').datepicker('setStartDate', fromDate);
+            // Clear any previously selected date in the To Date datepicker
+            $('#<%= dtpToDate.ClientID %>').datepicker('clearDates');
+        });
+
+        // Initialize the To Date datepicker
+        $('#<%= dtpToDate.ClientID %>').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true
+        });
+    });
+    </script>
+
 </asp:Content>
 
 

@@ -81,10 +81,10 @@ public partial class AdminPanel_Master_MST_Student_MST_BranchIntake : System.Web
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            Repeater rpAddmissionYearBody = (Repeater)e.Item.FindControl("rpAddmissionYearBody");
+            Repeater rpAdmissionYearBody = (Repeater)e.Item.FindControl("rpAdmissionYearBody");
             DataRowView drv = (DataRowView)e.Item.DataItem;
 
-            if (rpAddmissionYearBody != null && drv != null)
+            if (rpAdmissionYearBody != null && drv != null)
             {
                 // Retrieve column names excluding the "Branch" column
                 DataTable dt = drv.DataView.Table;
@@ -101,8 +101,8 @@ public partial class AdminPanel_Master_MST_Student_MST_BranchIntake : System.Web
                     });
                 }
 
-                rpAddmissionYearBody.DataSource = yearIntakePairs;
-                rpAddmissionYearBody.DataBind();
+                rpAdmissionYearBody.DataSource = yearIntakePairs;
+                rpAdmissionYearBody.DataBind();
             }
         }
     }
@@ -151,11 +151,11 @@ public partial class AdminPanel_Master_MST_Student_MST_BranchIntake : System.Web
 
                     if (lblBranch != null)
                     {
-                        Repeater rpAddmissionYearBody = (Repeater)item.FindControl("rpAddmissionYearBody");
+                        Repeater rpAdmissionYearBody = (Repeater)item.FindControl("rpAdmissionYearBody");
 
-                        if (rpAddmissionYearBody != null)
+                        if (rpAdmissionYearBody != null)
                         {
-                            foreach (RepeaterItem yearItem in rpAddmissionYearBody.Items)
+                            foreach (RepeaterItem yearItem in rpAdmissionYearBody.Items)
                             {
                                 TextBox txtIntake = (TextBox)yearItem.FindControl("txtIntake");
                                 Label lblYear = (Label)yearItem.FindControl("lblYear");
@@ -204,11 +204,11 @@ public partial class AdminPanel_Master_MST_Student_MST_BranchIntake : System.Web
     {
         foreach (RepeaterItem item in rpIntakeData.Items)
         {
-            Repeater rpAddmissionYearBody = (Repeater)item.FindControl("rpAddmissionYearBody");
+            Repeater rpAdmissionYearBody = (Repeater)item.FindControl("rpAdmissionYearBody");
 
-            if (rpAddmissionYearBody != null)
+            if (rpAdmissionYearBody != null)
             {
-                foreach (RepeaterItem yearItem in rpAddmissionYearBody.Items)
+                foreach (RepeaterItem yearItem in rpAdmissionYearBody.Items)
                 {
                     TextBox txtIntake = (TextBox)yearItem.FindControl("txtIntake");
 

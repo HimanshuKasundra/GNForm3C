@@ -93,13 +93,12 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseExpenseL
         {
             ACC_ExpenseBAL balACC_Expense = new ACC_ExpenseBAL();
 
-            DataTable dt = balACC_Expense.SelectHospitalWiseExpenseList(FromDate, ToDate, HospitalID);
-
-            if (dt != null && dt.Rows.Count > 0)
+            dtACC_Expense = balACC_Expense.SelectHospitalWiseExpenseList(FromDate, ToDate, HospitalID);
+            if (dtACC_Expense != null && dtACC_Expense.Rows.Count > 0)
             {
                 Div_SearchResult.Visible = true;
                 Div_ExportOption.Visible = true;
-                rpData.DataSource = dt;
+                rpData.DataSource = dtACC_Expense;
                 rpData.DataBind();
                 ShowReport();
 

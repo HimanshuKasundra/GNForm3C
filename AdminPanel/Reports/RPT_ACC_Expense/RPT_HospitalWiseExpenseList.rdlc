@@ -486,7 +486,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=RowNumber("Hospital")</Value>
+                                  <Value>=RowNumber(Nothing)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -890,7 +890,7 @@
             </Style>
           </Line>
         </ReportItems>
-        <Height>1.175in</Height>
+        <Height>2.91806in</Height>
         <Style />
       </Body>
       <Width>7.5in</Width>
@@ -933,6 +933,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Top>0.05997cm</Top>
               <Left>5.06944in</Left>
               <Height>0.26333in</Height>
               <Width>2.43056in</Width>
@@ -967,9 +968,9 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox68</rd:DefaultName>
-              <Top>0.255in</Top>
+              <Top>0.28694in</Top>
               <Left>5.06944in</Left>
-              <Height>0.25in</Height>
+              <Height>0.27778in</Height>
               <Width>2.43056in</Width>
               <ZIndex>2</ZIndex>
               <Style>

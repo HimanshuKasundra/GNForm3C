@@ -53,6 +53,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
             #region 11.4 Set Control Default Value 
 
             lblFormHeader.Text = CV.PageHeaderAdd + " Transaction";
+            lblAddButton.Text = "Add";
             upr.DisplayAfter = CV.UpdateProgressDisplayAfter;
             dtpDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             dtpDateOfAdmission.Text = DateTime.Now.ToString("dd-MM-yyyy");
@@ -63,6 +64,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
             #region 11.5 Fill Controls 
 
             FillControls();
+            FillControls_Patient();
 
             #endregion 11.5 Fill Controls 
 
@@ -105,6 +107,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
     #region 14.0 FillControls By PK  
 
+    #region 14.1 Transactoin FillControl By PK 
     private void FillControls()
     {
         if (Request.QueryString["TransactionID"] != null)
@@ -115,7 +118,11 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
             entACC_GNTransaction = balACC_GNTransaction.SelectPK(CommonFunctions.DecryptBase64Int32(Request.QueryString["TransactionID"]));
 
             if (!entACC_GNTransaction.PatientID.IsNull)
+            {
                 ddlPatientID.Text = entACC_GNTransaction.PatientID.Value.ToString();
+                ucPatient.ShowPatient(Convert.ToInt32(entACC_GNTransaction.PatientID.Value.ToString()));
+
+            }
 
             if (!entACC_GNTransaction.TreatmentID.IsNull)
                 ddlTreatmentID.SelectedValue = entACC_GNTransaction.TreatmentID.Value.ToString();
@@ -165,8 +172,50 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
             if (!entACC_GNTransaction.ReceiptTypeID.IsNull)
                 ddlReceiptTypeID.SelectedValue = entACC_GNTransaction.ReceiptTypeID.Value.ToString();
 
+
+            divTreatmentID.Visible = false;
+            divQuantity.Visible = false;
+            divAmount.Visible = false;
         }
     }
+    #endregion 14.1 Transactoin FillControl By PK 
+
+    #region 14.2 Patient FillControl By PK 
+
+    private void FillControls_Patient()
+    {
+
+        if (ddlPatientID.SelectedIndex>0)
+        {
+            lblAddButton.Text="Edit";
+            MST_GNPatientBAL balMST_GNPatient = new MST_GNPatientBAL();
+            MST_GNPatientENT entMST_GNPatient = new MST_GNPatientENT();
+            entMST_GNPatient = balMST_GNPatient.SelectByPK(Convert.ToInt32(ddlPatientID.SelectedValue));
+
+            if (!entMST_GNPatient.PatientName.IsNull)
+                txtPatientName.Text = entMST_GNPatient.PatientName.Value.ToString();
+
+            if (!entMST_GNPatient.Age.IsNull)
+                txtAge.Text = entMST_GNPatient.Age.Value.ToString();
+
+            if (!entMST_GNPatient.DOB.IsNull)
+                dtpDOB.Text = entMST_GNPatient.DOB.Value.ToString(CV.DefaultDateFormat);
+
+            if (!entMST_GNPatient.MobileNo.IsNull)
+                txtMobileNo.Text = entMST_GNPatient.MobileNo.Value.ToString();
+
+            if (!entMST_GNPatient.PrimaryDesc.IsNull)
+                txtPrimaryDesc.Text = entMST_GNPatient.PrimaryDesc.Value.ToString();
+
+            if (!entMST_GNPatient.PatientPhotoPath.IsNull)
+            {
+                imgPhotoPatientPath.ImageUrl = entMST_GNPatient.PatientPhotoPath.Value.ToString();
+                hfimgPatientPhotoPath.Value = entMST_GNPatient.PatientPhotoPath.Value.ToString();
+            }
+        }
+    }
+
+    #endregion 14.2 Patient FillControl By PK 
 
     #endregion 14.0 FillControls By PK 
 
@@ -188,9 +237,9 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                 String ErrorMsg = String.Empty;
                 if (ddlPatientID.SelectedIndex == 0)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Patient");
-                if (ddlTreatmentID.SelectedIndex == 0)
+                if (ddlTreatmentID.SelectedIndex == 0 && Request.QueryString["TransactionID"] == null)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredFieldDDL("Treatment");
-                if (txtAmount.Text.Trim() == String.Empty)
+                if (txtAmount.Text.Trim() == String.Empty && Request.QueryString["TransactionID"] == null)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Amount");
                 if (dtpDate.Text.Trim() == String.Empty)
                     ErrorMsg += " - " + CommonMessage.ErrorRequiredField("Date");
@@ -369,8 +418,12 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                 if (txtPrimaryDesc.Text.Trim() != String.Empty)
                     entMST_GNPatient.PrimaryDesc = txtPrimaryDesc.Text.Trim();
 
+                if (imgPhotoPatientPath.ImageUrl != String.Empty)
+                    entMST_GNPatient.PatientPhotoPath = hfimgPatientPhotoPath.Value;
+
+
+
                 entMST_GNPatient.UserID = Convert.ToInt32(Session["UserID"]);
-                entMST_GNPatient.Created = DateTime.Now;
                 entMST_GNPatient.Modified = DateTime.Now;
 
                 string photoDirPath = "~/Default/Images/Patient/";
@@ -398,10 +451,23 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
                 #region 15.3 Insert, Update, Copy
 
-                if (Request.QueryString["PatientID"] != null && Request.QueryString["Copy"] == null)
+                if (ddlPatientID.SelectedIndex>0 && Request.QueryString["Copy"] == null)
                 {
-                    // Update logic here
-                    ucMessage.ShowError("Some error found");
+                    entMST_GNPatient.PatientID = Convert.ToInt32(ddlPatientID.SelectedValue);
+                    if (balMST_GNPatientBAL.Update(entMST_GNPatient))
+                    {
+                        ucMessage.ShowSuccess(CommonMessage.RecordSaved());
+                        ScriptManager.RegisterStartupScript(this, GetType(), "hideMessage", "hideMessage();", true);
+
+                        // Refill the patient dropdown and select the newly inserted patient
+                        CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
+                        ddlPatientID.SelectedValue = entMST_GNPatient.PatientID.ToString();
+                        ucMessage.ShowSuccess(CommonMessage.RecordSaved());
+                    }
+                    else
+                    {
+                        ucMessage.ShowError(balMST_GNPatientBAL.Message);
+                    }
                 }
                 else
                 {
@@ -420,7 +486,6 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                             ddlPatientID.SelectedValue = InsertedPatientID.ToString();
 
                             ucMessage.ShowSuccess(CommonMessage.RecordSaved());
-
 
                         }
                     }
@@ -496,8 +561,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
     }
     #endregion 17.0 FillTreatmentCombobox
 
-
-
+    #region 18.0 Fill PatientView
     protected void FillPatientView(object sender, EventArgs e)
     {
         int PatientID = 0;
@@ -509,7 +573,9 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
                 ucPatient.ShowPatient(PatientID);
             }
         }
+        FillControls_Patient();
     }
+    #endregion 18.0 Fill PatientView
 
 
 
