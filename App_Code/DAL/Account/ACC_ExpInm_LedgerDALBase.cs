@@ -8,6 +8,7 @@ using System.Data.SqlTypes;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Util;
 namespace GNForm3C
 {
     public class ACC_ExpInm_LedgerDALBase:DataBaseConfig
@@ -79,5 +80,71 @@ namespace GNForm3C
         }
 
         #endregion SelectOperation
+
+        #region Report 
+        public DataTable RPT_FinYearWiseHospitalWiseIncomeExpense()
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PP_FinYearWise_HospitalWise_IncomeExpense");
+
+                DataTable dtACC_Expense = new DataTable("PP_FinYearWise_HospitalWise_IncomeExpenseList");
+
+                DataBaseHelper DBH = new DataBaseHelper();
+                DBH.LoadDataTable(sqlDB, dbCMD, dtACC_Expense);
+
+                return dtACC_Expense;
+            }
+            catch (SqlException sqlex)
+            {
+                Message = SQLDataExceptionMessage(sqlex);
+                if (SQLDataExceptionHandler(sqlex))
+                    throw;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Message = ExceptionMessage(ex);
+                if (ExceptionHandler(ex))
+                    throw;
+                return null;
+            }
+        }
+
+        public DataTable RPT_Ledger(SqlInt32 HospitalID, SqlInt32 FinYearID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PP_ACC_Ledger_HospitalWise_FinYearWise_IncomeExpenseBalanceList");
+                sqlDB.AddInParameter(dbCMD, "@HospitalID", SqlDbType.Int, HospitalID);
+                sqlDB.AddInParameter(dbCMD, "@FinYearID", SqlDbType.Int, FinYearID);
+
+
+                DataTable dtACC_Expense = new DataTable("PP_ACC_Ledger_HospitalWise_FinYearWise_IncomeExpenseBalanceList");
+
+                DataBaseHelper DBH = new DataBaseHelper();
+                DBH.LoadDataTable(sqlDB, dbCMD, dtACC_Expense);
+
+                return dtACC_Expense;
+            }
+            catch (SqlException sqlex)
+            {
+                Message = SQLDataExceptionMessage(sqlex);
+                if (SQLDataExceptionHandler(sqlex))
+                    throw;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Message = ExceptionMessage(ex);
+                if (ExceptionHandler(ex))
+                    throw;
+                return null;
+            }
+        }
+
+        #endregion Report
     }
 }

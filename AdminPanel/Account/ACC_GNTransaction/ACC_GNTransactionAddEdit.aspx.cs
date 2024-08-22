@@ -27,7 +27,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        imgPhotoPatientPath.ImageUrl = CV.DefaultNoImagePath;
 
         #region 11.1 Check User Login 
 
@@ -94,7 +94,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionAddEd
     private void FillDropDownList()
     {
         CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
-        CommonFillMethods.FillSingleDropDownListFinYearIDGNTransaction(ddlFinYearID);
+        CommonFillMethods.FillCurrentDropDownListFinYearID(ddlFinYearID);
         CommonFillMethods.FillDropDownListReceiptTypeID(ddlReceiptTypeID);
         CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
 

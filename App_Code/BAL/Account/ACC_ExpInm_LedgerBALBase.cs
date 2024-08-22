@@ -36,7 +36,6 @@ namespace GNForm3C
 
         #endregion Public Properties
 
-
         #region SelectOperation
 
         public DataTable SelectPage(SqlInt32 PageOffset, SqlInt32 PageSize, out Int32 TotalRecords, SqlDateTime LedgerFromDate, SqlDateTime LedgerToDate, SqlString LedgerType)
@@ -46,5 +45,20 @@ namespace GNForm3C
         }
 
         #endregion SelectOperation
+
+        #region Report
+        public DataTable RPT_FinYearWiseHospitalWiseIncomeExpense()
+        {
+            ACC_ExpInm_LedgerDAL dalACC_Expense = new ACC_ExpInm_LedgerDAL();
+            return dalACC_Expense.RPT_FinYearWiseHospitalWiseIncomeExpense();
+        }
+
+        public DataTable RPT_Ledger(SqlInt32 HospitalID,SqlInt32 FinYearID)
+        {
+            ACC_ExpInm_LedgerDAL dalACC_Expense = new ACC_ExpInm_LedgerDAL();
+            return dalACC_Expense.RPT_Ledger(HospitalID, FinYearID);
+        }
+
+        #endregion Report
     }
 }

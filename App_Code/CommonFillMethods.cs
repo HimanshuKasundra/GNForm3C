@@ -79,7 +79,7 @@ namespace GNForm3C
             ddl.Items.Insert(0, new ListItem("Select Fin Year", "-99"));
 
         }
-        public static void FillSingleDropDownListFinYearIDGNTransaction(DropDownList ddl)
+        public static void FillCurrentDropDownListFinYearID(DropDownList ddl)
         {
             MST_FinYearBAL balMST_FinYear = new MST_FinYearBAL();
             ddl.DataSource = balMST_FinYear.SelectComboBox();

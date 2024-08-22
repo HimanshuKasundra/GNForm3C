@@ -11,14 +11,16 @@
                             <span class="caption-subject font-green-sharp bold uppercase">
                                 <i class="fa fa-user font-green-sharp"></i>Patient Details
                             </span>
+                           
                         </div>
                     </div>
+                   
                     <div class="portlet-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <ul class="nav">
                                     <li class="text-center margin-bottom-10 margin-top-10">
-                                        <asp:Image ID="imhPatient" runat="server" Height="180" CssClass="img-circle imgStudentPhoto" AlternateText="Patient Image" EnableViewState="false" ImageUrl="" />
+                                        <asp:Image ID="imhPatient" runat="server" Height="180" CssClass="img-circle imgStudentPhoto" AlternateText="Patient Image" EnableViewState="false" ImageUrl="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" />
 
                                     </li>
                                 </ul>
@@ -82,7 +84,7 @@
                                             <tr>
                                                 <th class="gn-view-label-header text-right text-nowrap">Age :</th>
                                                 <td class="gn-view-label-value">
-                                                    <asp:Label EnableViewState="false" runat="server" ID="lblucPatietAge" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="Patient Age">9904345075</asp:Label>
+                                                    <asp:Label EnableViewState="false" runat="server" ID="lblucPatietAge" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="Patient Age"></asp:Label>
 
                                                 </td>
                                             </tr>
@@ -90,7 +92,7 @@
                                             <tr>
                                                 <th class="gn-view-label-header text-right text-nowrap">Date of Birth :</th>
                                                 <td class="gn-view-label-value">
-                                                    <asp:Label EnableViewState="false" ID="lblucDOB" runat="server" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="Patient DOB">9904345075</asp:Label>
+                                                    <asp:Label EnableViewState="false" ID="lblucDOB" runat="server" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="Patient DOB"></asp:Label>
 
                                                 </td>
                                             </tr>
@@ -98,7 +100,7 @@
                                             <tr>
                                                 <th class="gn-view-label-header text-right text-nowrap">Mobile No. :</th>
                                                 <td class="gn-view-label-value">
-                                                    <asp:Label EnableViewState="false" ID="lblucMobileNo" runat="server" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="<i class='fa fa-phone'></i> Patient Mobile No.">9904345075</asp:Label>
+                                                    <asp:Label EnableViewState="false" ID="lblucMobileNo" runat="server" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="<i class='fa fa-phone'></i> Patient Mobile No."></asp:Label>
 
                                                 </td>
                                             </tr>
@@ -106,7 +108,7 @@
                                             <tr>
                                                 <th class="gn-view-label-header text-right text-nowrap">Primary Description :</th>
                                                 <td class="gn-view-label-value">
-                                                    <asp:Label EnableViewState="false" ID="lblucPrimaryDesc" runat="server" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="Primary Description">9904345075 </asp:Label>
+                                                    <asp:Label EnableViewState="false" ID="lblucPrimaryDesc" runat="server" title="" data-html="true" data-toggle="tooltip" data-placement="top" data-container="body" data-trigger="hover" data-original-title="Primary Description"> </asp:Label>
 
                                                 </td>
                                             </tr>

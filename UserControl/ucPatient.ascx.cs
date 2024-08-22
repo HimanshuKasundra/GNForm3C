@@ -19,7 +19,7 @@ public partial class UserControl_ucPatient : UserControl
 
         if (!IsPostBack)
         {
-
+            //imhPatient.ImageUrl = CV.DefaultNoImagePath;
         }
     }
 
@@ -27,7 +27,7 @@ public partial class UserControl_ucPatient : UserControl
     {
         MST_GNPatientBAL balMST_GNPatient = new MST_GNPatientBAL();
         System.Data.DataTable dtPatient = balMST_GNPatient.SelectView(PatientID);
-
+        imhPatient.ImageUrl = CV.DefaultNoImagePath;
         if (dtPatient != null)
         {
             foreach (DataRow dr in dtPatient.Rows)
@@ -55,7 +55,7 @@ public partial class UserControl_ucPatient : UserControl
                 if (!dr["PatientPhotoPath"].Equals(DBNull.Value))
                     imhPatient.ImageUrl = Convert.ToString(dr["PatientPhotoPath"]);
                 else
-                    imhPatient.ImageUrl = "~/Default/Images/default_patient_img.jpg";
+                    imhPatient.ImageUrl =CV.DefaultNoImagePath;
 
 
             }

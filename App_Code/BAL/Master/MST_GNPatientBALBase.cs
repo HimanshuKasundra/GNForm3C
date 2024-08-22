@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GNForm3C.DAL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlTypes;
@@ -99,5 +100,15 @@ public class MST_GNPatientBALBase
     #endregion Select View
 
     #endregion Select Operation
+
+    #region Report
+
+    public DataTable RPT_PatientIDCard( SqlInt32 PatientID)
+    {
+        MST_GNPatientDAL dalMST_GNPatient = new MST_GNPatientDAL();
+        return dalMST_GNPatient.RPT_PatientIDCard(PatientID);
+    }
+
+    #endregion Report
 
 }

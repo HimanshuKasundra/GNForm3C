@@ -240,6 +240,42 @@ public class MST_GNPatientDALBase:DataBaseConfig
         }
     }
     #endregion Select View
-     
+
     #endregion Select Operation
+
+    #region Report
+
+    public DataTable RPT_PatientIDCard(SqlInt32 PatientID)
+    {
+        try
+        {
+            SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+            DbCommand dbCMD = sqlDB.GetStoredProcCommand("PP_MST_GNPatientList");
+            sqlDB.AddInParameter(dbCMD, "@PatientID", SqlDbType.Int,PatientID);
+
+            DataTable dtACC_Expense = new DataTable("PP_MST_GNPatientList");
+
+            DataBaseHelper DBH = new DataBaseHelper();
+            DBH.LoadDataTable(sqlDB, dbCMD, dtACC_Expense);
+
+            return dtACC_Expense;
+        }
+        catch (SqlException sqlex)
+        {
+            Message = SQLDataExceptionMessage(sqlex);
+            if (SQLDataExceptionHandler(sqlex))
+                throw;
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Message = ExceptionMessage(ex);
+            if (ExceptionHandler(ex))
+                throw;
+            return null;
+        }
+    }
+
+    #endregion Report
+
 }
