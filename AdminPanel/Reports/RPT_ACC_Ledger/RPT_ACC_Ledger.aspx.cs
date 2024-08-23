@@ -315,6 +315,9 @@ public partial class AdminPanel_Reports_RPT_ACC_Ledger_RPT_ACC_Ledger : System.W
             if (!dr["ExpenseType"].Equals(System.DBNull.Value))
                 drACC_Ledger.ExpenseType = Convert.ToString(dr["ExpenseType"]);
 
+            if (!dr["OpeningBalance"].Equals(System.DBNull.Value))
+                drACC_Ledger.OpeningBalance = Convert.ToDecimal(dr["OpeningBalance"]);
+
             obj_dsACC_Ledger.dtACC_Ledger.Rows.Add(drACC_Ledger);
         }
 

@@ -6,9 +6,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphPageHeader" runat="Server">
-    <asp:Label ID="lblPageHeader_XXXXX" runat="server" Text="Income"></asp:Label>
+    <asp:Label ID="lblPageHeader_XXXXX" runat="server" Text="Patient"></asp:Label>
     <small>
-        <asp:Label ID="lblPageHeaderInfo_XXXXX" runat="server" Text="Account"></asp:Label></small>
+        <asp:Label ID="lblPageHeaderInfo_XXXXX" runat="server" Text="IDCard"></asp:Label></small>
     <span class="pull-right">
         <small>
             <asp:HyperLink ID="hlShowHelp" SkinID="hlShowHelp" runat="server"></asp:HyperLink>

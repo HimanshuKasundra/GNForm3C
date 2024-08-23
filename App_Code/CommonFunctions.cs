@@ -1775,6 +1775,22 @@ namespace GNForm3C
             }
         }
 
+        public static byte[] ConvertImagePathToPngBytes(string relativePath)
+        {
+            // Step 1: Get the physical path from the relative path
+            string physicalPath = HttpContext.Current.Server.MapPath(relativePath);
+
+            // Step 2: Read the image and convert it to PNG format
+            using (MemoryStream outputStream = new MemoryStream())
+            {
+                using (System.Drawing.Image image = System.Drawing.Image.FromFile(physicalPath))
+                {
+                    image.Save(outputStream, ImageFormat.Png);
+                    return outputStream.ToArray();
+                }
+            }
+        }
+
         #endregion Common
 
 

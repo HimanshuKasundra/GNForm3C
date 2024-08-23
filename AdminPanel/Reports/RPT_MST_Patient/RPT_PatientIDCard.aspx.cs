@@ -75,7 +75,9 @@ public partial class AdminPanel_Reports_MST_Patient_RPT_PatientIDCard : System.W
                 drMST_Patient.DOB = Convert.ToDateTime(dr["DOB"]);
 
             if (!dr["PatientPhotoPath"].Equals(System.DBNull.Value))
-                drMST_Patient.PatientPhotoPath = Convert.ToString(dr["PatientPhotoPath"]);
+                drMST_Patient.PatientPhotoPath = CommonFunctions.ConvertImagePathToPngBytes(Convert.ToString(dr["PatientPhotoPath"]));
+            else
+                drMST_Patient.PatientPhotoPath = CommonFunctions.ConvertImagePathToPngBytes(CV.DefaultNoImagePath);
 
             if (!dr["PrimaryDesc"].Equals(System.DBNull.Value))
                 drMST_Patient.PrimaryDesc = Convert.ToString(dr["PrimaryDesc"]);
