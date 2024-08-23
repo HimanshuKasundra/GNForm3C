@@ -99,18 +99,18 @@ namespace GNForm3C.ENT
 			}
 		}
 
-		//protected SqlString _Remarks;
-		//public SqlString Remarks
-		//{
-		//	get
-		//	{
-		//		return _Remarks;
-		//	}
-		//	set
-		//	{
-		//		_Remarks = value;
-		//	}
-		//}
+		protected SqlString _Remarks;
+		public SqlString Remarks
+		{
+			get
+			{
+				return _Remarks;
+			}
+			set
+			{
+				_Remarks = value;
+			}
+		}
 
 		protected SqlInt32 _UserID;
 		public SqlInt32 UserID
@@ -189,10 +189,10 @@ namespace GNForm3C.ENT
 			if(!FinYearID.IsNull)
 				ACC_IncomeENT_String += "| FinYearID = " + FinYearID.Value.ToString();
 
-			//if(!Remarks.IsNull)
-			//	ACC_IncomeENT_String += "| Remarks = " + Remarks.Value;
+			if (!Remarks.IsNull)
+				ACC_IncomeENT_String += "| Remarks = " + Remarks.Value;
 
-			if(!UserID.IsNull)
+			if (!UserID.IsNull)
 				ACC_IncomeENT_String += "| UserID = " + UserID.Value.ToString();
 
 			if(!Created.IsNull)
