@@ -85,7 +85,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
         CommonFillMethods.FillDropDownListHospitalID(ddlHospitalID);
         CommonFillMethods.FillSingleDropDownListFinYearID(ddlFinYearID);
         CommonFillMethods.FillDropDownListReceiptTypeID(ddlReceiptTypeID);
-        CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
+        //CommonFillMethods.FillDropDownListPatientID(ddlPatientID);
 
         CommonFunctions.GetDropDownPageSize(ddlPageSizeBottom);
         ddlPageSizeBottom.SelectedValue = PageRecordSize.ToString();
@@ -137,8 +137,13 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
         //if (txtPatient.Text.Trim() != String.Empty)
         //    PatientID = txtPatient.Text.Trim();
 
-        if (ddlPatientID.SelectedIndex > 0)
-            PatientID = Convert.ToInt32(ddlPatientID.SelectedValue);
+        string selectedPatientID = hfPatientID.Value;
+        int patientID; // Declare the variable separately
+        if (int.TryParse(selectedPatientID, out patientID) && txtACEPatientName.Text.Trim() != String.Empty)
+            PatientID = patientID;
+
+        //if (ddlPatientID.SelectedIndex > 0)
+        //    PatientID = Convert.ToInt32(ddlPatientID.SelectedValue);
 
         if (txtAmount.Text.Trim() != String.Empty)
             Amount = Convert.ToDecimal(txtAmount.Text.Trim());
@@ -394,7 +399,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
         int TotalReceivedRecord = 0;
 
-        SqlInt32 Patient = SqlInt32.Null;
+        SqlInt32 PatientID = SqlInt32.Null;
         SqlInt32 TreatmentID = SqlInt32.Null;
         SqlDecimal Amount = SqlDecimal.Null;
         SqlInt32 SerialNo = SqlInt32.Null;
@@ -412,8 +417,13 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
         SqlInt32 ReceiptTypeID = SqlInt32.Null;
         Int32 TotalRecords = 0;
 
-        if (ddlPatientID.Text.Trim() != String.Empty)
-            Patient = Convert.ToInt32(ddlPatientID.Text.Trim());
+        string selectedPatientID = hfPatientID.Value;
+        int patientID; // Declare the variable separately
+        if (int.TryParse(selectedPatientID, out patientID) && txtACEPatientName.Text.Trim() != String.Empty)
+            PatientID = patientID;
+
+        //if (ddlPatientID.Text.Trim() != String.Empty)
+        //    Patient = Convert.ToInt32(ddlPatientID.Text.Trim());
 
         //if (ddlTreatmentID.SelectedIndex > 0)
         //    TreatmentID = Convert.ToInt32(ddlTreatmentID.SelectedValue);
@@ -467,7 +477,7 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
             Offset = (Convert.ToInt32(ViewState["CurrentPage"]) - 1) * PageRecordSize;
 
         ACC_GNTransactionBAL balACC_GNTransaction = new ACC_GNTransactionBAL();
-        DataTable dtACC_Transaction = balACC_GNTransaction.SelectPage(Offset, PageRecordSize, out TotalRecords, Patient, Amount, ReferenceDoctor, Count, ReceiptNo, Date, DateOfAdmission, DateOfDischarge, Deposite, NetAmount, NoOfDays, HospitalID, FinYearID, ReceiptTypeID);
+        DataTable dtACC_Transaction = balACC_GNTransaction.SelectPage(Offset, PageRecordSize, out TotalRecords, PatientID, Amount, ReferenceDoctor, Count, ReceiptNo, Date, DateOfAdmission, DateOfDischarge, Deposite, NetAmount, NoOfDays, HospitalID, FinYearID, ReceiptTypeID);
         if (dtACC_Transaction != null && dtACC_Transaction.Rows.Count > 0)
         {
             Session["ExportTable"] = dtACC_Transaction;
@@ -508,7 +518,8 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
 
     private void ClearControls()
     {
-        ddlPatientID.SelectedIndex = 0;
+        txtACEPatientName.Text = string.Empty;  
+        //ddlPatientID.SelectedIndex = 0;
         txtAmount.Text = String.Empty;
         txtReferenceDoctor.Text = String.Empty;
         txtCount.Text = String.Empty;
@@ -562,4 +573,6 @@ public partial class AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList 
         // e.g., GridView1.DataBind();
     }
     #endregion
+
+
 }

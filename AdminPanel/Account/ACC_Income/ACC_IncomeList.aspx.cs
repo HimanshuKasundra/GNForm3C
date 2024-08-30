@@ -342,8 +342,7 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
         {
             if (txtPageNo.Text.Trim() == String.Empty)
             {
-                /*                ucMessage.ShowError(CommonMessage.ErrorRequiredField("Page No"));
-                */
+                ucMessage.ShowError(CommonMessage.ErrorRequiredField("Page No"));
                 return;
             }
             else
@@ -351,8 +350,7 @@ public partial class AdminPanel_ACC_Income_ACC_IncomeList : System.Web.UI.Page
                 Value = Convert.ToInt32(txtPageNo.Text);
                 if (Value > Convert.ToInt32(ViewState["TotalPages"]))
                 {
-                    /*                    ucMessage.ShowError(CommonMessage.ErrorInvalidField("Page No"));
-                    */
+                    ucMessage.ShowError(CommonMessage.ErrorInvalidField("Page No"));
                     return;
                 }
                 Search(Value);

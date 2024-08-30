@@ -111,4 +111,12 @@ public class MST_GNPatientBALBase
 
     #endregion Report
 
+    #region AutoComplete
+    public DataTable AutoComplete(SqlString prefixText, SqlString contextText)
+    {
+        MST_GNPatientDAL dalMST_GNPatient = new MST_GNPatientDAL();
+        return dalMST_GNPatient.AutoComplete(prefixText, contextText);
+    }
+    #endregion AutoComplete
+
 }

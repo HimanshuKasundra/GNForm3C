@@ -494,41 +494,46 @@ namespace GNForm3C
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("Amount");
-            dt.Columns.Add("Note");
             dt.Columns.Add("IncomeDate");
-            dt.Columns.Add("FinYearID");
-            dt.Columns.Add("IncomeTypeID");
+            dt.Columns.Add("Amount");
+            dt.Columns.Add("Remarks");
+            dt.Columns.Add("Note");
             dt.Columns.Add("IncomeID");
+            dt.Columns.Add("IncomeTypeID");
+            dt.Columns.Add("FinYearID");
 
             foreach (RepeaterItem rp in rpData.Items)
             {
                 DropDownList FinYearID = (DropDownList)rp.FindControl("ddlFinYearID");
                 DropDownList IncomeTypeID = (DropDownList)rp.FindControl("ddlIncomeTypeID");
-                TextBox txtAmount = (TextBox)rp.FindControl("txtAmount");
-                TextBox txtNote = (TextBox)rp.FindControl("txtNote");
-
                 TextBox dtpIncomeDate = (TextBox)rp.FindControl("dtpIncomeDate");
+                TextBox txtNote = (TextBox)rp.FindControl("txtNote");
+                TextBox txtAmount = (TextBox)rp.FindControl("txtAmount");
                 HiddenField hdIncomeID = (HiddenField)rp.FindControl("hdIncomeID");
 
                 DataRow dr = dt.NewRow();
-                dr["Amount"] = txtAmount.Text.Trim();
+                dr["IncomeDate"] = dtpIncomeDate.Text.ToString().Trim() != String.Empty ? Convert.ToDateTime(dtpIncomeDate.Text.ToString().Trim()).ToString(CV.DefaultDateFormat) : null;
+                dr["Amount"] = txtAmount.Text.ToString().Trim();
                 dr["Note"] = txtNote.Text.Trim();
-                dr["IncomeDate"] = dtpIncomeDate.Text.Trim();
+                dr["IncomeID"] = hdIncomeID.Value.ToString();
                 dr["FinYearID"] = FinYearID.SelectedValue;
                 dr["IncomeTypeID"] = IncomeTypeID.SelectedValue;
-                dr["IncomeId"] = hdIncomeID.Value.ToString();
-
                 dt.Rows.Add(dr);
             }
             int count = 0;
             foreach (DataRow dr in dt.Rows)
             {
-                if (dr["Amount"].ToString() != String.Empty)
+                if (dr["Amount"].ToString().Trim() != string.Empty && dr["FinYearID"].ToString().Trim() != string.Empty && dr["IncomeTypeID"].ToString().Trim() != string.Empty)
                     count++;
             }
             if (count == dt.Rows.Count)
+            {
                 dt.Rows.Add();
+            }
+            else
+            {
+                ucMessage.ShowError("Fill All Rows Data");
+            }
 
             rpData.DataSource = dt;
             rpData.DataBind();

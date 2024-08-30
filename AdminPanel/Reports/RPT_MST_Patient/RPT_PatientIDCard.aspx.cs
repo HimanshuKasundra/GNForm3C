@@ -16,6 +16,7 @@ public partial class AdminPanel_Reports_MST_Patient_RPT_PatientIDCard : System.W
     #region Private Variable
     private DataTable dtMST_Patient = new DataTable("dtMST_Patient");
     private dsMST_Patient objdsMST_Patient = new dsMST_Patient();
+    string FileName=string.Empty;
 
     #endregion
 
@@ -33,14 +34,45 @@ public partial class AdminPanel_Reports_MST_Patient_RPT_PatientIDCard : System.W
     #endregion Page Load Event
 
     #region Show Report
+    //protected void ShowReport()
+    //{
+    //    try
+    //    {
+    //        SqlInt32 PatientID = SqlInt32.Null;
+    //        MST_GNPatientBAL balMST_GNPatient = new MST_GNPatientBAL();
+    //        dtMST_Patient = balMST_GNPatient.RPT_PatientIDCard(PatientID);
+    //        FillDataSet();
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+    //    }
+
+    //}
+    #endregion Show Report
+
+    #region Show Report
     protected void ShowReport()
     {
         try
         {
             SqlInt32 PatientID = SqlInt32.Null;
-            MST_GNPatientBAL balMST_GNPatient = new MST_GNPatientBAL();
-            dtMST_Patient = balMST_GNPatient.RPT_PatientIDCard(PatientID);
-            FillDataSet();
+            if (Request.QueryString["PatientID"] != null && Request.QueryString["ReportType"] != null)
+            {
+                PatientID = CommonFunctions.DecryptBase64Int32(Request.QueryString["PatientID"]);
+                string ReportType = CommonFunctions.DecryptBase64(Request.QueryString["ReportType"]);
+                MST_GNPatientBAL balMST_Patient = new MST_GNPatientBAL();
+                 dtMST_Patient = balMST_Patient.RPT_PatientIDCard(PatientID);
+                FillDataSet();
+                ExportReport(ReportType.ToString());
+            }
+            else
+            {
+                MST_GNPatientBAL balMST_Patient = new MST_GNPatientBAL();
+                 dtMST_Patient = balMST_Patient.RPT_PatientIDCard(PatientID);
+                FillDataSet();
+            }
+
         }
         catch (Exception ex)
         {
@@ -58,6 +90,7 @@ public partial class AdminPanel_Reports_MST_Patient_RPT_PatientIDCard : System.W
         {
             dsMST_Patient.dtMST_PatientRow drMST_Patient = objdsMST_Patient.dtMST_Patient.NewdtMST_PatientRow();
 
+            
             if (!dr["PatientID"].Equals(System.DBNull.Value))
                 drMST_Patient.PatientID = Convert.ToInt32(dr["PatientID"]);
 
@@ -119,4 +152,38 @@ public partial class AdminPanel_Reports_MST_Patient_RPT_PatientIDCard : System.W
         this.rvPatientIDCard.LocalReport.SetParameters(new ReportParameter[] { rptReportTitle, rptReportSubTitle, rptFooterDate });
     }
     #endregion SetReportParameter
+
+    private void ExportReport(string format)
+    {
+        try
+        {
+            string mimeType, encoding, extension;
+            Warning[] warnings;
+            string[] streamIds;
+
+            byte[] bytes = rvPatientIDCard.LocalReport.Render(format,
+                                                        null,
+                                                        out mimeType,
+                                                        out encoding,
+                                                        out extension,
+                                                        out streamIds,
+                                                        out warnings);
+
+            if (FileName == string.Empty)
+                FileName = "PatientIDCard";
+            else
+                FileName = "PatientIDCard_" + FileName;
+
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
+        }
+        catch (Exception ex)
+        {
+        }
+
+    }
 }

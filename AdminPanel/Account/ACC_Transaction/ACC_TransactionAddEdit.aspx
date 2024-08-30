@@ -31,12 +31,12 @@
     <!--Help Text End-->
     <asp:ScriptManager ID="sm" runat="server">
     </asp:ScriptManager>
-    <asp:UpdatePanel ID="upACC_Transaction" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
+    <asp:UpdatePanel ID="upACC_Transaction" runat="server" >
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="ddlHospitalID" />
 
         </Triggers>
+
         <ContentTemplate>
             <div class="row">
                 <div class="col-md-12">

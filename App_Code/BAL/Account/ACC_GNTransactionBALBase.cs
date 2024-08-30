@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlTypes;
+using AjaxControlToolkit;
+using System.Linq;
 using GNForm3C;
 using GNForm3C.DAL;
 using GNForm3C.ENT;
@@ -190,6 +192,8 @@ namespace GNForm3C.BAL
             ACC_GNTransactionDAL dalACC_GNTransaction = new ACC_GNTransactionDAL();
             return dalACC_GNTransaction.PatientReceiptByGNTransation(TransactionID);
         }
-        #endregion
+        #endregion
+
+        
     }
 }

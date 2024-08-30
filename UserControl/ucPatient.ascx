@@ -11,10 +11,18 @@
                             <span class="caption-subject font-green-sharp bold uppercase">
                                 <i class="fa fa-user font-green-sharp"></i>Patient Details
                             </span>
-                           
+
                         </div>
+                        <div class=" caption pull-right">
+                            <asp:HyperLink
+                                ID="hlPrint"
+                                SkinID="hlPrint"
+                                NavigateUrl='<%# "~/AdminPanel/Reports/RPT_MST_Patient/RPT_PatientIDCard.aspx?PatientID=" + GNForm3C.CommonFunctions.EncryptBase64(ViewState["PatientID"].ToString()) + "&ReportType=" + GNForm3C.CommonFunctions.EncryptBase64("PDF") %>'
+                                runat="server"></asp:HyperLink>
+                        </div>
+
                     </div>
-                   
+
                     <div class="portlet-body">
                         <div class="row">
                             <div class="col-md-12">

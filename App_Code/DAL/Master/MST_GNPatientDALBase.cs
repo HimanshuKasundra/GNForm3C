@@ -246,19 +246,19 @@ public class MST_GNPatientDALBase:DataBaseConfig
     #region Report
 
     public DataTable RPT_PatientIDCard(SqlInt32 PatientID)
-    {
+    { 
         try
         {
             SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
             DbCommand dbCMD = sqlDB.GetStoredProcCommand("PP_MST_GNPatientList");
             sqlDB.AddInParameter(dbCMD, "@PatientID", SqlDbType.Int,PatientID);
 
-            DataTable dtACC_Expense = new DataTable("PP_MST_GNPatientList");
+            DataTable dt_PatientIDCard = new DataTable("PP_MST_GNPatientList");
 
             DataBaseHelper DBH = new DataBaseHelper();
-            DBH.LoadDataTable(sqlDB, dbCMD, dtACC_Expense);
+            DBH.LoadDataTable(sqlDB, dbCMD, dt_PatientIDCard);
 
-            return dtACC_Expense;
+            return dt_PatientIDCard;
         }
         catch (SqlException sqlex)
         {
@@ -277,5 +277,40 @@ public class MST_GNPatientDALBase:DataBaseConfig
     }
 
     #endregion Report
+
+    #region AutoComplete
+
+    public DataTable AutoComplete(SqlString TxtSearch, SqlString TxtContext)
+    {
+        try
+        {
+            SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+            DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MST_GNPatient_AutoComplete");
+            sqlDB.AddInParameter(dbCMD, "@TxtSearch", SqlDbType.NVarChar, TxtSearch);
+            sqlDB.AddInParameter(dbCMD, "@TxtContext", SqlDbType.NVarChar, TxtContext);
+
+            DataTable dtMST_Patient = new DataTable("PR_MST_Patient_AutoComplete");
+
+            DataBaseHelper DBH = new DataBaseHelper();
+            DBH.LoadDataTable(sqlDB, dbCMD, dtMST_Patient);
+
+            return dtMST_Patient;
+        }
+        catch (SqlException sqlex)
+        {
+            Message = SQLDataExceptionMessage(sqlex);
+            if (SQLDataExceptionHandler(sqlex))
+                throw;
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Message = ExceptionMessage(ex);
+            if (ExceptionHandler(ex))
+                throw;
+            return null;
+        }
+    }
+    #endregion AutoComplete
 
 }

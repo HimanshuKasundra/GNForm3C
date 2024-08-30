@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default/MasterPage.master" AutoEventWireup="true" CodeFile="ACC_GNTransactionList.aspx.cs" Inherits="AdminPanel_Account_ACC_GNTransaction_ACC_GNTransactionList" %>
 
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphPageHeader" runat="Server">
@@ -45,6 +46,36 @@
                 <div class="portlet-body form">
                     <div role="form">
                         <div class="form-body">
+                            <%--<div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-search"></i>
+                                            </span>
+                                            <asp:TextBox ID="txtACEPatientName" CssClass="form-control" runat="server" PlaceHolder="Enter Patient" AutoPostBack="true"></asp:TextBox>
+                                            <ajaxToolkit:AutoCompleteExtender
+                                                ID="AutoCompleteExtender1"
+                                                runat="server"
+                                                TargetControlID="txtACEPatientName"
+                                                ServiceMethod="GetPatientList"
+                                                ServicePath="~/AdminPanel/PatientList.asmx"
+                                                MinimumPrefixLength="2"
+                                                CompletionSetCount="10"
+                                                CompletionListCssClass="list-group fix-height"
+                                                CompletionListItemCssClass="list-group-item"
+                                                CompletionListHighlightedItemCssClass="list-group-item bg-grey hover-cursor"
+                                                FirstRowSelected="true"
+                                                DelimiterCharacters=""
+                                                EnableCaching="false"
+                                                OnClientItemSelected="ClientItemSelectedPatient">
+                                            </ajaxToolkit:AutoCompleteExtender>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <asp:HiddenField ID="hfPatientID" runat="server" />
+                            </div>--%>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -52,10 +83,30 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-search"></i>
                                             </span>
-                                            <asp:DropDownList ID="ddlPatientID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                            <%--<asp:DropDownList ID="ddlPatientID" CssClass="form-control select2me" runat="server"></asp:DropDownList>--%>
+                                            <asp:TextBox ID="txtACEPatientName" CssClass="form-control" runat="server" AutoPostBack="true" PlaceHolder="Enter Patient" ></asp:TextBox>
+                                            <ajaxToolkit:AutoCompleteExtender
+                                                ID="AutoCompleteExtender2"
+                                                runat="server"
+                                                TargetControlID="txtACEPatientName"
+                                                ServiceMethod="GetPatientList"
+                                                ServicePath="~/AdminPanel/PatientList.asmx"
+                                                MinimumPrefixLength="2"
+                                                CompletionSetCount="10"
+                                                CompletionListCssClass="list-group fix-height"
+                                                CompletionListItemCssClass="list-group-item"
+                                                CompletionListHighlightedItemCssClass="list-group-item bg-grey hover-cursor"
+                                                FirstRowSelected="true"
+                                                DelimiterCharacters=""
+                                                EnableCaching="false"
+                                                OnClientItemSelected="ClientItemSelectedPatient">
+                                            </ajaxToolkit:AutoCompleteExtender>
+                                            <asp:HiddenField ID="hfPatientID" runat="server" />
+
                                         </div>
                                     </div>
                                 </div>
+
                                 <%--	<div class="col-md-4">
 									<div class="form-group">
 										<div class="input-group">
@@ -216,6 +267,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
 
                             </div>
                             <%--<div class="row">
@@ -491,5 +544,10 @@
         });
 
         SearchGridUI('<%=btnSearch.ClientID%>', 'sample_1', 1);
+
+        function ClientItemSelectedPatient(sender, e) {
+            $(<%= hfPatientID.ClientID %>).val(e.get_value().split(' - ')[0]);
+        }
     </script>
+
 </asp:Content>

@@ -208,16 +208,16 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <%#Eval("Amount",GNForm3C.CV.DefaultCurrencyFormatWithDecimalPoint) %>
-                                                        </td>
+                                                            </td>
                                                             <td class="text-center">
                                                                 <%#Eval("IncomeDate", GNForm3C.CV.DefaultDateFormatForGrid) %>
-                                                        </td>
+                                                            </td>
                                                             <td>
                                                                 <%#Eval("Hospital") %>
-                                                        </td>
+                                                            </td>
                                                             <td>
                                                                 <%#Eval("FinYearName") %>
-                                                        </td>
+                                                            </td>
                                                             <td class="text-nowrap text-center">
                                                                 <asp:HyperLink ID="hlView" SkinID="View" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Income/ACC_IncomeView.aspx?IncomeID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("IncomeID").ToString()) %>' data-target="#viewiFrameReg" data-toggle="modal" runat="server"></asp:HyperLink>
                                                                 <asp:HyperLink ID="hlEdit" SkinID="Edit" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Income/ACC_IncomeAddEdit.aspx?IncomeID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("IncomeID").ToString()) %>' runat="server"></asp:HyperLink>
@@ -226,7 +226,7 @@
                                                                     OnClientClick="javascript:return confirm('Are you sure you want to delete record ? ');"
                                                                     CommandName="DeleteRecord"
                                                                     CommandArgument='<%#Eval("IncomeID") %>'>
-                                                            </asp:LinkButton>
+                                                                </asp:LinkButton>
                                                             </td>
                                                         </tr>
                                                     </ItemTemplate>
@@ -245,7 +245,7 @@
                                         </div>
                                         <div class="col-md-5">
                                             <div class="dataTables_paginate paging_simple_numbers" runat="server" id="Div_Pagination">
-                                                <ul class="pKDKDagination">
+                                                <ul class="pagination">
                                                     <li class="paginate_button previous disabled" id="liFirstPage" runat="server">
                                                         <asp:LinkButton ID="lbtnFirstPage" Enabled="false" OnClick="PageChange_Click" CommandName="FirstPage" CommandArgument="1" runat="server"><i class="fa fa-angle-double-left"></i></asp:LinkButton></li>
                                                     <li class="paginate_button previous disabled" id="liPrevious" runat="server">

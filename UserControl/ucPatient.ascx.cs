@@ -19,7 +19,7 @@ public partial class UserControl_ucPatient : UserControl
 
         if (!IsPostBack)
         {
-            //imhPatient.ImageUrl = CV.DefaultNoImagePath;
+            hlPrint.DataBind();
         }
     }
 
@@ -32,6 +32,11 @@ public partial class UserControl_ucPatient : UserControl
         {
             foreach (DataRow dr in dtPatient.Rows)
             {
+                if (!dr["PatientID"].Equals(DBNull.Value))
+                {
+                    ViewState["PatientID"] = dr["PatientID"].ToString();
+
+                }
 
                 if (!dr["PatientName"].Equals(DBNull.Value))
                 {
