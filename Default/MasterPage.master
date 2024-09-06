@@ -58,6 +58,11 @@
     <link href="<%=ResolveClientUrl("~/Default/CSS/GNColor.css?V=2_20200225") %>" rel="stylesheet" type="text/css" />
     <!-- END CUSTOM STYLES -->
 
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 

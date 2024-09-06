@@ -23,6 +23,8 @@
             <asp:AsyncPostBackTrigger ControlID="btnSave" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="ddlHospitalID" />
             <asp:AsyncPostBackTrigger ControlID="btnAdd" EventName="Click" />
+
+            <asp:AsyncPostBackTrigger ControlID="btnSaveDataTable" EventName="Click" />
         </Triggers>
         <ContentTemplate>
             <asp:UpdatePanel ID="upACC_Income2" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
@@ -207,7 +209,9 @@
                                                 <div class="col-md-offset-1 col-md-9">
                                                     <asp:LinkButton ID="btnAdd" runat="server" OnClick="btnAdd_Click" SkinID="lbtnAddRow" Visible="true">
                                                     </asp:LinkButton>
-                                                    <asp:Button ID="btnSave" runat="server" SkinID="btnSave" OnClick="btnSave_Click" />
+                                                    <asp:Button ID="btnSave" runat="server" SkinID="btnSaveEmpty" Text="Save XML" OnClick="btnSave_Click" />
+                                                    <asp:Button ID="btnSaveDataTable" runat="server" SkinID="btnSaveEmpty" Text="Save DataTable" OnClick="btnSave_Click_DataTable" />
+
                                                     <asp:HyperLink ID="hlCancel" runat="server" SkinID="hlCancel" NavigateUrl="~/AdminPanel/Account/ACC_Income/ACC_IncomeList.aspx"></asp:HyperLink>
                                                 </div>
                                             </div>

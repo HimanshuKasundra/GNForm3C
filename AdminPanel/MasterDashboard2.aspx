@@ -64,6 +64,7 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     <%-- End Search --%>
+
     <%-- Dashboard --%>
     <asp:UpdatePanel ID="Dashboard" runat="server">
         <ContentTemplate>
@@ -87,6 +88,8 @@
                                             </div>
                                             <div class="tools"></div>
                                         </div>
+
+
                                         <div class="portlet-body form">
                                             <div class="form-horizontal" role="form">
                                                 <div class="form-body">
@@ -141,7 +144,8 @@
                                 </ContentTemplate>
                             </asp:UpdatePanel>
 
-                            <asp:UpdatePanel ID="UpList" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
+
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                 <ContentTemplate>
                                     <div class="portlet">
                                         <div class="portlet-body form">
@@ -149,14 +153,46 @@
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-12">
+                                                            <div class="portlet light">
+                                                                <div class="portlet-title">
+                                                                    <div class="caption font-green">
+                                                                        <i class="fa fa-line-chart font-green"></i>
+                                                                        <span class="caption-subject bold uppercase">Chart</span>
+                                                                    </div>
+                                                                    <div class="tools"></div>
+                                                                </div>
+                                                                <div class="portlet-body form">
+                                                                    <div class="form-horizontal" role="form">
+                                                                        <div class="form-body">
+                                                                            <div class="row">
+                                                                                <div class="col">
+                                                                                    <div id="chart_div"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+
+
+
+
+
+
+
+
+
+
+
 
                             <asp:UpdatePanel ID="upTabview" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                 <ContentTemplate>
@@ -509,6 +545,42 @@
     <%-- END Loading  --%>
 </asp:Content>
 <asp:Content ID="Content5" ContentPlaceHolderID="cphScripts" runat="Server">
+
+    <script type="text/javascript">
+        function chartLoad(data) {
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            google.charts.setOnLoadCallback(function () {
+                drawChart(data);
+            });
+
+        }
+        function drawChart(chartData) {
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Hospital');
+            dataTable.addColumn('number', 'TotalIncome');
+            dataTable.addColumn('number', 'TotalExpense');
+
+            var data = chartData.map(function (row) {
+                return [row.Hospital, row.TotalIncome, row.TotalExpense];
+            });
+            dataTable.addRows(data);
+
+            var options = {
+                title: 'Treatment Wise Summary',
+                hAxis: { title: 'Hospital', titleTextStyle: { color: '#333' } },
+                vAxis: { title: 'Amount', minValue: 0 },
+                legend: { position: 'top' },
+                bars: 'vertical', // Set to vertical for a column chart
+                height: 1000
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(dataTable, options);
+        }
+        
+    </script>
+
 </asp:Content>
 
 

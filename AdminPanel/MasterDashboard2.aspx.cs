@@ -1,4 +1,5 @@
 ﻿using GNForm3C;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -45,6 +46,8 @@ public partial class AdminPanel_MasterDashboard2 : System.Web.UI.Page
             #region 11.3 Set Help Text
             ucHelp.ShowHelp("Help Text will be shown here");
             #endregion 12.3 Set Help Text
+
+            
         }
     }
 
@@ -73,6 +76,10 @@ public partial class AdminPanel_MasterDashboard2 : System.Web.UI.Page
             BindHospitalWisePatientCountList(FinYearID);
             BindAccountTranscationList(FinYearID);
 
+            string JsonData = ShowChart(FinYearID);
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "hello", "chartLoad(" + JsonData + ");", true);
+
         }
 
     }
@@ -81,6 +88,12 @@ public partial class AdminPanel_MasterDashboard2 : System.Web.UI.Page
         if (ddlFinYearID.SelectedIndex <= 0)
         {
             upDashboard.Visible = false;
+        }
+        else
+        {
+            SqlInt32 FinYearID = (SqlInt32)Convert.ToInt32(ddlFinYearID.SelectedValue);
+            string JsonData = ShowChart(FinYearID);
+            ScriptManager.RegisterStartupScript(this, GetType(), "hello", "chartLoad(" + JsonData + ");", true);
         }
     }
     protected void btnShow_Click(object sender, EventArgs e)
@@ -215,4 +228,21 @@ public partial class AdminPanel_MasterDashboard2 : System.Web.UI.Page
     #endregion 14.1 Fill DropDownList
 
     #endregion 14.0 DropDownList
+
+    #region 15.0 Chart
+
+    private string ShowChart(SqlInt32 FinYearID)
+    {
+        MasterDashboard2BAL balMasterDashboard2 = new MasterDashboard2BAL();
+
+        DataTable dtchartData = balMasterDashboard2.IncomeExpenseSumHospitalWise(FinYearID);
+
+        var jsonData = JsonConvert.SerializeObject(dtchartData);
+
+        //ClientScript.RegisterStartupScript(this.GetType(), "chartData", "var chartData = " + jsonData + ";", true);
+
+        return jsonData;
+    }
+
+    #endregion Chart
 }

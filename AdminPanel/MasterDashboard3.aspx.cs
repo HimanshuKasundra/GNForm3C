@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Web.UI.HtmlControls;
+using Newtonsoft.Json;
 
 public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
 {
@@ -42,12 +43,13 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
 
             #endregion 11.2 Set Default Value 
 
-
             #region 11.3 Set Help Text
             ucHelp.ShowHelp("Help Text will be shown here");
             #endregion 12.3 Set Help Text
 
             BindData();
+
+           
         }
     }
 
@@ -72,6 +74,7 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
             if (hfFinYearID != null)
             {
                 FinYearID = Convert.ToInt32(hfFinYearID.Value);
+                //ShowChart(FinYearID);
             }
             Repeater rpitemCategoryWiseIncomeTotalList = (Repeater)rpAc.FindControl("rpCategoryWiseIncomeTotalList");
             Repeater rpitemCategoryWiseExpenseTotalList = (Repeater)rpAc.FindControl("rpCategoryWiseExpenseTotalList");
@@ -95,7 +98,7 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
             lExpenseCount.Text = string.Format(GNForm3C.CV.DefaultCurrencyFormatWithDecimalPoint, Convert.ToDecimal(dtCount.Rows[0]["ExpenseCount"].ToString()));
             lDifferenceCount.Text = string.Format(GNForm3C.CV.DefaultCurrencyFormatWithDecimalPoint, Convert.ToDecimal(dtCount.Rows[0]["DifferenceCount"].ToString()));
 
-
+           
         }
 
     }
@@ -116,9 +119,9 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
     #region 13.1 BindCategoryWiseIncomeTotalList
     private void BindCategoryWiseIncomeTotalList(Repeater rp, SqlInt32 FinYearID)
     {
-        MasterDashboard2BAL balMasterDashboard2BAL = new MasterDashboard2BAL();
+        MasterDashboard2BAL balMasterDashboard2 = new MasterDashboard2BAL();
 
-        DataTable dtCategoryWiseIncomeTotalList = balMasterDashboard2BAL.CategoryWiseIncomeTotalList(FinYearID);
+        DataTable dtCategoryWiseIncomeTotalList = balMasterDashboard2.CategoryWiseIncomeTotalList(FinYearID);
         var upList = rp.FindControl("CategoryWiseIncomeTotalList") as HtmlTable;
         Label label = (Label)rp.FindControl("lblNoCategoryWiseIncomeTotalListRecords");
 
@@ -140,6 +143,7 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
     }
 
     #endregion 13.1 BindCategoryWiseIncomeTotalList
+
     #region 13.2 BindExpense
 
     private void BindCategoryWiseExpenseTotalList(Repeater rp, SqlInt32 FinYearID)
@@ -195,6 +199,7 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
 
     }
     #endregion 13.3 BindHospitalWisePatientCountList
+
     #region 13.4 BindAccountTranscationList
 
     private void BindAccountTranscationList(Repeater rp, SqlInt32 FinYearID)
@@ -237,10 +242,37 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
 
     #endregion 14.0 DropDownList
 
-    public void rpData_OnItemDataBound(object sender, EventArgs e)
+    public void rpData_OnItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        SqlInt32 FinYearID = SqlInt32.Null;
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            // Find the HiddenField control in the current item
+            HiddenField hdFinYearID = (HiddenField)e.Item.FindControl("hdFinYearID");
+
+            // Get the FinYearID value from the HiddenField
+            SqlInt32 finYearID = Convert.ToInt32(hdFinYearID.Value);
+
+            // Fetch chart data specific to the repeater item
+            var chartData = GetChartData(finYearID);
+            var jsonData = JsonConvert.SerializeObject(chartData);
+
+            // Create a unique chartData variable for each repeater item
+            ClientScript.RegisterStartupScript(this.GetType(), "chartData_" + e.Item.ItemIndex,
+                "var chartData_" + e.Item.ItemIndex + " = " + jsonData + ";", true);
+        }
 
 
     }
+
+    #region Chart
+
+    private DataTable GetChartData(SqlInt32 FinYearID)
+    {
+        MasterDashboard2BAL balMasterDashboard2 = new MasterDashboard2BAL();
+        DataTable dtchartData = balMasterDashboard2.IncomeExpenseSumHospitalWise(FinYearID);
+
+
+        return dtchartData;
+    }
+    #endregion Chart
 }

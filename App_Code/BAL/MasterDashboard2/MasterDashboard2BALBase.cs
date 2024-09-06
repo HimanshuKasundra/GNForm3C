@@ -79,5 +79,11 @@ namespace GNForm3C.BAL
 
         #endregion Select
 
+        public DataTable IncomeExpenseSumHospitalWise(SqlInt32 FinYearID)
+        {
+            MasterDashboard2DAL dalMasterDashboard2= new MasterDashboard2DAL();
+            return dalMasterDashboard2.IncomeExpenseSumHospitalWise(FinYearID);
+        }
+
     }
 }

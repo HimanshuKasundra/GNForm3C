@@ -157,6 +157,8 @@ namespace GNForm3C
 
         public static string DefaultCurrencyFormat = "{0:#,0}";
         public static string DefaultCurrencyFormatWithOutDecimalPoint = "{0:#,0}";
+        public static string DefaultCurrencyCultureFormat = "{0:C}";
+
         public static string DefaultCurrencyFormatWithDecimalPoint = "{0:#,0.00}";
         public static string DefaultCountFormatWithIntPoint = "{0:#,0}";
 
