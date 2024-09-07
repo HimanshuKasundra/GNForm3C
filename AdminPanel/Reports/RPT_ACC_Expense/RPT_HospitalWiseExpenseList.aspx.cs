@@ -42,7 +42,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseExpenseL
 
             #endregion 12.2 Set Default Value
             SetDefaultDates();
-            Search();
+            //Search();
             #region 12.3 Set Help Text
             ucHelp.ShowHelp("Help Text will be shown here");
             #endregion 12.3 Set Help Text
@@ -97,7 +97,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseExpenseL
             if (dtACC_Expense != null && dtACC_Expense.Rows.Count > 0)
             {
                 Div_SearchResult.Visible = true;
-                Div_ExportOption.Visible = true;
+                //Div_ExportOption.Visible = true;
                 rpData.DataSource = dtACC_Expense;
                 rpData.DataBind();
                 ShowReport();
@@ -106,7 +106,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseExpenseL
             else
             {
                 Div_SearchResult.Visible = false;
-                lbtnExportExcel.Visible = false;
+                lbtnExcel.Visible = false;
 
 
                 rpData.DataSource = null;
@@ -124,7 +124,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseExpenseL
         else 
         {
             Div_SearchResult.Visible = false;
-            lbtnExportExcel.Visible = false;
+            lbtnExcel.Visible = false;
 
 
             rpData.DataSource = null;

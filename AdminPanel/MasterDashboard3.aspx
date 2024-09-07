@@ -126,7 +126,7 @@
                                                                         <div class="form-body">
                                                                             <div class="row">
                                                                                 <div class="col">
-                                                                                    <div id="chart_div_<%# Container.ItemIndex %>" ></div>
+                                                                                    <div id="chart_div_<%# Container.ItemIndex %>"></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -461,30 +461,92 @@
 
 <asp:Content ID="Content5" ContentPlaceHolderID="cphScripts" runat="Server">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <script>
         google.charts.load('current', { 'packages': ['corechart'] });
 
         function drawChart(containerId, chartData) {
             var dataTable = new google.visualization.DataTable();
             dataTable.addColumn('string', 'Hospital');
-            dataTable.addColumn('number', 'TotalIncome');
-            dataTable.addColumn('number', 'TotalExpense');
+            dataTable.addColumn('number', 'Income');
+            dataTable.addColumn({ type: 'number', role: 'annotation' }); // Annotation for Income
+            dataTable.addColumn('number', 'Expense');
+            dataTable.addColumn({ type: 'number', role: 'annotation' }); // Annotation for Expense
 
+            // Prepare the data
             var data = chartData.map(function (row) {
-                return [row.Hospital, row.TotalIncome, row.TotalExpense];
+                return [row.Hospital, row.TotalIncome, row.TotalIncome, row.TotalExpense, row.TotalExpense];
             });
             dataTable.addRows(data);
 
-            var options = {
-                title: 'Income and Expense by Hospital',
-                hAxis: { title: 'Hospital', titleTextStyle: { color: '#333' } },
-                vAxis: { title: 'Amount', minValue: 0 },
-                legend: { position: 'top' },
-                bars: 'vertical', // Set the orientation of the bars
-                height: 1000,     // Set the maximum height of the chart (in pixels)
-                //    chartArea: { width: '90%', height: '80%' } // Adjust the chart area inside the container
-            };
+            // Get the maximum value from the data
+            var maxIncome = Math.max.apply(null, chartData.map(function (row) { return row.TotalIncome; }));
+            var maxExpense = Math.max.apply(null, chartData.map(function (row) { return row.TotalExpense; }));
+            var maxValue = Math.max(maxIncome, maxExpense);
 
+            // Dynamically create tick marks based on the maximum value
+            var tickMarks = [];
+            var step = Math.ceil(maxValue / 5); // Divide into 5 steps
+            for (var i = 0; i <= maxValue; i += step) {
+                tickMarks.push(i);
+            }
+
+            // Custom function to format large numbers (K, M, Cr)
+            function formatNumber(value) {
+                if (value >= 10000000) {
+                    return (value / 10000000).toFixed(1) + ' Cr'; // Format as Crores
+                } else if (value >= 1000000) {
+                    return (value / 1000000).toFixed(1) + ' M'; // Format as Millions
+                } else if (value >= 1000) {
+                    return (value / 1000).toFixed(1) + ' K'; // Format as Thousands
+                } else {
+                    return value; // Keep as is for smaller values
+                }
+            }
+
+            // Format vAxis with dynamic numbers (K, M, Cr)
+            var ticksFormatted = tickMarks.map(function (tick) {
+                return { v: tick, f: formatNumber(tick) };
+            });
+
+            var windowWidth = window.innerWidth * 0.85;
+
+            var options = {
+                title: 'Hospital wise Income Expense',
+                titleTextStyle: {
+                    fontSize: 18, // Make the title larger
+                    bold: true,
+                    color: '#333'
+                },
+                hAxis: {
+                    title: 'Hospitals', // Leave empty if no title needed for the X-axis
+                    textStyle: { fontSize: 12 } // Adjust font size for hospital names
+                },
+                vAxis: {
+                    title: 'Amount',
+                    textStyle: { fontSize: 12 },
+                    minValue: 0,
+                    ticks: ticksFormatted, // Use dynamic tick marks based on data
+                },
+                legend: {
+                    position: 'top-right', // Place legend at the bottom
+                    textStyle: { fontSize: 12 } // Adjust font size for the legend
+                },
+                colors: ['#4285F4', '#DB4437'], // Customize colors for Income and Expense bars
+                bars: 'vertical', // Vertical bars
+                height: 400, // Adjust the height of the chart
+                width: windowWidth, // Adjust the width of the chart
+                chartArea: { width: '60%', height: '70%' }, // Adjust chart area to fit better
+                bar: { groupWidth: '50%' }, // Adjust bar width
+                annotations: {
+                    alwaysOutside: true, // Make sure labels are outside the bars
+                    textStyle: {
+                        fontSize: 12,
+                        color: '#000', // Color of the labels
+                        auraColor: 'none' // Remove shadow effect
+                    },
+                    format: 'short' // Auto-shorten numbers in annotations
+                }
+            };
 
             var chart = new google.visualization.ColumnChart(document.getElementById(containerId));
             chart.draw(dataTable, options);
@@ -492,11 +554,13 @@
 
         // Call this function after the page loads or repeater items are bound
         function drawChartsForAllHospitals() {
-            <% for (int i = 0; i < rpFinYear.Items.Count; i++) { %>
+    <% for (int i = 0; i < rpFinYear.Items.Count; i++)
+        { %>
             drawChart('chart_div_<%= i %>', chartData_<%= i %>); // Use unique chartData for each chart
-            <% } %>
+    <% } %>
         }
 
         google.charts.setOnLoadCallback(drawChartsForAllHospitals);
+
     </script>
 </asp:Content>

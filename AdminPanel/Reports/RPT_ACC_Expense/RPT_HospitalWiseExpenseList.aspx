@@ -77,8 +77,12 @@
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <asp:Button ID="btnSearch" SkinID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
-                                    <asp:Button ID="btnClear" runat="server" SkinID="btnClear" Text="Clear" OnClick="btnClear_Click" />
+                                    <asp:Button ID="btnClear" runat="server" SkinID="btnClear1" Text="Clear" OnClick="btnClear_Click" />
+
+                                    <asp:Button ID="btnSearch" SkinID="btnShow" runat="server" Text="Show" OnClick="btnSearch_Click" />
+
+                                    <asp:LinkButton ID="lbtnPDF" SkinID="lbtnPDF" runat="server" CommandArgument="PDF" OnClick="lbtnExport_Click"/>
+                                    <asp:LinkButton ID="lbtnExcel" runat="server" SkinID="lbtnExcel" CommandArgument="Excel" OnClick="lbtnExport_Click"/>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +101,7 @@
                 </div>
             </div>
             <div class="row">
-                <rsweb:ReportViewer ID="rvHospitalWiseExpenseList" visible="false" runat="server" Width="100%" Height="500px">
+                <rsweb:ReportViewer ID="rvHospitalWiseExpenseList" Visible="false" runat="server" Width="100%" Height="500px">
                     <LocalReport ReportPath="AdminPanel\Reports\RPT_ACC_Expense\RPT_HospitalWiseExpenseList.rdlc"></LocalReport>
                 </rsweb:ReportViewer>
             </div>
@@ -114,9 +118,8 @@
                                     <asp:Label ID="lblRecordInfoTop" Text="No entries found" CssClass="pull-right" runat="server"></asp:Label>
                                 </label>
                             </div>
-                            <div class="tools">
+                            <%--<div class="tools">
                                 <div>
-                                    <%--<asp:HyperLink SkinID="hlAddNew" ID="hlAddNew" NavigateUrl="~/AdminPanel/Account/ACC_Expense/ACC_ExpenseAddEdit.aspx" runat="server"></asp:HyperLink>--%>
                                     <div class="btn-group" runat="server" id="Div_ExportOption" visible="false">
                                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                                             Export <i class="fa fa-angle-down"></i>
@@ -131,7 +134,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                         </div>
                         <div class="portlet-body">
                             <div class="row" runat="server" id="Div_SearchResult" visible="false">
@@ -142,20 +145,22 @@
                                             <thead>
                                                 <tr class="TRDark">
                                                     <th>
-                                                        <asp:Label ID="lbhExpenseTypeID" runat="server" Text="Expense Type"></asp:Label>
+                                                        <asp:Label ID="lbhFinYearID" runat="server" Text="Fin Year"></asp:Label>
                                                     </th>
-                                                    <th class="text-right">
-                                                        <asp:Label ID="lbhAmount" runat="server" Text="Amount"></asp:Label>
+                                                    <th>
+                                                        <asp:Label ID="lbhHospitalID" runat="server" Text="Hospital"></asp:Label>
                                                     </th>
                                                     <th class="text-center">
                                                         <asp:Label ID="lbhExpenseDate" runat="server" Text="Expense Date"></asp:Label>
                                                     </th>
                                                     <th>
-                                                        <asp:Label ID="lbhHospitalID" runat="server" Text="Hospital"></asp:Label>
+                                                        <asp:Label ID="lbhExpenseTypeID" runat="server" Text="Expense Type"></asp:Label>
                                                     </th>
-                                                    <th>
-                                                        <asp:Label ID="lbhFinYearID" runat="server" Text="Fin Year"></asp:Label>
+                                                    <th class="text-right">
+                                                        <asp:Label ID="lbhAmount" runat="server" Text="Amount"></asp:Label>
                                                     </th>
+
+
                                                     <th>
                                                         <asp:Label ID="lbhTagName" runat="server" Text="Tag Name"></asp:Label>
                                                     </th>
@@ -172,20 +177,22 @@
                                                         <%-- Table Rows --%>
                                                         <tr class="odd gradeX">
                                                             <td>
-                                                                <asp:HyperLink ID="hlViewExpenseID" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Expense/ACC_ExpenseView.aspx?ExpenseID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("ExpenseID").ToString()) %>' data-target="#viewiFrameReg" CssClass="modalButton" data-toggle="modal" runat="server"><%#Eval("ExpenseType") %></asp:HyperLink>
+                                                                <%#Eval("FinYearName") %>
                                                             </td>
-                                                            <td class="text-right">
-                                                                <%#Eval("Amount",GNForm3C.CV.DefaultCurrencyFormatWithDecimalPoint) %>
+                                                            <td>
+                                                                <%#Eval("Hospital") %>
                                                             </td>
                                                             <td class="text-center">
                                                                 <%#Eval("ExpenseDate", GNForm3C.CV.DefaultDateFormatForGrid) %>
                                                             </td>
                                                             <td>
-                                                                <%#Eval("Hospital") %>
+                                                                <asp:HyperLink ID="hlViewExpenseID" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Expense/ACC_ExpenseView.aspx?ExpenseID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("ExpenseID").ToString()) %>' data-target="#viewiFrameReg" CssClass="modalButton" data-toggle="modal" runat="server"><%#Eval("ExpenseType") %></asp:HyperLink>
                                                             </td>
-                                                            <td>
-                                                                <%#Eval("FinYearName") %>
+                                                            <td class="text-right">
+                                                                <%#Eval("Amount",GNForm3C.CV.DefaultCurrencyFormatWithDecimalPoint) %>
                                                             </td>
+
+
                                                             <td>
                                                                 <%#Eval("TagName") %>
                                                             </td>
@@ -219,8 +226,10 @@
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="btnClear" EventName="Click" />
-            <asp:PostBackTrigger ControlID="lbtnExportExcel" />
-            <asp:PostBackTrigger ControlID="lbtnExportPDF" />
+           <%-- <asp:PostBackTrigger ControlID="lbtnExportExcel" />
+            <asp:PostBackTrigger ControlID="lbtnExportPDF" />--%>
+            <asp:PostBackTrigger ControlID="lbtnExcel" />
+            <asp:PostBackTrigger ControlID="lbtnPDF" />
         </Triggers>
     </asp:UpdatePanel>
     <%-- END List --%>

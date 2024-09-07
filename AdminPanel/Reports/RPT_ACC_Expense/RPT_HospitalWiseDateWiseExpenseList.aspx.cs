@@ -122,12 +122,25 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
 
             if (dtACC_Expense != null && dtACC_Expense.Rows.Count > 0)
             {
-                Div_SearchResult.Visible = true;
-                Div_ExportOption.Visible = true;
-                rpData.DataSource = dtACC_Expense;
-                rpData.DataBind();
 
-                lblRecordInfoBottom.Text = String.Empty;
+                var groupedData = dtACC_Expense.AsEnumerable()
+                .GroupBy(row => row.Field<DateTime>("ExpenseDate"))
+                .Select(g => new
+                {
+                    ExpenseDate = g.Key,
+                    Details = g.CopyToDataTable(),
+                    TotalAmount = g.Sum(row => row.Field<decimal>("Amount"))
+                }).ToList();
+
+                rptGroupedExpenses.DataSource = groupedData;
+                rptGroupedExpenses.DataBind();
+
+                Div_SearchResult.Visible = true;
+                //Div_ExportOption.Visible = true;
+                //rpData.DataSource = dtACC_Expense;
+                //rpData.DataBind();
+
+                //lblRecordInfoBottom.Text = String.Empty;
                 lblRecordInfoTop.Text = String.Empty;
                 ShowReport();
 
@@ -135,9 +148,9 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
             else
             {
 
-                rpData.DataSource = null;
-                rpData.DataBind();
-                lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
+                //rpData.DataSource = null;
+                //rpData.DataBind();
+                //lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
                 lblRecordInfoTop.Text = CommonMessage.NoRecordFound();
                 ucMessage.ShowError(CommonMessage.NoRecordFound());
             }
@@ -145,11 +158,11 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
         else
         {
             Div_SearchResult.Visible = false;
-            lbtnExportExcel.Visible = false;
+            //lbtnExcel.Visible = false;
 
 
-            rpData.DataSource = null;
-            rpData.DataBind();
+            //rpData.DataSource = null;
+            //rpData.DataBind();
 
             ucMessage.ShowError(CommonMessage.ToDate_GreaterThan_FromDate());
         }
@@ -264,8 +277,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
         ddlHospitalID.SelectedIndex = 0;
 
         Div_SearchResult.Visible = false;
-        Div_ExportOption.Visible = false;
-        lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
+        //lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
         lblRecordInfoTop.Text = CommonMessage.NoRecordFound();
     }
 
@@ -361,5 +373,22 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
     #endregion 21.3 SetReportParamater 
 
     #endregion 21.0 REPORT
+
+    protected void rptGroupedExpenses_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            var dataItem = (dynamic)e.Item.DataItem;
+            var expenseDate = dataItem.ExpenseDate;
+            var dtDetails = dataItem.Details;
+
+            var rptExpenses = (Repeater)e.Item.FindControl("rptExpenses");
+            rptExpenses.DataSource = dtDetails;
+            rptExpenses.DataBind();
+
+            Label lblTotalAmount = (Label)e.Item.FindControl("lblTotalAmount");
+            lblTotalAmount.Text = string.Format(CV.DefaultCurrencyFormatWithDecimalPoint, dataItem.TotalAmount);
+        }
+    }
 }
 

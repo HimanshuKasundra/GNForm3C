@@ -51,7 +51,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Ledger_RPT_ACC_Ledger : System.W
             ddlFinYearID.SelectedIndex = 1;
             #endregion 12.1 DropDown List Fill Section
 
-            Search(1);
+            //Search(1);
 
             #region 12.2 Set Default Value
 
@@ -157,7 +157,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Ledger_RPT_ACC_Ledger : System.W
         if (dt != null && dt.Rows.Count > 0)
         {
             Div_SearchResult.Visible = true;
-            Div_ExportOption.Visible = true;
+            //Div_ExportOption.Visible = true;
             rpData.DataSource = dt;
             rpData.DataBind();
 
@@ -171,7 +171,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Ledger_RPT_ACC_Ledger : System.W
 
             lblRecordInfoTop.Text = CommonMessage.PageDisplayMessage(Offset, dt.Rows.Count, TotalRecords, PageNo, TotalPages);
 
-            lbtnExportExcel.Visible = true;
+            lbtnExcel.Visible = true;
 
         }
 
@@ -181,7 +181,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Ledger_RPT_ACC_Ledger : System.W
         else
         {
             Div_SearchResult.Visible = false;
-            lbtnExportExcel.Visible = false;
+            lbtnExcel.Visible = false;
 
             ViewState["TotalPages"] = 0;
             ViewState["CurrentPage"] = 1;
@@ -264,7 +264,6 @@ public partial class AdminPanel_Reports_RPT_ACC_Ledger_RPT_ACC_Ledger : System.W
         ddlHospitalID.SelectedIndex = 0;
         CommonFunctions.BindEmptyRepeater(rpData);
         Div_SearchResult.Visible = false;
-        Div_ExportOption.Visible = false;
         lblRecordInfoTop.Text = CommonMessage.NoRecordFound();
     }
 

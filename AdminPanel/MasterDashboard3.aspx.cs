@@ -242,15 +242,16 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
 
     #endregion 14.0 DropDownList
 
+    #region Chart
     public void rpData_OnItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
             // Find the HiddenField control in the current item
-            HiddenField hdFinYearID = (HiddenField)e.Item.FindControl("hdFinYearID");
+            HiddenField hdFinyearID = (HiddenField)e.Item.FindControl("hdFinyearID");
 
             // Get the FinYearID value from the HiddenField
-            SqlInt32 finYearID = Convert.ToInt32(hdFinYearID.Value);
+            SqlInt32 finYearID = Convert.ToInt32(hdFinyearID.Value);
 
             // Fetch chart data specific to the repeater item
             var chartData = GetChartData(finYearID);
@@ -260,17 +261,12 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
             ClientScript.RegisterStartupScript(this.GetType(), "chartData_" + e.Item.ItemIndex,
                 "var chartData_" + e.Item.ItemIndex + " = " + jsonData + ";", true);
         }
-
-
     }
 
-    #region Chart
-
-    private DataTable GetChartData(SqlInt32 FinYearID)
+    private DataTable GetChartData(SqlInt32 FinyearID)
     {
         MasterDashboard2BAL balMasterDashboard2 = new MasterDashboard2BAL();
-        DataTable dtchartData = balMasterDashboard2.IncomeExpenseSumHospitalWise(FinYearID);
-
+        DataTable dtchartData = balMasterDashboard2.IncomeExpenseSumHospitalWise(FinyearID);
 
         return dtchartData;
     }

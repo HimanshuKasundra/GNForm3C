@@ -97,8 +97,11 @@
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <asp:Button ID="btnSearch" SkinID="btnSearch" runat="server" Text="Show" OnClick="btnSearch_Click" />
-                                    <asp:Button ID="btnClear" runat="server" SkinID="btnClear" Text="Clear" OnClick="btnClear_Click" />
+                                    <asp:Button ID="btnClear" runat="server" SkinID="btnClear1" Text="Clear" OnClick="btnClear_Click" />
+                                    <asp:Button ID="btnSearch" SkinID="btnShow" runat="server" Text="Show" OnClick="btnSearch_Click" />
+                                    <asp:LinkButton ID="lbtnPDF" SkinID="lbtnPDF" runat="server" CommandArgument="PDF" OnClick="lbtnExport_Click"/>
+                                    <asp:LinkButton ID="lbtnExcel" runat="server" SkinID="lbtnExcel" CommandArgument="Excel" OnClick="lbtnExport_Click"></asp:LinkButton>
+
                                 </div>
                             </div>
                         </div>
@@ -133,9 +136,8 @@
                                     <asp:Label ID="lblRecordInfoTop" Text="No entries found" CssClass="pull-right" runat="server"></asp:Label>
                                 </label>
                             </div>
-                            <div class="tools">
+                            <%--<div class="tools">
                                 <div>
-                                    <%--<asp:HyperLink SkinID="hlAddNew" ID="hlAddNew" NavigateUrl="~/AdminPanel/Account/ACC_Expense/ACC_ExpenseAddEdit.aspx" runat="server"></asp:HyperLink>--%>
                                     <div class="btn-group" runat="server" id="Div_ExportOption" visible="false">
                                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                                             Export <i class="fa fa-angle-down"></i>
@@ -150,7 +152,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                         </div>
                         <div class="portlet-body">
                             <div class="row" runat="server" id="Div_SearchResult" visible="false">
@@ -160,14 +162,13 @@
                                             <%-- Table Header --%>
                                             <thead>
                                                 <tr class="TRDark">
-                                                    <th class="text-center" style="vertical-align:middle;" rowspan="2">
+                                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
                                                         <asp:Label ID="lbhTransactionDate" runat="server" Text="Date"></asp:Label>
                                                     </th>
                                                     <th colspan="2" class="text-center">
                                                         <asp:Label ID="Particulars" runat="server" Text="Particulars"></asp:Label>
-
                                                     </th>
-                                                    <th class="text-right  " style="vertical-align:middle;"" rowspan="2">
+                                                    <th class="text-right" style="vertical-align: middle;" rowspan="2">
                                                         <asp:Label ID="lbhBalance" runat="server" Text="Balance"></asp:Label>
                                                     </th>
                                                 </tr>
@@ -270,8 +271,10 @@
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="btnClear" EventName="Click" />
-            <asp:PostBackTrigger ControlID="lbtnExportExcel" />
-            <asp:PostBackTrigger ControlID="lbtnExportPDF" />
+            <%-- <asp:PostBackTrigger ControlID="lbtnExportExcel" />
+                <asp:PostBackTrigger ControlID="lbtnExportPDF" />--%>
+            <asp:PostBackTrigger ControlID="lbtnExcel" />
+            <asp:PostBackTrigger ControlID="lbtnPDF" />
         </Triggers>
     </asp:UpdatePanel>
     <%-- END List --%>
