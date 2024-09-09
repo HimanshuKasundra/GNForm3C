@@ -316,6 +316,12 @@
                                 </a>
                                 <ul class="sub-menu" style="display: none;">
                                     <li class="nav-item  ">
+                                        <a href='<%=ResolveClientUrl("~/AdminPanel/Master/DataTree/MST_Hospital_DataTree.aspx") %>' class="nav-link ">
+                                            <span class="title">MST_Hospital_DataTree</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item  ">
                                         <a href='<%=ResolveClientUrl("~/AdminPanel/Master/DemoContent/DemoContentList.aspx") %>' class="nav-link ">
                                             <span class="title">Demo Content</span>
                                         </a>

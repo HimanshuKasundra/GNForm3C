@@ -543,7 +543,7 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr class="TRDark">
-                                            <th style="text-align: center; font-weight: bold;">Sr.</th>
+                                            <th style="text-align: left; font-weight: bold;">Sr.</th>
                                             <th style="text-align: center; font-weight: bold;">Treatment Type</th>
                                             <th style="text-align: center; font-weight: bold;">Patients Count</th>
                                             <th style="text-align: right; font-weight: bold;">Income Amount</th>
@@ -553,7 +553,7 @@
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <tr>
-                                    <td style="text-align: center;">
+                                    <td style="text-align: left;">
                                         <asp:Label ID="lblSerialNo" runat="server" Text='<%# Eval("SerialNo") %>'></asp:Label>
                                     </td>
                                     <td style="text-align: center;">

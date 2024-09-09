@@ -12,6 +12,11 @@
     </span>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphBreadcrumb" runat="Server">
+    <li>
+    <i class="fa fa-home"></i>
+    <asp:HyperLink ID="hlHome" runat="server" NavigateUrl="~/AdminPanel/MasterDashboard2.aspx" Text="Dashboard"></asp:HyperLink>
+    <i class="fa fa-angle-right"></i>
+</li>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cphPageContent" runat="Server">
     <ucHelp:ShowHelp ID="ucHelp" runat="server" />
@@ -183,17 +188,6 @@
                                 </ContentTemplate>
                             </asp:UpdatePanel>
 
-
-
-
-
-
-
-
-
-
-
-
                             <asp:UpdatePanel ID="upTabview" runat="server" EnableViewState="true" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                 <ContentTemplate>
                                     <div class="portlet">
@@ -242,13 +236,13 @@
                                                                                                 <%-- Table Header --%>
                                                                                                 <thead>
                                                                                                     <tr class="TRDark">
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label runat="server" Text="Sr."></asp:Label>
                                                                                                         </th>
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="lbhIncomeType" runat="server" Text="Income Type"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-right">
                                                                                                             <asp:Label ID="lbhTotal" runat="server" Text="Total"></asp:Label>
                                                                                                         </th>
 
@@ -262,10 +256,10 @@
                                                                                                         <ItemTemplate>
                                                                                                             <%-- Table Rows --%>
                                                                                                             <tr class="odd gradeX">
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%# Container.ItemIndex + 1 %>
                                                                                                                 </td>
-                                                                                                                <td class="">
+                                                                                                                <td class="text-left">
                                                                                                                     <%#Eval("IncomeType")%>
                                                                                                                 </td>
                                                                                                                 <td class="text-right">
@@ -289,13 +283,13 @@
                                                                                                 <%-- Table Header --%>
                                                                                                 <thead>
                                                                                                     <tr class="TRDark">
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label runat="server" Text="Sr."></asp:Label>
                                                                                                         </th>
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="lblExpenseType" runat="server" Text="Expense Type"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-right">
                                                                                                             <asp:Label ID="lblTotal" runat="server" Text="Total"></asp:Label>
                                                                                                         </th>
 
@@ -309,10 +303,10 @@
                                                                                                         <ItemTemplate>
                                                                                                             <%-- Table Rows --%>
                                                                                                             <tr class="odd gradeX">
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%# Container.ItemIndex + 1 %>
                                                                                                                 </td>
-                                                                                                                <td class="">
+                                                                                                                <td class="text-left">
                                                                                                                     <%#Eval("ExpenseType")%>
                                                                                                                 </td>
                                                                                                                 <td class="text-right">
@@ -336,10 +330,10 @@
                                                                                                 <%-- Table Header --%>
                                                                                                 <thead>
                                                                                                     <tr class="TRDark">
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="Label6" runat="server" Text="Sr."></asp:Label>
                                                                                                         </th>
-                                                                                                        <th class="">
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="lblHospital" runat="server" Text="Hospital"></asp:Label>
                                                                                                         </th>
                                                                                                         <th class="text-center">
@@ -355,10 +349,10 @@
                                                                                                         <ItemTemplate>
                                                                                                             <%-- Table Rows --%>
                                                                                                             <tr class="odd gradeX">
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%# Container.ItemIndex + 1 %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%#Eval("Hospital") %>
                                                                                                                 </td>
                                                                                                                 <td class="text-center">
@@ -375,61 +369,61 @@
                                                                                     <div class="tab-pane" id="tab_Inc_AccountTranscationList">
                                                                                         <asp:Label ID="lblNoAccountTranscationListRecords" runat="server" Text="No Records Found" Visible="false" CssClass="text-danger" />
 
-                                                                                        <div id="AccountTranscationList" runat="server">
+                                                                                        <div class="table-responsive" id="AccountTranscationList" runat="server">
 
                                                                                             <table class="table table-bordered table-advanced table-striped table-hover" id="sample_1">
                                                                                                 <%-- Table Header --%>
                                                                                                 <thead>
                                                                                                     <tr class="TRDark">
-                                                                                                        <th class="text-center">
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="Label1" runat="server" Text="Sr."></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-left" >
                                                                                                             <asp:Label ID="lbhPatient" runat="server" Text="Patient"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="lbhTreatmentID" runat="server" Text="Treatment"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-right" >
                                                                                                             <asp:Label ID="lbhAmount" runat="server" Text="Amount"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhSerialNo" runat="server" Text="Serial No"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="lbhReferenceDoctor" runat="server" Text="Reference Doctor"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhCount" runat="server" Text="Count"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhReceiptNo" runat="server" Text="Receipt No"></asp:Label>
                                                                                                         </th>
                                                                                                         <th class="text-center">
                                                                                                             <asp:Label ID="lbhDate" runat="server" Text="Date"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhDateOfAdmission" runat="server" Text="Date Of Admission"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhDateOfDischarge" runat="server" Text="Date Of Discharge"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-right">
                                                                                                             <asp:Label ID="lbhDeposite" runat="server" Text="Deposite"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-right">
                                                                                                             <asp:Label ID="lbhNetAmount" runat="server" Text="Net Amount"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhNoOfDays" runat="server" Text="No Of Days"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-left">
                                                                                                             <asp:Label ID="lbhHospitalID" runat="server" Text="Hospital"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhFinYearID" runat="server" Text="Fin Year"></asp:Label>
                                                                                                         </th>
-                                                                                                        <th>
+                                                                                                        <th class="text-center">
                                                                                                             <asp:Label ID="lbhReceiptTypeID" runat="server" Text="Receipt Type"></asp:Label>
                                                                                                         </th>
 
@@ -443,55 +437,55 @@
                                                                                                             <%-- Table Rows --%>
                                                                                                             <tr class="odd gradeX">
 
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%# Container.ItemIndex + 1 %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <asp:HyperLink ID="hlViewTransactionID" NavigateUrl='<%# "~/AdminPanel/Account/ACC_Transaction/ACC_TransactionView.aspx?TransactionID=" + GNForm3C.CommonFunctions.EncryptBase64(Eval("TransactionID").ToString()) %>' data-target="#viewiFrameReg" CssClass="modalButton" data-toggle="modal" runat="server"><%#Eval("Patient") %></asp:HyperLink>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%#Eval("Treatment") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-right">
                                                                                                                     <%#Eval("Amount",GNForm3C.CV.DefaultCurrencyFormatWithOutDecimalPoint) %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-center">
                                                                                                                     <%#Eval("SerialNo") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%#Eval("ReferenceDoctor") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-center">
                                                                                                                     <%#Eval("Count") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-center">
                                                                                                                     <%#Eval("ReceiptNo") %>
                                                                                                                 </td>
                                                                                                                 <td class="text-center">
                                                                                                                     <%#Eval("Date", GNForm3C.CV.DefaultDateFormatForGrid) %>
                                                                                                                 </td>
-                                                                                                                <td>
-                                                                                                                    <%#Eval("DateOfAdmission") %>
+                                                                                                                <td class="text-center">
+                                                                                                                    <%#Eval("DateOfAdmission",GNForm3C.CV.DefaultDateFormatForGrid) %>
                                                                                                                 </td>
-                                                                                                                <td>
-                                                                                                                    <%#Eval("DateOfDischarge") %>
+                                                                                                                <td class="text-center">
+                                                                                                                    <%#Eval("DateOfDischarge",GNForm3C.CV.DefaultDateFormatForGrid) %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-right">
                                                                                                                     <%#Eval("Deposite") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-right">
                                                                                                                     <%#Eval("NetAmount",GNForm3C.CV.DefaultCurrencyFormatWithOutDecimalPoint) %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-center">
                                                                                                                     <%#Eval("NoOfDays") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-left">
                                                                                                                     <%#Eval("Hospital") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-center">
                                                                                                                     <%#Eval("FinYearName") %>
                                                                                                                 </td>
-                                                                                                                <td>
+                                                                                                                <td class="text-center">
                                                                                                                     <%#Eval("ReceiptTypeName") %>
                                                                                                                 </td>
                                                                                                             </tr>

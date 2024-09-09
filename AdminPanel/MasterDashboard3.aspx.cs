@@ -38,7 +38,6 @@ public partial class AdminPanel_MasterDashboard3 : System.Web.UI.Page
             #endregion 11.1 DropDown List Fill Section
 
             #region 11.2 Set Default Value  
-
             upr.DisplayAfter = CV.UpdateProgressDisplayAfter;
 
             #endregion 11.2 Set Default Value 

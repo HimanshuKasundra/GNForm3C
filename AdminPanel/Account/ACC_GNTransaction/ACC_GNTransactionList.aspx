@@ -338,50 +338,50 @@
                                             <%-- Table Header --%>
                                             <thead>
                                                 <tr class="TRDark">
-                                                    <th>
+                                                    <th class="text-left">
                                                         <asp:Label ID="lbhPatient" runat="server" Text="Patient"></asp:Label>
                                                     </th>
                                                     <%--   <th><asp:Label ID="lbhTreatmentID" runat="server" Text="Treatment"></asp:Label>
                                                     </th>--%>
-                                                    <th>
+                                                    <th class="text-right">
                                                         <asp:Label ID="lbhAmount" runat="server" Text="Amount"></asp:Label>
                                                     </th>
                                                     <%-- <th><asp:Label ID="lbhSerialNo" runat="server" Text="Serial No"></asp:Label>
                                                     </th>--%>
-                                                    <th>
+                                                    <th class="text-left">
                                                         <asp:Label ID="lbhReferenceDoctor" runat="server" Text="Reference Doctor"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-center">
                                                         <asp:Label ID="lbhCount" runat="server" Text="Count"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-center">
                                                         <asp:Label ID="lbhReceiptNo" runat="server" Text="Receipt No"></asp:Label>
                                                     </th>
                                                     <th class="text-center">
                                                         <asp:Label ID="lbhDate" runat="server" Text="Date"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-center">
                                                         <asp:Label ID="lbhDateOfAdmission" runat="server" Text="Date Of Admission"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-center">
                                                         <asp:Label ID="lbhDateOfDischarge" runat="server" Text="Date Of Discharge"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-right">
                                                         <asp:Label ID="lbhDeposite" runat="server" Text="Deposite"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-right">
                                                         <asp:Label ID="lbhNetAmount" runat="server" Text="Net Amount"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-center">
                                                         <asp:Label ID="lbhNoOfDays" runat="server" Text="No Of Days"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-left">
                                                         <asp:Label ID="lbhHospitalID" runat="server" Text="Hospital"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-center">
                                                         <asp:Label ID="lbhFinYearID" runat="server" Text="Fin Year"></asp:Label>
                                                     </th>
-                                                    <th>
+                                                    <th class="text-center">
                                                         <asp:Label ID="lbhReceiptTypeID" runat="server" Text="Receipt Type"></asp:Label>
                                                     </th>
                                                     <th class="nosortsearch text-nowrap text-center">
@@ -402,46 +402,46 @@
                                                             <%-- <td>
                                                             	<%#Eval("Treatment") %>
                                                             </td>--%>
-                                                            <td>
+                                                            <td class="text-right">
                                                                 <%#Eval("Amount",GNForm3C.CV.DefaultCurrencyFormatWithOutDecimalPoint) %>
                                                             </td>
                                                             <%--  <td>
                                                             	<%#Eval("SerialNo") %>
                                                             </td>--%>
-                                                            <td>
+                                                            <td class="text-left">
                                                                 <%#Eval("ReferenceDoctor") %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <%#Eval("Count") %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <%#Eval("ReceiptNo") %>
                                                             </td>
                                                             <td class="text-center">
                                                                 <%#Eval("Date", GNForm3C.CV.DefaultDateFormatForGrid) %>
                                                             </td>
-                                                            <td>
-                                                                <%#Eval("DateOfAdmission") %>
+                                                            <td class="text-center">
+                                                                <%#Eval("DateOfAdmission",GNForm3C.CV.DefaultDateFormatForGrid) %>
                                                             </td>
-                                                            <td>
-                                                                <%#Eval("DateOfDischarge") %>
+                                                            <td class="text-center">
+                                                                <%#Eval("DateOfDischarge",GNForm3C.CV.DefaultDateFormatForGrid) %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-right">
                                                                 <%#Eval("Deposite") %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-right">
                                                                 <%#Eval("NetAmount",GNForm3C.CV.DefaultCurrencyFormatWithOutDecimalPoint) %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <%#Eval("NoOfDays") %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-left">
                                                                 <%#Eval("Hospital") %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <%#Eval("FinYearName") %>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <%#Eval("ReceiptTypeName") %>
                                                             </td>
                                                             <td class="text-nowrap text-center">

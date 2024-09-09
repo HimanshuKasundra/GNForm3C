@@ -34,100 +34,97 @@
     <asp:ScriptManager ID="sm" runat="server">
     </asp:ScriptManager>
 
-    <%-- Search --%>
-    <asp:UpdatePanel ID="upApplicationFeature" runat="server">
-        <ContentTemplate>
-            <div class="portlet light">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <asp:Label SkinID="lblSearchHeaderIcon" runat="server"></asp:Label>
-                        <asp:Label ID="lblSearchHeader" SkinID="lblSearchHeaderText" runat="server"></asp:Label>
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse pull-right"></a>
-                    </div>
-                </div>
-                <div class="portlet-body form">
-                    <div role="form">
-                        <div class="form-body">
+   <%-- Search --%>
+  <asp:UpdatePanel ID="upApplicationFeature" runat="server">
+      <ContentTemplate>
+          <div class="portlet light">
+              <div class="portlet-title">
+                  <div class="caption">
+                      <asp:Label SkinID="lblSearchHeaderIcon" runat="server"></asp:Label>
+                      <asp:Label ID="lblSearchHeader" SkinID="lblSearchHeaderText" runat="server"></asp:Label>
+                  </div>
+                  <div class="tools">
+                      <a href="javascript:;" class="collapse pull-right"></a>
+                  </div>
+              </div>
+              <div class="portlet-body form">
+                  <div role="form">
+                      <div class="form-body">
 
-                            <div class="row">
-                                <div class="col-md-4">
+                          <div class="row">
+                              <div class="col-md-4">
 
-                                    <div class="form-group  ">
-                                        <span class=" control-label">
-                                            <span class="required">*</span>
-                                            <asp:Label ID="lblHospitalID_XXXXX" runat="server" Text="Hospital"></asp:Label>
-                                        </span>
-                                        <div class=" input-group">
+                                  <div class="form-group  ">
+                                      <span class=" control-label">
+                                          <span class="required">*</span>
+                                          <asp:Label ID="lblHospitalID_XXXXX" runat="server" Text="Hospital"></asp:Label>
+                                      </span>
+                                      <div class=" input-group">
 
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                            <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
+                                          <span class="input-group-addon">
+                                              <i class="fa fa-search"></i>
+                                          </span>
+                                          <asp:DropDownList ID="ddlHospitalID" CssClass="form-control select2me" runat="server"></asp:DropDownList>
 
-                                        </div>
-                                        <asp:RequiredFieldValidator ID="rfvHospitalID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlHospitalID" ErrorMessage="Select Hospital" InitialValue="-99"></asp:RequiredFieldValidator>
+                                      </div>
+                                      <asp:RequiredFieldValidator ID="rfvHospitalID" SetFocusOnError="True" runat="server" Display="Dynamic" ControlToValidate="ddlHospitalID" ErrorMessage="Select Hospital" InitialValue="-99"></asp:RequiredFieldValidator>
 
-                                    </div>
+                                  </div>
 
-                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <span class=" control-label">
+                                          <span class="required">*</span>
+                                          <asp:Label ID="Label1" runat="server" Text="From Date"></asp:Label>
 
+                                      </span>
+                                      <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                          <span class="input-group-btn">
+                                              <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                          </span>
+                                          <asp:TextBox ID="dtpFromDate" CssClass="form-control" runat="server" placeholder="From Date"></asp:TextBox>
+                                      </div>
+                                      <asp:RequiredFieldValidator ID="rfvExpenseDate" runat="server" ControlToValidate="dtpFromDate" ErrorMessage="Enter From Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
 
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <span class=" control-label">
+                                          <span class="required">*</span>
+                                          <asp:Label ID="Label2" runat="server" Text="To Date"></asp:Label>
 
+                                      </span>
+                                      <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                                          <span class="input-group-btn">
+                                              <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                          </span>
+                                          <asp:TextBox ID="dtpToDate" CssClass="form-control" runat="server" placeholder="To Date"></asp:TextBox>
+                                      </div>
+                                      <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="dtpToDate" ErrorMessage="Enter To Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <span class="control-label">
-                                            <span class="required">*</span>
-                                            <asp:Label ID="Label1" runat="server" Text="From Date"></asp:Label>
-                                        </span>
-                                        <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                            </span>
-                                            <asp:TextBox ID="dtpFromDate" CssClass="form-control" runat="server" placeholder="From Date"></asp:TextBox>
-                                        </div>
-                                        <asp:RequiredFieldValidator ID="rfvExpenseDate" runat="server" ControlToValidate="dtpFromDate" ErrorMessage="Enter From Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
-                                    </div>
-                                </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-actions">
+                          <div class="row">
+                              <div class="col-md-9">
+                                  <asp:Button ID="btnSearch" SkinID="btnShow" runat="server" OnClick="btnSearch_Click" />
+                                  <asp:Button ID="btnClear" runat="server" SkinID="btnClear1" Text="Clear" OnClick="btnClear_Click" />
+                                  <asp:LinkButton ID="lbtnPDF" runat="server" SkinID="lbtnPDF" CommandArgument="PDF" OnClick="lbtnExport_Click"></asp:LinkButton>
+                                  <asp:LinkButton ID="lbtnExcel" runat="server" SkinID="lbtnExcel" CommandArgument="Excel" OnClick="lbtnExport_Click"></asp:LinkButton>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <span class="control-label">
-                                            <span class="required">*</span>
-                                            <asp:Label ID="Label2" runat="server" Text="To Date"></asp:Label>
-                                        </span>
-                                        <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                            </span>
-                                            <asp:TextBox ID="dtpToDate" CssClass="form-control" runat="server" placeholder="To Date"></asp:TextBox>
-                                        </div>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="dtpToDate" ErrorMessage="Enter To Date" Display="Dynamic" Type="Date"></asp:RequiredFieldValidator>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <asp:Button ID="btnClear" runat="server" SkinID="btnClear1" Text="Clear" OnClick="btnClear_Click" />
-
-                                    <asp:Button ID="btnSearch" SkinID="btnShow" runat="server" Text="Show" OnClick="btnSearch_Click" />
-
-                                    <asp:LinkButton ID="lbtnPDF" SkinID="lbtnPDF" runat="server" CommandArgument="PDF" OnClick="lbtnExport_Click" />
-
-                                    <asp:LinkButton ID="lbtnExcel" runat="server" SkinID="lbtnExcel" CommandArgument="Excel" OnClick="lbtnExport_Click" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+                                      
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </ContentTemplate>
+  </asp:UpdatePanel>
     <%-- List --%>
     <asp:UpdatePanel ID="upList" runat="server" UpdateMode="Conditional">
         <ContentTemplate>

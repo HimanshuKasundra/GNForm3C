@@ -277,7 +277,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
         ddlHospitalID.SelectedIndex = 0;
 
         Div_SearchResult.Visible = false;
-        //lblRecordInfoBottom.Text = CommonMessage.NoRecordFound();
+     
         lblRecordInfoTop.Text = CommonMessage.NoRecordFound();
     }
 
@@ -291,7 +291,7 @@ public partial class AdminPanel_Reports_RPT_ACC_Expense_RPT_HospitalWiseDateWise
         dtpFromDate.Text = dateTime.Date.ToString("dd-MM-yyyy");
         dtpToDate.Text = Convert.ToDateTime(dateTime).AddMonths(1).AddDays(-1).Date.ToString("dd-MM-yyyy");
     }
-    #endregion SetDefaultDateTime
+    #endregion 21.0 SetDefaultDateTime
 
     #region 21.0 Report
 
